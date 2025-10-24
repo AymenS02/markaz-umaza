@@ -1,20 +1,16 @@
 import "./globals.css";
-import { Palanquin_Dark, Orienta } from "next/font/google";
+import { Old_Standard_TT } from "next/font/google";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { AuthProvider } from "./components/authContext";
 
 // Fonts
-const palanquinDark = Palanquin_Dark({
+const oldStandardTT = Old_Standard_TT({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-palanquin-dark",
-});
-const orienta = Orienta({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-orienta",
+  weight: ["400", "700"],  // Regular + Bold
+  display: "swap",
+  variable: "--font-old-standard",
 });
 
 export const metadata = {
@@ -26,9 +22,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${palanquinDark.variable} ${orienta.variable}`}
+      className={`${oldStandardTT.variable}`}
     >
-      <body className="font-orienta">
+      <body className="font-old-standard">
         {/* ✅ Wrap the app in AuthProvider */}
         <AuthProvider>
           <Header />

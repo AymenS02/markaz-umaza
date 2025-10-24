@@ -2,39 +2,50 @@
 
 @theme {
 
-  /* Core Brand Colors */
-  --color-primary: hsl(230, 55%, 26%);           /* Main brand blue */
-  --color-secondary: hsl(178, 100%, 21%);        /* Balanced teal */
-  --color-accent: hsl(200, 65%, 45%);            /* Harmonious blue accent */
+  /* Core Brand Colors - Enhanced with color theory */
+  --color-primary: hsl(40, 90%, 41%);           /* Golden yellow (anchor) */
+  --color-secondary: hsl(220, 70%, 45%);        /* Complementary blue (opposite on wheel) */
+  --color-accent: hsl(20, 85%, 48%);            /* Analogous orange-red (warm neighbor) */
   
   /* Backgrounds & Surfaces */
-  --color-background: hsl(230, 25%, 98%);        /* Subtle blue-tinted white */
-  --color-foreground: hsl(230, 55%, 15%);        /* Deep blue-black text */
-  --color-card: hsl(230, 20%, 99%);              /* Card surfaces */
+  --color-background: hsl(45, 35%, 96%);        /* Warm cream background */
+  --color-foreground: hsl(220, 25%, 20%);       /* Cool dark blue-gray text */
+  --color-card: hsl(40, 25%, 98%);              /* Subtle golden-tinted card */
 
-  --color-success: hsl(145, 60%, 42%);           /* Forest green */
-  --color-warning: hsl(35, 85%, 55%);            /* Warm amber */
-  --color-error: hsl(355, 70%, 55%);             /* Coral red */
-  --color-info: hsl(210, 75%, 50%);              /* Bright info blue */
+  /* Status Colors - Harmonized with primary */
+  --color-success: hsl(140, 65%, 42%);          /* Forest green (triadic) */
+  --color-warning: hsl(35, 90%, 55%);           /* Warm amber (near primary) */
+  --color-error: hsl(0, 75%, 55%);              /* Pure red (triadic) */
+  --color-info: hsl(200, 80%, 50%);             /* Cyan-blue (split-complementary) */
 
 }
 
 .dark {  
   /* Core Brand Colors - Brightened for dark backgrounds */
-  --color-primary: hsl(230, 55%, 65%);           /* Brighter primary */
-  --color-secondary: hsl(178, 100%, 30%);         /* Lighter teal for dark mode */
-  --color-accent: hsl(200, 65%, 60%);            /* Brighter accent */
-
-  /* Backgrounds & Surfaces - Dark blue theme */
-  --color-background: hsl(230, 20%, 9%);         /* Deep blue-black */
-  --color-foreground: hsl(230, 15%, 92%);        /* Light blue-white text */
-  --color-card: hsl(230, 18%, 12%);              /* Elevated dark surfaces */
+  --color-primary: hsl(40, 95%, 58%);           /* Vibrant golden yellow */
+  --color-secondary: hsl(220, 75%, 60%);        /* Bright complementary blue */
+  --color-accent: hsl(20, 90%, 62%);            /* Vivid orange-red accent */
   
-  /* Status Colors - Harmonized with primary */
-  --color-success: hsl(145, 60%, 50%);           /* Brighter success green */
-  --color-warning: hsl(35, 85%, 65%);            /* Brighter warning amber */
-  --color-error: hsl(355, 70%, 65%);             /* Brighter error red */
-  --color-info: hsl(210, 75%, 60%);              /* Brighter info blue */
+  /* Backgrounds & Surfaces - Dark theme */
+  --color-background: hsl(220, 22%, 10%);       /* Deep blue-black (complementary tint) */
+  --color-foreground: hsl(40, 20%, 92%);        /* Warm light text (primary tint) */
+  --color-card: hsl(220, 18%, 14%);             /* Slightly lighter blue-tinted card */
 
+  /* Status Colors - Enhanced for dark mode */
+  --color-success: hsl(140, 60%, 55%);          /* Bright forest green */
+  --color-warning: hsl(35, 95%, 65%);           /* Glowing amber */
+  --color-error: hsl(0, 80%, 65%);              /* Bright coral red */
+  --color-info: hsl(200, 85%, 60%);             /* Luminous cyan-blue */
 }
 
+/* === TYPOGRAPHY === */
+body {
+  font-family: var(--font-old-standard);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-old-standard);
+}

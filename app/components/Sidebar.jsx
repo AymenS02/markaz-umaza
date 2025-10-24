@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useAuth } from '../components/authContext';
-import { X, Menu } from 'lucide-react';
+import { X, Menu, Home, BookOpen, FileText, Mail, Users } from 'lucide-react';
 
 // Dynamically import to avoid SSR mismatch
 const DarkModeToggle = dynamic(() => import('@/darkMode'), { ssr: false });
@@ -28,18 +29,15 @@ const Sidebar = () => {
       {/* Hamburger button */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-full"
-        style={{ 
-          backgroundColor: 'var(--color-primary)',
-          color: 'white'
-        }}
+        className="md:hidden fixed top-4 right-4 z-50 p-3 rounded-full bg-primary text-background shadow-lg hover:bg-accent hover:shadow-primary/30 hover:scale-110 transition-all duration-300"
+        aria-label="Toggle menu"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         onClick={toggleSidebar}
@@ -47,51 +45,60 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`md:hidden fixed top-0 right-0 h-full w-80 z-50 transform transition-transform duration-300 ${
+        className={`md:hidden fixed top-0 right-0 h-full w-80 bg-background shadow-2xl z-50 transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
-        style={{ 
-          backgroundColor: 'var(--color-background)',
-          boxShadow: '0 4px 25px var(--color-shadow)'
-        }}
       >
-        <div 
-          className="flex items-center justify-between px-6 py-4 border-b" 
-          style={{ borderColor: 'var(--color-border)' }}
-        >
-          <h2 className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>Menu</h2>
-          <button onClick={toggleSidebar} style={{ color: 'var(--color-foreground)' }}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-primary/20 bg-gradient-to-r from-primary/5 to-transparent">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary/10 p-2 flex items-center justify-center">
+              <Image 
+                src="/assets/logo-skeleton.svg" 
+                alt="Logo" 
+                width={24} 
+                height={24}
+                className="object-contain"
+              />
+            </div>
+            <h2 className="text-xl font-bold text-primary">Menu</h2>
+          </div>
+          <button 
+            onClick={toggleSidebar} 
+            className="text-secondary hover:text-primary transition-colors p-2 hover:bg-primary/10 rounded-lg"
+            aria-label="Close menu"
+          >
             <X size={24} />
           </button>
         </div>
 
-        <nav className="flex flex-col mt-6 space-y-6 px-6">
-          {/* Navigation Links */}
+        <nav className="flex flex-col mt-6 space-y-2 px-4 overflow-y-auto h-[calc(100%-180px)]">
+          {/* Navigation Links with Icons */}
           <Link
             href="/"
             onClick={() => setIsOpen(false)}
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium group"
           >
-            Home
+            <Home size={20} className="group-hover:scale-110 transition-transform" />
+            <span>Home</span>
           </Link>
 
           <Link
-            href="/about"
+            href="/instructors"
             onClick={() => setIsOpen(false)}
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium group"
           >
-            About Us
+            <Users size={20} className="group-hover:scale-110 transition-transform" />
+            <span>Instructors</span>
           </Link>
 
           <Link
             href="/articles"
             onClick={() => setIsOpen(false)}
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium group"
           >
-            Articles
+            <FileText size={20} className="group-hover:scale-110 transition-transform" />
+            <span>Articles</span>
           </Link>
           
           {/* Courses link for non-authenticated users */}
@@ -99,21 +106,24 @@ const Sidebar = () => {
             <Link
               href="/courses"
               onClick={() => setIsOpen(false)}
-              className="hover:scale-105 transition-transform font-medium"
-              style={{ color: 'var(--color-foreground)' }}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium group"
             >
-              Courses
+              <BookOpen size={20} className="group-hover:scale-110 transition-transform" />
+              <span>Courses</span>
             </Link>
           )}
 
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium group"
           >
-            Contact Us
+            <Mail size={20} className="group-hover:scale-110 transition-transform" />
+            <span>Contact Us</span>
           </Link>
+
+          {/* Divider */}
+          <div className="border-t border-primary/10 my-4"></div>
 
           {/* Auth-dependent buttons */}
           {user ? (
@@ -122,20 +132,7 @@ const Sidebar = () => {
               <Link
                 href="/courses"
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
-                style={{ 
-                  backgroundColor: 'var(--color-primary)',
-                  color: 'white',
-                  borderColor: 'var(--color-primary)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-primary-hover)';
-                  e.target.style.borderColor = 'var(--color-primary-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-primary)';
-                  e.target.style.borderColor = 'var(--color-primary)';
-                }}
+                className="px-4 py-3 rounded-full font-medium border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer text-center"
               >
                 Courses
               </Link>
@@ -144,20 +141,7 @@ const Sidebar = () => {
               <Link
                 href="/account"
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
-                style={{ 
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'white',
-                  borderColor: 'var(--color-accent)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-accent-hover)';
-                  e.target.style.borderColor = 'var(--color-accent-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-accent)';
-                  e.target.style.borderColor = 'var(--color-accent)';
-                }}
+                className="px-4 py-3 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
               >
                 Account
               </Link>
@@ -167,18 +151,7 @@ const Sidebar = () => {
                 <Link
                   href="/admin"
                   onClick={() => setIsOpen(false)}
-                  className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
-                  style={{ 
-                    backgroundColor: 'var(--color-secondary)',
-                    color: 'var(--color-foreground)',
-                    borderColor: 'var(--color-border)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = 'var(--color-secondary-hover)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = 'var(--color-secondary)';
-                  }}
+                  className="px-4 py-3 rounded-full font-medium bg-accent text-background hover:bg-primary hover:shadow-lg hover:shadow-accent/30 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
                 >
                   Admin
                 </Link>
@@ -188,30 +161,17 @@ const Sidebar = () => {
             <Link
               href="/register"
               onClick={() => setIsOpen(false)}
-              className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
-              style={{ 
-                backgroundColor: 'var(--color-primary)',
-                color: 'white',
-                borderColor: 'var(--color-primary)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'var(--color-primary-hover)';
-                e.target.style.borderColor = 'var(--color-primary-hover)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'var(--color-primary)';
-                e.target.style.borderColor = 'var(--color-primary)';
-              }}
+              className="px-4 py-3 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer text-center"
             >
               Sign Up
             </Link>
           )}
-
-          {/* Dark Mode Toggle */}
-          <div className="mt-4">
-            <DarkModeToggle />
-          </div>
         </nav>
+
+        {/* Footer with Dark Mode Toggle */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 py-4 border-t border-primary/20 bg-gradient-to-t from-primary/5 to-transparent">
+          <DarkModeToggle />
+        </div>
       </aside>
     </>
   );

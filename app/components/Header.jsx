@@ -22,58 +22,53 @@ const Header = () => {
 
   return (
     <header 
-      className="max-md:hidden px-6 py-4 shadow-2xl bg-background"
-      style={{ boxShadow: '0 4px 25px' }}
+      className="max-md:hidden px-3 py-2 bg-background text-foreground shadow-lg"
     >
       <div className="max-w-[90%] mx-auto flex items-center justify-between">
         
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-20 h-20 mr-3 cursor-pointer"
+          <div className="w-36 h-36 mr-3 cursor-pointer hover:scale-105 transition-transform"
                onClick={() => window.location.href='/'} >
             <Image
               src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
               className="w-full h-full object-contain"
-              width={80}
-              height={80}
+              width={120}
+              height={120}
               priority
             />
           </div>
         </div>
 
         {/* Navigation Menu */}
-        <nav className="flex items-center space-x-4">
+        <nav className="flex items-center space-x-6">
           <Link 
             href="/" 
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
           >
             Home
           </Link>
 
           <Link 
-            href="/courses" 
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            href="/instructors" 
+            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
           >
-            Courses
+            Instructors
           </Link>
 
           <Link 
             href="/articles" 
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
           >
             Articles
           </Link>
 
-          {/* Show 'Courses' in the main nav only if user not logged in */}
+          {/* Show 'Instructors' in the main nav only if user not logged in */}
           {!user && (
             <Link 
               href="/instructors" 
-              className="hover:scale-105 transition-transform font-medium"
-              style={{ color: 'var(--color-foreground)' }}
+              className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
             >
               Instructors
             </Link>
@@ -81,8 +76,7 @@ const Header = () => {
 
           <Link 
             href="/contact" 
-            className="hover:scale-105 transition-transform font-medium"
-            style={{ color: 'var(--color-foreground)' }}
+            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
           >
             Contact Us
           </Link>
@@ -92,61 +86,24 @@ const Header = () => {
               {/* Courses button */}
               <Link
                 href="/courses"
-                className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer"
-                style={{ 
-                  backgroundColor: 'var(--color-primary)',
-                  color: 'white',
-                  borderColor: 'var(--color-primary)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-primary-hover)';
-                  e.target.style.borderColor = 'var(--color-primary-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-primary)';
-                  e.target.style.borderColor = 'var(--color-primary)';
-                }}
+                className="px-4 py-2 rounded-full font-medium border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer"
               >
                 Courses
               </Link>
               
-              {/* Account button */}
+              {/* Account button - Primary color */}
               <Link
                 href="/account"
-                className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer"
-                style={{ 
-                  backgroundColor: 'var(--color-accent)',
-                  color: 'white',
-                  borderColor: 'var(--color-accent)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-accent-hover)';
-                  e.target.style.borderColor = 'var(--color-accent-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'var(--color-accent)';
-                  e.target.style.borderColor = 'var(--color-accent)';
-                }}
+                className="px-4 py-2 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer"
               >
                 Account
               </Link>
 
-              {/* Admin button if role is ADMIN */}
+              {/* Admin button if role is ADMIN - Accent color */}
               {user.role === 'ADMIN' && (
                 <Link
                   href="/admin"
-                  className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer"
-                  style={{ 
-                    backgroundColor: 'var(--color-secondary)',
-                    color: 'white',
-                    borderColor: 'var(--color-border)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = 'var(--color-secondary-hover)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = 'var(--color-secondary)';
-                  }}
+                  className="px-4 py-2 rounded-full font-medium bg-accent text-background hover:bg-primary hover:shadow-lg hover:shadow-accent/30 hover:scale-105 transition-all duration-300 cursor-pointer"
                 >
                   Admin
                 </Link>
@@ -155,20 +112,7 @@ const Header = () => {
           ) : (
             <Link
               href="/register"
-              className="px-4 py-2 rounded-full font-medium border-2 hover:scale-105 transition-all duration-300 cursor-pointer"
-              style={{ 
-                backgroundColor: 'var(--color-primary)',
-                color: 'white',
-                borderColor: 'var(--color-primary)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'var(--color-primary-hover)';
-                e.target.style.borderColor = 'var(--color-primary-hover)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'var(--color-primary)';
-                e.target.style.borderColor = 'var(--color-primary)';
-              }}
+              className="px-4 py-2 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer"
             >
               Sign Up
             </Link>
