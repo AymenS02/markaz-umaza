@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+
+
+  --color-success: hsl(145, 60%, 50%);           /* Brighter success green */
+  --color-warning: hsl(35, 85%, 65%);            /* Brighter warning amber */
+  --color-error: hsl(355, 70%, 65%);             /* Brighter error red */
+  --color-info: hsl(210, 75%, 60%);              /* Brighter info blue */
+
+}
+
+.dark {}
