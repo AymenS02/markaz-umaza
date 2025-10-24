@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { useAuth } from "../components/authContext";
+import { useAuth } from "./authContext";
 
 // Dynamically import to avoid SSR mismatches
 const DarkModeToggle = dynamic(() => import('@/darkMode'), { ssr: false });
@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <header 
       className="max-md:hidden px-6 py-4 shadow-2xl bg-background"
-      style={{ boxShadow: '0 4px 25px var(--color-shadow)' }}
+      style={{ boxShadow: '0 4px 25px' }}
     >
       <div className="max-w-[90%] mx-auto flex items-center justify-between">
         
@@ -32,7 +32,7 @@ const Header = () => {
           <div className="w-20 h-20 mr-3 cursor-pointer"
                onClick={() => window.location.href='/'} >
             <Image
-              src="/images/icon-alt.png"
+              src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
               className="w-full h-full object-contain"
               width={80}

@@ -2,7 +2,35 @@
 
 @theme {
 
+  /* Core Brand Colors */
+  --color-primary: hsl(230, 55%, 26%);           /* Main brand blue */
+  --color-secondary: hsl(178, 100%, 21%);        /* Balanced teal */
+  --color-accent: hsl(200, 65%, 45%);            /* Harmonious blue accent */
+  
+  /* Backgrounds & Surfaces */
+  --color-background: hsl(230, 25%, 98%);        /* Subtle blue-tinted white */
+  --color-foreground: hsl(230, 55%, 15%);        /* Deep blue-black text */
+  --color-card: hsl(230, 20%, 99%);              /* Card surfaces */
 
+  --color-success: hsl(145, 60%, 42%);           /* Forest green */
+  --color-warning: hsl(35, 85%, 55%);            /* Warm amber */
+  --color-error: hsl(355, 70%, 55%);             /* Coral red */
+  --color-info: hsl(210, 75%, 50%);              /* Bright info blue */
+
+}
+
+.dark {  
+  /* Core Brand Colors - Brightened for dark backgrounds */
+  --color-primary: hsl(230, 55%, 65%);           /* Brighter primary */
+  --color-secondary: hsl(178, 100%, 30%);         /* Lighter teal for dark mode */
+  --color-accent: hsl(200, 65%, 60%);            /* Brighter accent */
+
+  /* Backgrounds & Surfaces - Dark blue theme */
+  --color-background: hsl(230, 20%, 9%);         /* Deep blue-black */
+  --color-foreground: hsl(230, 15%, 92%);        /* Light blue-white text */
+  --color-card: hsl(230, 18%, 12%);              /* Elevated dark surfaces */
+  
+  /* Status Colors - Harmonized with primary */
   --color-success: hsl(145, 60%, 50%);           /* Brighter success green */
   --color-warning: hsl(35, 85%, 65%);            /* Brighter warning amber */
   --color-error: hsl(355, 70%, 65%);             /* Brighter error red */
@@ -10,4 +38,3 @@
 
 }
 
-.dark {}
