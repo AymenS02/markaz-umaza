@@ -53,11 +53,11 @@ const Header = () => {
           </Link>
 
           <Link 
-            href="/about" 
+            href="/courses" 
             className="hover:scale-105 transition-transform font-medium"
             style={{ color: 'var(--color-foreground)' }}
           >
-            About Us
+            Courses
           </Link>
 
           <Link 
@@ -71,11 +71,11 @@ const Header = () => {
           {/* Show 'Courses' in the main nav only if user not logged in */}
           {!user && (
             <Link 
-              href="/courses" 
+              href="/instructors" 
               className="hover:scale-105 transition-transform font-medium"
               style={{ color: 'var(--color-foreground)' }}
             >
-              Courses
+              Instructors
             </Link>
           )}
 
