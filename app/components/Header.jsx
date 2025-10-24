@@ -13,23 +13,22 @@ const Header = () => {
   const { user } = useAuth();
   const [hydrated, setHydrated] = useState(false);
 
-  // Ensure component only renders after hydration
   useEffect(() => {
     setHydrated(true);
+    console.log("User in Header:", user);
   }, []);
 
-  if (!hydrated) return null; // Prevent SSR/client mismatch rendering
+  if (!hydrated) return null; // Prevent SSR/client mismatch
 
   return (
-    <header 
-      className="max-md:hidden px-3 py-2 bg-background text-foreground shadow-lg"
-    >
+    <header className="max-md:hidden px-3 py-2 bg-background text-foreground shadow-lg">
       <div className="max-w-[90%] mx-auto flex items-center justify-between">
-        
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-36 h-36 mr-3 cursor-pointer hover:scale-105 transition-transform"
-               onClick={() => window.location.href='/'} >
+          <div
+            className="w-36 h-36 mr-3 cursor-pointer hover:scale-105 transition-transform"
+            onClick={() => window.location.href='/'}
+          >
             <Image
               src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
@@ -43,44 +42,23 @@ const Header = () => {
 
         {/* Navigation Menu */}
         <nav className="flex items-center space-x-6">
-          <Link 
-            href="/" 
-            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
-          >
+          <Link href="/" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
             Home
           </Link>
 
-          <Link 
-            href="/instructors" 
-            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
-          >
+          <Link href="/instructors" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
             Instructors
           </Link>
 
-          <Link 
-            href="/articles" 
-            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
-          >
+          <Link href="/articles" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
             Articles
           </Link>
 
-          {/* Show 'Instructors' in the main nav only if user not logged in */}
-          {!user && (
-            <Link 
-              href="/instructors" 
-              className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
-            >
-              Instructors
-            </Link>
-          )}
-
-          <Link 
-            href="/contact" 
-            className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium"
-          >
+          <Link href="/contact" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
             Contact Us
           </Link>
 
+          {/* Conditional buttons */}
           {user ? (
             <>
               {/* Courses button */}
@@ -90,8 +68,8 @@ const Header = () => {
               >
                 Courses
               </Link>
-              
-              {/* Account button - Primary color */}
+
+              {/* Account button */}
               <Link
                 href="/account"
                 className="px-4 py-2 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -99,7 +77,7 @@ const Header = () => {
                 Account
               </Link>
 
-              {/* Admin button if role is ADMIN - Accent color */}
+              {/* Admin button only for admins */}
               {user.role === 'ADMIN' && (
                 <Link
                   href="/admin"
@@ -110,8 +88,9 @@ const Header = () => {
               )}
             </>
           ) : (
+            // Show Sign Up if not logged in
             <Link
-              href="/register"
+              href="/sign-up"
               className="px-4 py-2 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer"
             >
               Sign Up
