@@ -21,7 +21,7 @@ const Header = () => {
   if (!hydrated) return null; // Prevent SSR/client mismatch
 
   return (
-    <header className="max-md:hidden px-3 py-2 bg-background text-foreground shadow-lg">
+    <header className="max-md:hidden fixed top-0 left-0 w-full px-3 py-2 bg-background text-foreground shadow-lg z-50">
       <div className="max-w-[90%] mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
