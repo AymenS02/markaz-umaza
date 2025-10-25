@@ -74,10 +74,10 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Email Us</p>
                   <a
-                    href="mailto:info@fitrahfoundation.org"
+                    href="mailto:m.saleem@markazumaza.com"
                     className="text-muted-foreground hover:underline"
                   >
-                    info@fitrahfoundation.org
+                    m.saleem@markazumaza.com
                   </a>
                 </div>
               </li>
@@ -89,7 +89,7 @@ export default function ContactPage() {
                 </span>
                 <div>
                   <p className="font-medium">Location</p>
-                  <span className="text-muted-foreground">Toronto, Canada</span>
+                  <span className="text-muted-foreground">Hamilton, Ontario</span>
                 </div>
               </li>
 
@@ -104,29 +104,12 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Facebook</p>
                   <a
-                    href="https://www.facebook.com/FitrahFoundation/"
+                    href="https://www.facebook.com/markazumaza/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:underline"
                   >
-                    facebook.com/FitrahFoundation
-                  </a>
-                </div>
-              </li>
-
-              <li className="flex items-start gap-3">
-                <span className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Twitter size={18} />
-                </span>
-                <div>
-                  <p className="font-medium">Twitter</p>
-                  <a
-                    href="https://www.twitter.com/fitrah1441"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:underline"
-                  >
-                    @fitrah1441
+                    facebook.com/markazumaza
                   </a>
                 </div>
               </li>
@@ -138,12 +121,12 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Instagram</p>
                   <a
-                    href="https://www.instagram.com/fitrahfoundation1/"
+                    href="https://www.instagram.com/markazumaza/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:underline"
                   >
-                    @fitrahfoundation1
+                    @markazumaza
                   </a>
                 </div>
               </li>
@@ -155,12 +138,12 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">Telegram</p>
                   <a
-                    href="https://t.me/FitrahFoundation/"
+                    href="https://t.me/markazumaza"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:underline"
                   >
-                    t.me/FitrahFoundation
+                    t.me/markazumaza
                   </a>
                 </div>
               </li>
@@ -173,12 +156,12 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">YouTube</p>
                   <a
-                    href="https://www.youtube.com/@FitrahFoundation" // update if needed
+                    href="https://www.youtube.com/@markazumaza" // update if needed
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:underline"
                   >
-                    @FitrahFoundation
+                    @markazumaza
                   </a>
                 </div>
               </li>
