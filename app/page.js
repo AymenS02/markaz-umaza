@@ -260,7 +260,15 @@ export default function Home() {
                 <div className="absolute inset-4 rounded-full border-4 border-accent/20 animate-spin-reverse"></div>
                 <div className="absolute inset-8 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full flex items-center justify-center backdrop-blur-sm shadow-2xl">
                   <div className="w-48 h-48 relative">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse"></div>
+                    <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse">
+                      <Image
+                        src="/assets/markaz_umaza_logo_white.svg"
+                        alt="Placeholder"
+                        className="w-full h-full object-contain p-8"
+                        width={320}
+                        height={320}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
