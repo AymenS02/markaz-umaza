@@ -1,17 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { User, Mail, Lock, LogOut, Check, X, Eye, EyeOff } from 'lucide-react';
+import { User, Mail, Lock, LogOut, Check, X, Eye, EyeOff, Phone } from 'lucide-react';
 
 export default function AccountPage() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [passwords, setPasswords] = useState({ current: '', newPass: '' });
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [loading, setLoading] = useState({ email: false, password: false });
+  const [loading, setLoading] = useState({ email: false, phone: false, password: false });
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -21,6 +22,7 @@ export default function AccountPage() {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
       setEmail(parsedUser.email);
+      setPhone(parsedUser.phone);
     }
   }, []);
 
@@ -59,6 +61,35 @@ export default function AccountPage() {
       showMessage('Network error occurred', 'error');
     } finally {
       setLoading({ ...loading, email: false });
+    }
+  };
+
+  const handlePhoneUpdate = async () => {
+    setLoading({ ...loading, phone: true });
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/account/update-phone', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ phone }),
+      });
+      
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('user', JSON.stringify({ ...user, phone }));
+        setUser({ ...user, phone });
+        showMessage('Phone updated successfully!', 'success');
+      } else {
+        showMessage(data.message || 'Failed to update phone', 'error');
+      }
+    } catch (err) {
+      showMessage('Network error occurred', 'error');
+    } finally {
+      setLoading({ ...loading, phone: false });
     }
   };
 
@@ -232,6 +263,49 @@ export default function AccountPage() {
             </div>
           </div>
 
+          {/* Phone Update Card */}
+          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-accent px-6 py-4">
+              <h2 className="text-xl font-semibold text-white flex items-center">
+                <Phone className="w-5 h-5 mr-2" />
+                Phone Number
+              </h2>
+            </div>
+            <div className="p-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">
+                    Phone Number
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="w-full px-4 py-3 pl-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
+                      placeholder="Enter your phone number"
+                    />
+                    <Phone className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
+                  </div>
+                </div>
+                <button
+                  onClick={handlePhoneUpdate}
+                  disabled={loading.phone || !phone || phone === user.phone}
+                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-hover focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
+                >
+                  {loading.phone ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4" />
+                      <span>Update Phone</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Password Update Card */}
           <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
             <div className="bg-secondary px-6 py-4">
@@ -325,10 +399,10 @@ export default function AccountPage() {
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="bg-destructive text-white hover:opacity-90 px-4 py-2 rounded-lg transition-opacity flex items-center space-x-2"
+                  className=" text-error hover:opacity-90 px-4 py-2 rounded-lg transition-opacity flex items-center space-x-2"
                 >
                   <LogOut className="w-4 h-4" />
-                  <span>Sign Out</span>
+                  <span className='text-error'>Sign Out</span>
                 </button>
               </div>
             </div>

@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
     email: '',
+    phone: '',
     password: '',
     firstName: '',
     lastName: '',
@@ -66,7 +67,7 @@ export default function RegisterPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
-            Create your accountt
+            Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-primary/80">
             Join our Arabic courses platform
@@ -128,6 +129,22 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 className="text-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Email address"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                required
+                value={formData.phone}
+                onChange={handleChange}
+                className="text-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Phone Number"
               />
             </div>
 

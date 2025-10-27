@@ -7,7 +7,7 @@ import { connectDB } from '../../../../lib/config/db';
 export async function POST(request) {
   try {
     await connectDB();
-    const { email, password, firstName, lastName, gender } = await request.json();
+    const { email, phone, password, firstName, lastName, gender } = await request.json();
 
     // Check if user exists
     const existingUser = await User.findOne({ email });
@@ -25,6 +25,7 @@ export async function POST(request) {
     // Build user data object
     const userData = {
       email,
+      phone,
       password: hashedPassword,
       firstName,
       lastName,
@@ -48,6 +49,7 @@ export async function POST(request) {
       user: {
         id: user._id,
         email: user.email,
+        phone: user.phone,
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,

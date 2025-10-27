@@ -175,7 +175,7 @@ const CoursesPage = () => {
   const [activeTab, setActiveTab] = useState('current');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterLevel, setFilterLevel] = useState('all');
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Replace with actual auth check
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Replace with actual auth check
   
   const headerRef = useRef(null);
   const tabsRef = useRef(null);
@@ -517,7 +517,7 @@ const CoursesPage = () => {
       <div className='py-20 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5'>
         <div className='container mx-auto px-4 text-center'>
           <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-6'>
-            Can't Find What You're <span className='text-primary'>Looking For?</span>
+            Can&apos;t Find What You&apos;re <span className='text-primary'>Looking For?</span>
           </h2>
           <p className='text-xl text-foreground/70 mb-8 max-w-2xl mx-auto'>
             Contact us to suggest a course or learn about custom learning paths tailored to your goals
