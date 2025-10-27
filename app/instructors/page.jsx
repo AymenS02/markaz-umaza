@@ -220,7 +220,7 @@ const InstructorsPage = () => {
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Education</h4>
                       <p className='text-foreground/70 leading-relaxed'>
-                        Bachelors of Education in Quran Sciences from King Saud University, Riyadh, KSA
+                        Bachelors of Education in Quran Sciences from King Saud University
                       </p>
                     </div>
                   </div>

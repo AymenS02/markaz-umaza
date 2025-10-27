@@ -133,10 +133,10 @@ const Footer = () => {
               <h4 className='text-sm font-semibold text-secondary mb-3'>Quick Links</h4>
               <div className='flex flex-col gap-2'>
                 <Link 
-                  href="/about" 
+                  href="/instructors" 
                   className='text-sm text-foreground/70 hover:text-primary transition-colors duration-300'
                 >
-                  About Us
+                  Instructors
                 </Link>
                 <Link 
                   href="/privacy" 

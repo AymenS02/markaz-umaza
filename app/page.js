@@ -205,7 +205,7 @@ export default function Home() {
                 
                 <h1 
                   ref={textRef}
-                  className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient min-h-[120px] flex items-center justify-center lg:justify-start"
+                  className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] animate-gradient min-h-[120px] flex items-center justify-center lg:justify-start"
                 >
                   Learn Arabic
                 </h1>
@@ -254,11 +254,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-shrink-0 relative">
+            <div className="shrink-0 relative">
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
                 <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-spin-slow"></div>
                 <div className="absolute inset-4 rounded-full border-4 border-accent/20 animate-spin-reverse"></div>
-                <div className="absolute inset-8 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full flex items-center justify-center backdrop-blur-sm shadow-2xl">
+                <div className="absolute inset-8 bg-linear-to-br from-primary/10 to-secondary/10 rounded-full flex items-center justify-center backdrop-blur-sm shadow-2xl">
                   <div className="w-48 h-48 relative">
                     <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse">
                       <Image
@@ -285,7 +285,7 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 bg-gradient-to-b from-background to-card/20">
+      <section ref={featuresRef} className="py-20 bg-linear-to-b from-background to-card/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -361,7 +361,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="py-20 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5">
+      <section ref={statsRef} className="py-20 bg-linear-to-r from-primary/5 via-secondary/5 to-accent/5">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="stat-item text-center">
@@ -398,7 +398,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="course-card group bg-card rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20">
-              <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20 relative overflow-hidden">
+              <div className="h-48 bg-linear-to-br from-primary/20 to-accent/20 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Brain className="text-primary" size={64} />
                 </div>
@@ -428,7 +428,7 @@ export default function Home() {
             </div>
 
             <div className="course-card group bg-card rounded-2xl overflow-hidden border border-secondary/10 hover:border-secondary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/20">
-              <div className="h-48 bg-gradient-to-br from-secondary/20 to-primary/20 relative overflow-hidden">
+              <div className="h-48 bg-linear-to-br from-secondary/20 to-primary/20 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <BookOpen className="text-secondary" size={64} />
                 </div>
@@ -458,7 +458,7 @@ export default function Home() {
             </div>
 
             <div className="course-card group bg-card rounded-2xl overflow-hidden border border-accent/10 hover:border-accent/30 transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20">
-              <div className="h-48 bg-gradient-to-br from-accent/20 to-secondary/20 relative overflow-hidden">
+              <div className="h-48 bg-linear-to-br from-accent/20 to-secondary/20 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Award className="text-accent" size={64} />
                 </div>
@@ -501,7 +501,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section ref={testimonialsRef} className="py-20 bg-gradient-to-b from-card/20 to-background">
+      <section ref={testimonialsRef} className="py-20 bg-linear-to-b from-card/20 to-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -520,7 +520,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                "The structured approach and supportive community made learning Arabic enjoyable and effective. I've made incredible progress in just a few months!"
+                &quot;The structured approach and supportive community made learning Arabic enjoyable and effective. I&apos;ve made incredible progress in just a few months!&quot;
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
@@ -540,7 +540,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                "As a mother of three, the flexible schedule was perfect for me. The instructors are patient and knowledgeable. Highly recommend!"
+                &quot;As a mother of three, the flexible schedule was perfect for me. The instructors are patient and knowledgeable. Highly recommend!&quot;
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center font-bold text-secondary">
@@ -560,7 +560,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                "The Quranic Arabic course deepened my understanding of the Quran tremendously. The teachers explain complex concepts with clarity."
+                &quot;The Quranic Arabic course deepened my understanding of the Quran tremendously. The teachers explain complex concepts with clarity.&quot;
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center font-bold text-accent">
@@ -578,7 +578,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section ref={ctaRef} className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-secondary opacity-10"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-primary via-accent to-secondary opacity-10"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -625,16 +625,16 @@ export default function Home() {
       </section>
 
       {/* Why Arabic Section */}
-      <section className="py-20 bg-gradient-to-b from-background to-card/20">
+      <section className="py-20 bg-linear-to-b from-background to-card/20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl"></div>
+                <div className="absolute -inset-4 bg-linear-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl"></div>
                 <div className="relative bg-card/80 backdrop-blur-sm p-8 rounded-2xl border border-primary/20">
                   <div className="space-y-6">
                     <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                         <CheckCircle className="text-primary" size={24} />
                       </div>
                       <div>
@@ -644,7 +644,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-secondary/20 transition-colors">
+                      <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
                         <CheckCircle className="text-secondary" size={24} />
                       </div>
                       <div>
@@ -654,7 +654,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                      <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
                         <CheckCircle className="text-accent" size={24} />
                       </div>
                       <div>
@@ -664,7 +664,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                         <CheckCircle className="text-primary" size={24} />
                       </div>
                       <div>
@@ -686,7 +686,7 @@ export default function Home() {
                 Why Learn <span className="text-primary">Arabic?</span>
               </h2>
               <p className="text-xl text-foreground/70 leading-relaxed mb-6">
-                Arabic is not just a language—it's the key to unlocking a deeper understanding of Islam, 
+                Arabic is not just a language—it&apos;s the key to unlocking a deeper understanding of Islam, 
                 the Quran, and centuries of Islamic scholarship and wisdom.
               </p>
               <p className="text-lg text-foreground/60 leading-relaxed mb-8">
@@ -706,7 +706,7 @@ export default function Home() {
       </section>
 
       {/* Learning Process Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5">
+      <section className="py-20 bg-linear-to-r from-primary/5 via-transparent to-secondary/5">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -719,10 +719,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             {/* Connecting line for desktop */}
-            <div className="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-20"></div>
+            <div className="hidden md:block absolute top-16 left-0 right-0 h-1 bg-linear-to-r from-primary via-secondary to-accent opacity-20"></div>
 
             <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform relative z-10">
+              <div className="w-32 h-32 mx-auto bg-linear-to-br from-primary to-accent rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform relative z-10">
                 <span className="text-5xl font-bold text-background">1</span>
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Sign Up</h3>
@@ -730,7 +730,7 @@ export default function Home() {
             </div>
 
             <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-secondary to-primary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-secondary/30 group-hover:scale-110 transition-transform relative z-10">
+              <div className="w-32 h-32 mx-auto bg-linear-to-br from-secondary to-primary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-secondary/30 group-hover:scale-110 transition-transform relative z-10">
                 <span className="text-5xl font-bold text-background">2</span>
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Choose Course</h3>
@@ -738,7 +738,7 @@ export default function Home() {
             </div>
 
             <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-accent/30 group-hover:scale-110 transition-transform relative z-10">
+              <div className="w-32 h-32 mx-auto bg-linear-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-accent/30 group-hover:scale-110 transition-transform relative z-10">
                 <span className="text-5xl font-bold text-background">3</span>
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Learn & Practice</h3>
@@ -746,7 +746,7 @@ export default function Home() {
             </div>
 
             <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-primary via-accent to-secondary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform relative z-10">
+              <div className="w-32 h-32 mx-auto bg-linear-to-br from-primary via-accent to-secondary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform relative z-10">
                 <span className="text-5xl font-bold text-background">4</span>
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-3">Achieve Mastery</h3>
@@ -809,9 +809,9 @@ export default function Home() {
                   <ArrowDown className="group-open:rotate-180 transition-transform text-primary" size={24} />
                 </summary>
                 <div className="px-6 pb-5 text-foreground/70 leading-relaxed">
-                  Yes! Upon successful completion of each course, you'll receive a certificate of completion that you can download and share. 
+                  Yes! Upon successful completion of each course, you&apos;ll receive a certificate of completion that you can download and share. 
                   These certificates demonstrate your commitment and achievement in Arabic language studies.
-                </div>
+                </div>0
               </details>
             </div>
 
