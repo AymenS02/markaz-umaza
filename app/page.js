@@ -361,7 +361,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="py-20 bg-linear-to-r from-primary/5 via-secondary/5 to-accent/5">
+      {/* <section ref={statsRef} className="py-20 bg-linear-to-r from-primary/5 via-secondary/5 to-accent/5">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="stat-item text-center">
@@ -382,7 +382,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Featured Courses Section */}
       <section ref={coursesRef} className="py-20 bg-background">
