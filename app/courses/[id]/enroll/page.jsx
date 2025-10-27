@@ -172,7 +172,7 @@ const CourseEnrollmentPage = () => {
           <div className="bg-primary/5 rounded-2xl p-6 mb-8 text-left border border-primary/10">
             <h3 className="font-bold text-lg text-foreground mb-4 flex items-center gap-2">
               <AlertCircle className="text-primary" size={20} />
-              What's Next?
+              What&apos;s Next?
             </h3>
             <ul className="space-y-3 text-foreground/70">
               <li className="flex items-start gap-3">
@@ -189,7 +189,7 @@ const CourseEnrollmentPage = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Check className="text-primary flex-shrink-0 mt-1" size={18} />
-                <span>You'll receive course access links via email and SMS</span>
+                <span>You&apos;ll receive course access links via email and SMS</span>
               </li>
             </ul>
           </div>
