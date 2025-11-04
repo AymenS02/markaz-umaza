@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { verifyToken } from '../../../../lib/middleware/auth';
-import { connectDB } from '../../../../lib/config/db';
+import connectDB from '../../../../lib/config/db';
 import User from '../../../../lib/models/userSchema';
 
 export async function PUT(req) {

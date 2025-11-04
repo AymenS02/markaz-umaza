@@ -91,15 +91,6 @@ const Sidebar = () => {
             <Users size={20} className="group-hover:scale-110 transition-transform" />
             <span>Instructors</span>
           </Link>
-
-          <Link
-            href="/articles"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:text-primary hover:bg-primary/10 transition-all duration-300 font-medium group"
-          >
-            <FileText size={20} className="group-hover:scale-110 transition-transform" />
-            <span>Articles</span>
-          </Link>
           
           {/* Courses link for non-authenticated users */}
           {!user && (

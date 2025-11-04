@@ -50,10 +50,6 @@ const Header = () => {
             Instructors
           </Link>
 
-          <Link href="/articles" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
-            Articles
-          </Link>
-
           <Link href="/contact" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
             Contact Us
           </Link>

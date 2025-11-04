@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { verifyToken } from '../../../../lib/middleware/auth';
-import { connectDB } from '../../../../lib/config/db';
+import connectDB from '../../../../lib/config/db';
 
 export async function PUT(req) {
   try {

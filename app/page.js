@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowDown, Sparkles, BookOpen, Users, Award, Clock, CheckCircle, Star, MessageSquare, Play, ArrowRight, Globe, Heart, Brain } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import HeroTextAnimation from './components/HeroTextAnimation'; // adjust path as needed
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -203,12 +204,8 @@ export default function Home() {
                   </span>
                 </div>
                 
-                <h1 
-                  ref={textRef}
-                  className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] animate-gradient min-h-[120px] flex items-center justify-center lg:justify-start"
-                >
-                  Learn Arabic
-                </h1>
+<HeroTextAnimation />
+
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary">
                   <span>with</span>

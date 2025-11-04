@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '../../../../lib/config/db';
+import connectDB from '../../../../lib/config/db';
 import { verifyToken } from '../../../../lib/middleware/auth';
 
 export async function GET(req) {
