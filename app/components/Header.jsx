@@ -21,18 +21,18 @@ const Header = () => {
   if (!hydrated) return null; // Prevent SSR/client mismatch
 
   return (
-    <header className="max-md:hidden fixed top-0 left-0 w-full px-3 py-2 bg-background text-foreground shadow-lg z-50">
+    <header className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background text-foreground shadow-lg z-50">
       <div className="max-w-[90%] mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
           <div
-            className="w-24 h-24 mr-3 cursor-pointer hover:scale-105 transition-transform"
+            className="mr-3 cursor-pointer hover:scale-105 transition-transform "
             onClick={() => window.location.href='/'}
           >
             <Image
               src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
-              className="w-full h-full object-contain"
+              className="w-30 h-30 object-fit"
               width={24}
               height={24}
               priority
