@@ -26,15 +26,15 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center">
           <div
-            className="w-36 h-36 mr-3 cursor-pointer hover:scale-105 transition-transform"
+            className="w-24 h-24 mr-3 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => window.location.href='/'}
           >
             <Image
               src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
               className="w-full h-full object-contain"
-              width={120}
-              height={120}
+              width={24}
+              height={24}
               priority
             />
           </div>
