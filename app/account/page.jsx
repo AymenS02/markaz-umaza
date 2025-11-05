@@ -37,7 +37,6 @@ export default function AccountPage() {
 
   const handleEmailUpdate = async () => {
     setLoading({ ...loading, email: true });
-    
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/account/update-email', {
@@ -48,16 +47,13 @@ export default function AccountPage() {
         },
         body: JSON.stringify({ email }),
       });
-      
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify({ ...user, email }));
         setUser({ ...user, email });
         showMessage('Email updated successfully!', 'success');
-      } else {
-        showMessage(data.message || 'Failed to update email', 'error');
-      }
-    } catch (err) {
+      } else showMessage(data.message || 'Failed to update email', 'error');
+    } catch {
       showMessage('Network error occurred', 'error');
     } finally {
       setLoading({ ...loading, email: false });
@@ -66,7 +62,6 @@ export default function AccountPage() {
 
   const handlePhoneUpdate = async () => {
     setLoading({ ...loading, phone: true });
-
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/account/update-phone', {
@@ -77,16 +72,13 @@ export default function AccountPage() {
         },
         body: JSON.stringify({ phone }),
       });
-      
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('user', JSON.stringify({ ...user, phone }));
         setUser({ ...user, phone });
         showMessage('Phone updated successfully!', 'success');
-      } else {
-        showMessage(data.message || 'Failed to update phone', 'error');
-      }
-    } catch (err) {
+      } else showMessage(data.message || 'Failed to update phone', 'error');
+    } catch {
       showMessage('Network error occurred', 'error');
     } finally {
       setLoading({ ...loading, phone: false });
@@ -94,18 +86,12 @@ export default function AccountPage() {
   };
 
   const handlePasswordUpdate = async () => {
-    if (!passwords.current || !passwords.newPass) {
-      showMessage('Please fill in both password fields', 'error');
-      return;
-    }
-    
-    if (passwords.newPass.length < 6) {
-      showMessage('New password must be at least 6 characters', 'error');
-      return;
-    }
+    if (!passwords.current || !passwords.newPass)
+      return showMessage('Please fill in both password fields', 'error');
+    if (passwords.newPass.length < 6)
+      return showMessage('New password must be at least 6 characters', 'error');
 
     setLoading({ ...loading, password: true });
-    
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/account/update-password', {
@@ -116,15 +102,12 @@ export default function AccountPage() {
         },
         body: JSON.stringify(passwords),
       });
-
       const data = await res.json();
       if (res.ok) {
         showMessage('Password updated successfully!', 'success');
         setPasswords({ current: '', newPass: '' });
-      } else {
-        showMessage(data.message || 'Failed to update password', 'error');
-      }
-    } catch (err) {
+      } else showMessage(data.message || 'Failed to update password', 'error');
+    } catch {
       showMessage('Network error occurred', 'error');
     } finally {
       setLoading({ ...loading, password: false });
@@ -139,37 +122,39 @@ export default function AccountPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center mt-42">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4 mt-42">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8 md:mt-42">
+      <div className="max-w-2xl mx-auto w-full space-y-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-            <User className="w-8 h-8 text-primary" />
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-full mb-3 sm:mb-4">
+            <User className="w-7 h-7 sm:w-8 sm:h-8 text-primary" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground font-palanquin-dark">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground font-palanquin-dark">
             Account Settings
           </h1>
-          <p className="text-muted-foreground mt-2">
+          <p className="text-sm sm:text-base text-muted-foreground mt-2">
             Manage your account information and preferences
           </p>
         </div>
 
-        {/* Message Alert */}
+        {/* Message */}
         {message && (
-          <div className={`mb-6 p-4 rounded-lg border-l-4 flex items-center space-x-3 ${
-            messageType === 'success' 
-              ? 'bg-success/10 border-success text-success'
-              : messageType === 'error'
-              ? 'bg-error/10 border-error text-error'
-              : 'bg-info/10 border-info text-info'
-          }`}>
+          <div
+            className={`mb-4 p-3 sm:p-4 rounded-lg border-l-4 flex items-center gap-3 text-sm sm:text-base ${
+              messageType === 'success'
+                ? 'bg-success/10 border-success text-success'
+                : messageType === 'error'
+                ? 'bg-error/10 border-error text-error'
+                : 'bg-info/10 border-info text-info'
+            }`}
+          >
             {messageType === 'success' ? (
               <Check className="w-5 h-5" />
             ) : messageType === 'error' ? (
@@ -177,235 +162,144 @@ export default function AccountPage() {
             ) : (
               <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
             )}
-            <span className="font-medium">{message}</span>
+            <span>{message}</span>
           </div>
         )}
 
-        <div className="space-y-6">
-          {/* Profile Information Card */}
-          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-primary px-6 py-4">
-              <h2 className="text-xl font-semibold text-white flex items-center">
-                <User className="w-5 h-5 mr-2" />
-                Profile Information
-              </h2>
-            </div>
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    First Name
-                  </label>
-                  <p className="text-lg font-semibold text-foreground">
-                    {user.firstName}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Last Name
-                  </label>
-                  <p className="text-lg font-semibold text-foreground">
-                    {user.lastName}
-                  </p>
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Role
-                  </label>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-secondary/20 text-foreground border border-secondary">
-                    {user.role}
-                  </span>
-                </div>
+        {/* Profile Info */}
+        <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-primary px-4 sm:px-6 py-3 sm:py-4">
+            <h2 className="text-lg sm:text-xl font-semibold text-white flex items-center">
+              <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Profile Information
+            </h2>
+          </div>
+          <div className="p-4 sm:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">First Name</label>
+                <p className="text-base sm:text-lg font-semibold text-foreground">{user.firstName}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-1">Last Name</label>
+                <p className="text-base sm:text-lg font-semibold text-foreground">{user.lastName}</p>
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-muted-foreground mb-1">Role</label>
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-secondary/20 text-foreground border border-secondary">
+                  {user.role}
+                </span>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Email Update Card */}
-          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-accent px-6 py-4">
-              <h2 className="text-xl font-semibold text-white flex items-center">
-                <Mail className="w-5 h-5 mr-2" />
-                Email Address
+        {/* Reusable card styles for Email, Phone, Password, Logout */}
+        {[ 
+          { icon: Mail, title: "Email Address", value: email, setValue: setEmail, handler: handleEmailUpdate, loading: loading.email, placeholder: "Enter your email address" },
+          { icon: Phone, title: "Phone Number", value: phone, setValue: setPhone, handler: handlePhoneUpdate, loading: loading.phone, placeholder: "Enter your phone number" }
+        ].map(({ icon: Icon, title, value, setValue, handler, loading, placeholder }, i) => (
+          <div key={i} className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-accent px-4 sm:px-6 py-3 sm:py-4">
+              <h2 className="text-lg sm:text-xl font-semibold text-white flex items-center">
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> {title}
               </h2>
             </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 pl-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
-                      placeholder="Enter your email address"
-                    />
-                    <Mail className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
-                  </div>
+            <div className="p-4 sm:p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">{title}</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    className="w-full px-4 py-3 pl-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition"
+                    placeholder={placeholder}
+                  />
+                  <Icon className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
                 </div>
-                <button
-                  onClick={handleEmailUpdate}
-                  disabled={loading.email || !email || email === user.email}
-                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-hover focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
-                >
-                  {loading.email ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <Check className="w-4 h-4" />
-                      <span>Update Email</span>
-                    </>
-                  )}
-                </button>
               </div>
+              <button
+                onClick={handler}
+                disabled={loading}
+                className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-hover transition flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>Update</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
+        ))}
 
-          {/* Phone Update Card */}
-          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-accent px-6 py-4">
-              <h2 className="text-xl font-semibold text-white flex items-center">
-                <Phone className="w-5 h-5 mr-2" />
-                Phone Number
-              </h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-4 py-3 pl-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
-                      placeholder="Enter your phone number"
-                    />
-                    <Phone className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
-                  </div>
-                </div>
-                <button
-                  onClick={handlePhoneUpdate}
-                  disabled={loading.phone || !phone || phone === user.phone}
-                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-hover focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
-                >
-                  {loading.phone ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <Check className="w-4 h-4" />
-                      <span>Update Phone</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
+        {/* Password */}
+        <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-secondary px-4 sm:px-6 py-3 sm:py-4">
+            <h2 className="text-lg sm:text-xl font-semibold text-white flex items-center">
+              <Lock className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Change Password
+            </h2>
           </div>
-
-          {/* Password Update Card */}
-          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-secondary px-6 py-4">
-              <h2 className="text-xl font-semibold text-white flex items-center">
-                <Lock className="w-5 h-5 mr-2" />
-                Change Password
-              </h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2">
-                    Current Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showCurrentPassword ? "text" : "password"}
-                      value={passwords.current}
-                      onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
-                      className="w-full px-4 py-3 pl-10 pr-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
-                      placeholder="Enter current password"
-                    />
-                    <Lock className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
-                    <button
-                      type="button"
-                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                      className="absolute right-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
+          <div className="p-4 sm:p-6 space-y-4">
+            {[
+              { label: 'Current Password', key: 'current', show: showCurrentPassword, setShow: setShowCurrentPassword },
+              { label: 'New Password', key: 'newPass', show: showNewPassword, setShow: setShowNewPassword }
+            ].map(({ label, key, show, setShow }, i) => (
+              <div key={i}>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">{label}</label>
+                <div className="relative">
+                  <input
+                    type={show ? "text" : "password"}
+                    value={passwords[key]}
+                    onChange={(e) => setPasswords({ ...passwords, [key]: e.target.value })}
+                    className="w-full px-4 py-3 pl-10 pr-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition"
+                    placeholder={`Enter ${label.toLowerCase()}`}
+                  />
+                  <Lock className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
+                  <button
+                    type="button"
+                    onClick={() => setShow(!show)}
+                    className="absolute right-3 top-3.5 text-muted-foreground hover:text-foreground"
+                  >
+                    {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2">
-                    New Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showNewPassword ? "text" : "password"}
-                      value={passwords.newPass}
-                      onChange={(e) => setPasswords({ ...passwords, newPass: e.target.value })}
-                      className="w-full px-4 py-3 pl-10 pr-10 border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
-                      placeholder="Enter new password"
-                    />
-                    <Lock className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
-                    <button
-                      type="button"
-                      onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="absolute right-3 top-3.5 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                  {passwords.newPass && passwords.newPass.length < 6 && (
-                    <p className="text-sm text-error mt-1">
-                      Password must be at least 6 characters
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  onClick={handlePasswordUpdate}
-                  disabled={loading.password || !passwords.current || !passwords.newPass}
-                  className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-hover focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
-                >
-                  {loading.password ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <Lock className="w-4 h-4" />
-                      <span>Update Password</span>
-                    </>
-                  )}
-                </button>
               </div>
-            </div>
+            ))}
+            <button
+              onClick={handlePasswordUpdate}
+              disabled={loading.password}
+              className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-hover transition flex items-center justify-center gap-2 disabled:opacity-50"
+            >
+              {loading.password ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <Lock className="w-4 h-4" />
+                  <span>Update Password</span>
+                </>
+              )}
+            </button>
           </div>
+        </div>
 
-          {/* Logout Card */}
-          <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-            <div className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-medium text-foreground">
-                    Sign Out
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Sign out of your account on this device
-                  </p>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className=" text-error hover:opacity-90 px-4 py-2 rounded-lg transition-opacity flex items-center space-x-2"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span className='text-error'>Sign Out</span>
-                </button>
-              </div>
+        {/* Logout */}
+        <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+          <div className="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-base sm:text-lg font-medium text-foreground">Sign Out</h3>
+              <p className="text-sm text-muted-foreground">Sign out of your account on this device</p>
             </div>
+            <button
+              onClick={handleLogout}
+              className="text-error hover:opacity-90 px-4 py-2 rounded-lg transition flex items-center justify-center gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
       </div>

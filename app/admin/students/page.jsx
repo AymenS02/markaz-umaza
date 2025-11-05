@@ -109,24 +109,6 @@ const AdminStudentsPage = () => {
     }
   };
 
-  const handleToggleStatus = async (id, currentStatus) => {
-    const newStatus = currentStatus === 'active' ? 'suspended' : 'active';
-    
-    try {
-      const response = await fetch(`/api/admin/students/${id}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-
-      if (response.ok) {
-        fetchStudents();
-      }
-    } catch (error) {
-      console.error('Error updating status:', error);
-    }
-  };
-
   const exportToCSV = () => {
     const headers = ['Name', 'Email', 'Phone', 'Status', 'Enrollments', 'Joined Date'];
     const rows = filteredStudents.map(s => [
@@ -150,7 +132,6 @@ const AdminStudentsPage = () => {
   const getStatusColor = (status) => {
     switch(status) {
       case 'active': return 'bg-primary/10 text-primary border-primary/20';
-      case 'suspended': return 'bg-accent/10 text-accent border-accent/20';
       case 'pending': return 'bg-secondary/10 text-secondary border-secondary/20';
       default: return 'bg-foreground/5 text-foreground/60 border-foreground/10';
     }
@@ -168,7 +149,7 @@ const AdminStudentsPage = () => {
   }
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
+    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 md:mt-42">
       <div className="container mx-auto max-w-7xl">
         {/* Back Button */}
         <Link
@@ -288,7 +269,6 @@ const AdminStudentsPage = () => {
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
                 <option value="pending">Pending</option>
-                <option value="suspended">Suspended</option>
               </select>
             </div>
 
@@ -383,17 +363,6 @@ const AdminStudentsPage = () => {
                             title="View Details"
                           >
                             <Eye size={18} className="text-foreground/60 group-hover:text-primary" />
-                          </button>
-                          <button
-                            onClick={() => handleToggleStatus(student._id, student.status)}
-                            className="p-2 hover:bg-accent/10 rounded-lg transition-colors group"
-                            title={student.status === 'active' ? 'Suspend' : 'Activate'}
-                          >
-                            {student.status === 'active' ? (
-                              <Ban size={18} className="text-foreground/60 group-hover:text-accent" />
-                            ) : (
-                              <CheckCircle size={18} className="text-foreground/60 group-hover:text-primary" />
-                            )}
                           </button>
                           <button
                             onClick={() => handleDeleteStudent(student._id)}

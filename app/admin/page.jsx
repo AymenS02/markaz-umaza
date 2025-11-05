@@ -169,7 +169,7 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div ref={dashboardRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
+    <div ref={dashboardRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-20 md:mt-42">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-12">
@@ -193,9 +193,6 @@ const AdminDashboard = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
                 <Users className="text-primary" size={24} />
               </div>
-              <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
-                +12% this month
-              </span>
             </div>
             <h3 className="text-3xl font-bold text-foreground mb-2">{stats.totalStudents}</h3>
             <p className="text-foreground/60">Total Students</p>
@@ -207,7 +204,7 @@ const AdminDashboard = () => {
                 <BookOpen className="text-secondary" size={24} />
               </div>
               <span className="px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full">
-                {stats.totalCourses} active
+                {stats.totalCourses} active courses
               </span>
             </div>
             <h3 className="text-3xl font-bold text-foreground mb-2">{stats.activeEnrollments}</h3>

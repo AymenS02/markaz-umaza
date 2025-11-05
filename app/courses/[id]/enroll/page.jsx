@@ -211,7 +211,7 @@ const CourseEnrollmentPage = () => {
   }
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
+    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 md:mt-42">
       <div className="container mx-auto max-w-7xl">
         {/* Back Button */}
         <Link

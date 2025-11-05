@@ -10,7 +10,7 @@ export default function ContactPage() {
   const onSubmit = (e) => e.preventDefault();
 
   return (
-    <main className="bg-background text-foreground pt-42">
+    <main className="bg-background text-foreground mt-20 md:mt-42">
       {/* Hero */}
       <section className="container mx-auto max-w-5xl px-4 py-16 md:py-24">
         <h1 className="text-4xl font-extrabold text-center text-primary md:text-5xl">

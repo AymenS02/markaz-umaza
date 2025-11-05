@@ -461,7 +461,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-foreground/90 text-lg mb-8 leading-relaxed italic">
-                "Deepened my understanding tremendously. Complex concepts explained with remarkable clarity."
+                &quot;Deepened my understanding tremendously. Complex concepts explained with remarkable clarity.&quot;
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">

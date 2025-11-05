@@ -174,7 +174,7 @@ const AdminPaymentsPage = () => {
   }
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
+    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 md:mt-42">
       <div className="container mx-auto max-w-7xl">
               {/* Back Button */}
         <Link
@@ -345,7 +345,7 @@ const AdminPaymentsPage = () => {
                             {payment.user?.name?.charAt(0).toUpperCase() || 'U'}
                           </div>
                           <div>
-                            <div className="font-semibold text-foreground">{payment.user?.name || 'Unknown'}</div>
+                            <div className="font-semibold text-foreground">{payment.user?.firstName + ' ' + payment.user?.lastName || 'Unknown'}</div>
                             <div className="text-sm text-foreground/60">{payment.user?.email || 'No email'}</div>
                           </div>
                         </div>
@@ -446,7 +446,7 @@ const AdminPaymentsPage = () => {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-foreground/60">Name:</span>
-                      <span className="font-semibold text-foreground">{selectedPayment.user?.name || 'Unknown'}</span>
+                      <span className="font-semibold text-foreground">{selectedPayment.user?.firstName + ' ' + selectedPayment.user?.lastName || 'Unknown'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-foreground/60">Email:</span>

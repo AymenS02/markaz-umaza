@@ -177,13 +177,9 @@ const CoursesPage = () => {
   }
 
   return (
-    <div className='overflow-hidden min-h-screen bg-gradient-to-b from-background to-card/20 pt-32 mt-42'>
+    <div className='overflow-hidden min-h-screen bg-gradient-to-b from-background to-card/20 pt-32 md:mt-42'>
       {/* Header */}
       <div ref={headerRef} className='relative pb-12'>
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 left-10 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse"></div>
-        </div>
 
         <div className='container mx-auto px-4 relative z-10 text-center max-w-4xl'>
           <div className='flex items-center justify-center gap-2 mb-6'>

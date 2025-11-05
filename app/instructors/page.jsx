@@ -80,11 +80,11 @@ const InstructorsPage = () => {
                 <div className='text-sm text-foreground/60'>Years Experience</div>
               </div>
               <div className='text-center'>
-                <div className='text-3xl font-bold text-accent'>500+</div>
+                <div className='text-3xl font-bold text-accent'>150+</div>
                 <div className='text-sm text-foreground/60'>Students Taught</div>
               </div>
               <div className='text-center'>
-                <div className='text-3xl font-bold text-secondary'>25+</div>
+                <div className='text-3xl font-bold text-secondary'>5+</div>
                 <div className='text-sm text-foreground/60'>Courses Created</div>
               </div>
             </div>

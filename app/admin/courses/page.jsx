@@ -200,7 +200,7 @@ const AdminCourseCreator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
+    <div className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 md:mt-42">
       {/* Success Toast */}
       {showSuccess && (
         <div className="fixed top-24 right-4 z-50 bg-primary text-background px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-slide-in">
@@ -235,7 +235,7 @@ const AdminCourseCreator = () => {
 
         {/* Course Form */}
         <div ref={formRef} className="bg-card/50 backdrop-blur-sm rounded-3xl border border-primary/20 p-8 mb-12">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex max-md:flex-col max-md:gap-4 max-md:items-start items-center justify-between mb-8">
             <h2 className="text-3xl font-bold text-foreground flex items-center gap-3">
               {isEditing ? <Edit size={28} /> : <Plus size={28} />}
               {isEditing ? 'Edit Course' : 'Create New Course'}
@@ -243,7 +243,7 @@ const AdminCourseCreator = () => {
             {isEditing && (
               <button
                 onClick={resetForm}
-                className="px-6 py-3 bg-foreground/10 text-foreground rounded-full font-semibold hover:bg-foreground/20 transition-all duration-300 flex items-center gap-2"
+                className="px-6 py-3 bg-foreground/10 text-foreground rounded-full max-md:rounded-xl font-semibold hover:bg-foreground/20 transition-all duration-300 flex items-center gap-2"
               >
                 <X size={18} />
                 Cancel Edit
@@ -337,7 +337,7 @@ const AdminCourseCreator = () => {
               <label className="block text-sm font-semibold text-foreground mb-2">
                 Thumbnail URL
               </label>
-              <div className="flex gap-3">
+              <div className="flex gap-3 max-md:flex-col">
                 <input
                   type="url"
                   name="thumbnailUrl"
