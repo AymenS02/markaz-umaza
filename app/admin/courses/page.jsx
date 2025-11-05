@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import { 
   BookOpen, Plus, Save, X, Upload, Calendar, DollarSign, 
   Users, Clock, Award, FileText, Sparkles, AlertCircle,
-  CheckCircle, Trash2, Edit, Eye
+  CheckCircle, Trash2, Edit, Eye, ArrowLeft
 } from 'lucide-react';
 import { gsap } from 'gsap';
+import Link from 'next/link';
 
 const AdminCourseCreator = () => {
   const router = useRouter();
@@ -209,6 +210,14 @@ const AdminCourseCreator = () => {
       )}
 
       <div className="container mx-auto max-w-7xl">
+        {/* Back Button */}
+        <Link
+          href="/admin"
+          className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-8 group"
+        >
+          <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={20} />
+          Back to Admin Dashboard
+        </Link>
         {/* Header */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">

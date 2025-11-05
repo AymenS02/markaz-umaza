@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { 
   CheckCircle, ArrowLeft, Mail, DollarSign, CreditCard, 
@@ -10,115 +9,98 @@ import {
   Send, Check, MapPin, ExternalLink
 } from 'lucide-react';
 import { gsap } from 'gsap';
-
-// Mock course data - replace with actual API call
-const getCourseById = (id) => {
-  const courses = {
-    '1': {
-      id: 1,
-      title: "Arabic Fundamentals",
-      instructor: "Ustadh Umair",
-      level: "Beginner",
-      duration: "12 weeks",
-      price: 99,
-      description: "Master the Arabic alphabet, basic grammar, and essential vocabulary for everyday conversation.",
-      features: [
-        "48 comprehensive video lessons",
-        "Interactive exercises and quizzes",
-        "Downloadable study materials",
-        "Certificate of completion",
-        "Access to WhatsApp/Telegram community",
-        "Weekly live Q&A sessions"
-      ],
-      startDate: "May 1, 2025",
-      lessons: 48,
-      whatsappLink: "https://chat.whatsapp.com/your-group-link",
-      telegramLink: "https://t.me/your-channel-link"
-    }
-  };
-  return courses[id] || null;
-};
+import { authClient } from '@/lib/auth-client';
 
 const CourseEnrollmentPage = () => {
   const router = useRouter();
   const params = useParams();
-  const courseId = params?.id || '1';
+  const courseId = params?.id;
   
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Replace with actual auth
-  const [user, setUser] = useState(null); // Replace with actual user data
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
   const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isCanadian, setIsCanadian] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('etransfer');
   const [etransferEmail, setEtransferEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentSubmitted, setPaymentSubmitted] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   
   const pageRef = useRef(null);
   const formRef = useRef(null);
 
   useEffect(() => {
-    // Check authentication - replace with actual auth check
-    // const { user } = useAuth();
-    const mockUser = {
-      id: '123',
-      name: 'John Doe',
-      email: 'john@example.com',
-      country: 'Canada' // or get from user profile
-    };
-    
-    // Simulate auth check
-    setIsAuthenticated(!!mockUser);
-    setUser(mockUser);
-    setIsCanadian(mockUser?.country === 'Canada');
-
-    if (!mockUser) {
-      // Redirect to login with return URL
-      router.push(`/login?redirect=/courses/${courseId}/enroll`);
-    }
-
-    // Load course data
-    const courseData = getCourseById(courseId);
-    if (!courseData) {
-      router.push('/courses');
-    }
-    setCourse(courseData);
-  }, [courseId, router]);
+    checkAuthAndLoadCourse();
+  }, [courseId]);
 
   useEffect(() => {
-    if (pageRef.current) {
+    if (pageRef.current && !loading) {
       gsap.fromTo(pageRef.current,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
       );
     }
-  }, []);
+  }, [loading]);
+
+  const checkAuthAndLoadCourse = async () => {
+    try {
+      // Check authentication
+      const authResponse = await authClient.fetchWithAuth('/api/auth/me');
+      
+      if (!authResponse.ok) {
+        // Not authenticated, redirect to login
+        authClient.removeToken();
+        router.push(`/login?redirect=/courses/${courseId}/enroll`);
+        return;
+      }
+      
+      const userData = await authResponse.json();
+      setUser(userData);
+      setIsAuthenticated(true);
+      
+      // Check if user is Canadian (you may want to add country to user schema)
+      setIsCanadian(userData.country === 'Canada' || true); // Default to true for now
+      
+      // Fetch course data
+      const courseResponse = await fetch(`/api/courses/${courseId}`);
+      
+      if (!courseResponse.ok) {
+        throw new Error('Course not found');
+      }
+      
+      const courseData = await courseResponse.json();
+      setCourse(courseData);
+      
+    } catch (error) {
+      console.error('Error loading data:', error);
+      if (error.message === 'Course not found') {
+        router.push('/courses');
+      } else {
+        router.push(`/login?redirect=/courses/${courseId}/enroll`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEtransferSubmit = async () => {
-    if (!etransferEmail) return;
+    if (!etransferEmail || !user || !course) return;
     
     setIsSubmitting(true);
 
     try {
-      // API call to backend
-      const response = await fetch('/api/enrollment/etransfer', {
+      const response = await authClient.fetchWithAuth('/api/enrollment/etransfer', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
-          userId: user.id,
-          courseId: course.id,
-          courseName: course.title,
-          amount: course.price,
+          courseId: course._id,
           etransferEmail: etransferEmail,
-          userEmail: user.email,
-          userName: user.name,
+          amount: course.price,
         }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        setPaymentSubmitted(true);
         setShowSuccess(true);
         
         // Animate success message
@@ -129,7 +111,7 @@ const CourseEnrollmentPage = () => {
           );
         }, 100);
       } else {
-        alert('Failed to submit payment information. Please try again.');
+        alert(data.message || 'Failed to submit payment information. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting payment:', error);
@@ -139,22 +121,37 @@ const CourseEnrollmentPage = () => {
     }
   };
 
-  const handleStripePayment = () => {
-    // Redirect to Stripe checkout or handle Stripe payment
-    alert('Stripe payment coming soon!');
+  const formatDate = (date) => {
+    if (!date) return 'TBA';
+    return new Date(date).toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
   };
 
-  if (!course || !isAuthenticated) {
+  const formatPrice = (price) => {
+    return price ? `$${price}` : 'Free';
+  };
+
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-card/20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary mx-auto mb-4"></div>
+          <p className="text-foreground/60">Loading course details...</p>
+        </div>
       </div>
     );
   }
 
+  if (!course || !isAuthenticated) {
+    return null; // Will redirect
+  }
+
   if (showSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-card/20 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-b from-background to-card/20 flex items-center justify-center px-4 mt-42">
         <div className="success-message max-w-2xl w-full bg-card/50 backdrop-blur-sm rounded-3xl border border-primary/20 p-12 text-center">
           <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="text-primary" size={48} />
@@ -181,7 +178,7 @@ const CourseEnrollmentPage = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Check className="text-primary flex-shrink-0 mt-1" size={18} />
-                <span>Send the e-Transfer to the provided email address</span>
+                <span>Send the e-Transfer to: <strong className="text-primary">payments@markazumaza.com</strong></span>
               </li>
               <li className="flex items-start gap-3">
                 <Check className="text-primary flex-shrink-0 mt-1" size={18} />
@@ -189,7 +186,7 @@ const CourseEnrollmentPage = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Check className="text-primary flex-shrink-0 mt-1" size={18} />
-                <span>You&apos;ll receive course access links via email and SMS</span>
+                <span>You&apos;ll receive course access links via email</span>
               </li>
             </ul>
           </div>
@@ -214,7 +211,7 @@ const CourseEnrollmentPage = () => {
   }
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4">
+    <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
       <div className="container mx-auto max-w-7xl">
         {/* Back Button */}
         <Link
@@ -239,19 +236,19 @@ const CourseEnrollmentPage = () => {
               <div className="space-y-3 mb-6 pb-6 border-b border-primary/10">
                 <div className="flex items-center justify-between">
                   <span className="text-foreground/60">Level:</span>
-                  <span className="font-semibold text-primary">{course.level}</span>
+                  <span className="font-semibold text-primary capitalize">{course.difficultyLevel}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-foreground/60">Duration:</span>
-                  <span className="font-semibold text-foreground">{course.duration}</span>
+                  <span className="font-semibold text-foreground">{course.durationWeeks} weeks</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-foreground/60">Lessons:</span>
-                  <span className="font-semibold text-foreground">{course.lessons}</span>
+                  <span className="font-semibold text-foreground">{course.totalLessons}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-foreground/60">Starts:</span>
-                  <span className="font-semibold text-foreground">{course.startDate}</span>
+                  <span className="font-semibold text-foreground">{formatDate(course.startDate)}</span>
                 </div>
               </div>
 
@@ -290,14 +287,51 @@ const CourseEnrollmentPage = () => {
               <div className="mb-8 p-6 bg-secondary/5 rounded-xl border border-secondary/10">
                 <h3 className="font-bold text-xl text-foreground mb-4">What&apos;s Included:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {course.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
-                      <span className="text-foreground/70">{feature}</span>
-                    </div>
-                  ))}
+                  {course.learningOutcomes ? (
+                    course.learningOutcomes.split('\n').map((outcome, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">{outcome}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">{course.totalLessons} comprehensive video lessons</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">Interactive exercises and quizzes</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">Downloadable study materials</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">Certificate of completion</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">Access to WhatsApp/Telegram community</span>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="text-primary flex-shrink-0 mt-1" size={18} />
+                        <span className="text-foreground/70">Weekly live Q&A sessions</span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
+
+              {/* Course Description */}
+              {course.description && (
+                <div className="mb-8 p-6 bg-primary/5 rounded-xl border border-primary/10">
+                  <h3 className="font-bold text-xl text-foreground mb-3">About This Course</h3>
+                  <p className="text-foreground/70 leading-relaxed">{course.description}</p>
+                </div>
+              )}
 
               {/* Payment Method Selection */}
               <div className="mb-8">

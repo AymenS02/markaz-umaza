@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { 
   Users, Search, Filter, Mail, Calendar, BookOpen, 
   Award, Eye, Trash2, Ban, CheckCircle, X, ArrowUpDown,
-  Download, UserCheck, AlertCircle, Sparkles, MoreVertical
+  Download, UserCheck, AlertCircle, Sparkles, MoreVertical, ArrowLeft
 } from 'lucide-react';
 import { gsap } from 'gsap';
+import Link from 'next/link';
 
 const AdminStudentsPage = () => {
   const pageRef = useRef(null);
@@ -169,6 +170,14 @@ const AdminStudentsPage = () => {
   return (
     <div ref={pageRef} className="min-h-screen bg-gradient-to-b from-background to-card/20 py-20 px-4 mt-42">
       <div className="container mx-auto max-w-7xl">
+        {/* Back Button */}
+        <Link
+          href="/admin"
+          className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-8 group"
+        >
+          <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={20} />
+          Back to Admin Dashboard
+        </Link>
         {/* Header */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

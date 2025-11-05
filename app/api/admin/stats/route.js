@@ -9,7 +9,7 @@ export async function GET() {
     await connectDB();
     
     const [totalStudents, courses, enrollments] = await Promise.all([
-      User.countDocuments({ role: 'USER' }),
+      User.countDocuments({ role: 'STUDENT' }),
       Course.find({}),
       Enrollment.find({}).populate('course')
     ]);

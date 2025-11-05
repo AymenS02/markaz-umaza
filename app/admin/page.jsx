@@ -110,14 +110,14 @@ const AdminDashboard = () => {
       stats: `${stats.pendingPayments} pending`,
       badge: stats.pendingPayments > 0 ? stats.pendingPayments : null
     },
-    {
-      title: 'Analytics',
-      description: 'View detailed reports and insights',
-      icon: BarChart3,
-      color: 'primary',
-      href: '/admin/analytics',
-      stats: 'View reports'
-    }
+    // {
+    //   title: 'Analytics',
+    //   description: 'View detailed reports and insights',
+    //   icon: BarChart3,
+    //   color: 'primary',
+    //   href: '/admin/analytics',
+    //   stats: 'View reports'
+    // }
   ];
 
   const getColorClasses = (color) => {
@@ -181,7 +181,7 @@ const AdminDashboard = () => {
               <h1 className="text-4xl md:text-5xl font-bold text-foreground">
                 Admin Dashboard
               </h1>
-              <p className="text-foreground/60">Welcome back! Here's what's happening.</p>
+              <p className="text-foreground/60">Welcome back! Here&apos;s what&apos;s happening.</p>
             </div>
           </div>
         </div>
@@ -242,7 +242,7 @@ const AdminDashboard = () => {
             <p className="text-foreground/60">Pending Payments</p>
           </div>
 
-          <div className="stat-card bg-card/50 backdrop-blur-sm rounded-2xl border border-secondary/20 p-6 hover:border-secondary/40 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10">
+          {/* <div className="stat-card bg-card/50 backdrop-blur-sm rounded-2xl border border-secondary/20 p-6 hover:border-secondary/40 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10">
             <div className="flex items-start justify-between mb-4">
               <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
                 <Award className="text-secondary" size={24} />
@@ -266,7 +266,7 @@ const AdminDashboard = () => {
             </div>
             <h3 className="text-3xl font-bold text-foreground mb-2">24</h3>
             <p className="text-foreground/60">New This Week</p>
-          </div>
+          </div> */}
         </div>
 
         {/* Quick Actions */}

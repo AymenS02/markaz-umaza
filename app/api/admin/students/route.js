@@ -7,7 +7,7 @@ export async function GET() {
   try {
     await connectDB();
     
-    const students = await User.find({ role: 'USER' }).sort({ createdAt: -1 });
+    const students = await User.find({ role: 'STUDENT' }).sort({ createdAt: -1 });
     
     // Attach enrollments to each student
     const studentsWithEnrollments = await Promise.all(
@@ -17,7 +17,7 @@ export async function GET() {
         
         return {
           _id: student._id,
-          name: student.name,
+          name: student.firstName + ' ' + student.lastName,
           email: student.email,
           phone: student.phone,
           role: student.role,

@@ -1,571 +1,475 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowDown, Sparkles, BookOpen, Users, Award, Clock, CheckCircle, Star, MessageSquare, Play, ArrowRight, Globe, Heart, Brain } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import HeroTextAnimation from './components/HeroTextAnimation'; // adjust path as needed
-
-gsap.registerPlugin(ScrollTrigger);
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, Play, Info, Star, ArrowRight, BookOpen, Users, Trophy, Clock, Zap, Award, Target } from 'lucide-react';
 
 export default function Home() {
-  const textRef = useRef(null);
-  const featuresRef = useRef(null);
-  const statsRef = useRef(null);
-  const coursesRef = useRef(null);
-  const testimonialsRef = useRef(null);
-  const ctaRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   
-  const words = [
-    { en: "Learn Arabic", ar: "تعلم العربية" },
-    { en: "Master Language", ar: "أتقن اللغة" },
-    { en: "Discover Culture", ar: "اكتشف الثقافة" }
+  const heroSlides = [
+    {
+      title: "Learn Arabic",
+      subtitle: "Master the language of the Quran",
+      description: "Join thousands of students worldwide in their journey to Arabic fluency",
+      cta: "Start Learning",
+      ctaLink: "/courses",
+      image: "/assets/hero-1.jpg"
+    },
+    {
+      title: "Expert Instructors",
+      subtitle: "Learn from qualified scholars",
+      description: "Our instructors have years of experience teaching Arabic at all levels",
+      cta: "Meet Our Team",
+      ctaLink: "/instructors",
+      image: "/assets/hero-2.jpg"
+    },
+    {
+      title: "Flexible Learning",
+      subtitle: "Study at your own pace",
+      description: "Access courses anytime, anywhere with our comprehensive online platform",
+      cta: "View Courses",
+      ctaLink: "/courses",
+      image: "/assets/hero-3.jpg"
+    }
   ];
-  const currentIndex = useRef(0);
 
   useEffect(() => {
-    const element = textRef.current;
-    if (!element) return;
-
-    const animateText = () => {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          currentIndex.current = (currentIndex.current + 1) % words.length;
-          animateText();
-        }
-      });
-
-      tl.to(element, {
-        opacity: 0,
-        y: -20,
-        duration: 0.5,
-        ease: "power2.in"
-      })
-      .call(() => {
-        element.textContent = words[currentIndex.current].en;
-      })
-      .to(element, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: "power2.out"
-      })
-      .to(element, {
-        opacity: 1,
-        duration: 1.5
-      })
-      .to(element, {
-        opacity: 0,
-        y: -20,
-        duration: 0.5,
-        ease: "power2.in"
-      })
-      .call(() => {
-        element.textContent = words[currentIndex.current].ar;
-        element.style.direction = 'rtl';
-      })
-      .to(element, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: "power2.out"
-      })
-      .to(element, {
-        opacity: 1,
-        duration: 1.5
-      })
-      .call(() => {
-        element.style.direction = 'ltr';
-      });
-    };
-
-    animateText();
-
-    return () => {
-      gsap.killTweensOf(element);
-    };
+    fetchRecentCourses();
   }, []);
+
+  const fetchRecentCourses = async () => {
+    try {
+      const response = await fetch('/api/courses?limit=4&sort=recent');
+      if (response.ok) {
+        const data = await response.json();
+        setCourses(data);
+      }
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Features animation
-    if (featuresRef.current) {
-      const features = featuresRef.current.querySelectorAll('.feature-card');
-      gsap.fromTo(features, 
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: featuresRef.current,
-            start: "top 80%",
-          }
-        }
-      );
-    }
-
-    // Stats animation
-    if (statsRef.current) {
-      const statItems = statsRef.current.querySelectorAll('.stat-item');
-      gsap.fromTo(statItems,
-        { scale: 0.5, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 80%",
-          }
-        }
-      );
-    }
-
-    // Courses animation
-    if (coursesRef.current) {
-      const courseCards = coursesRef.current.querySelectorAll('.course-card');
-      gsap.fromTo(courseCards,
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: coursesRef.current,
-            start: "top 80%",
-          }
-        }
-      );
-    }
-
-    // Testimonials animation
-    if (testimonialsRef.current) {
-      const testimonialCards = testimonialsRef.current.querySelectorAll('.testimonial-card');
-      gsap.fromTo(testimonialCards,
-        { opacity: 0, scale: 0.8 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: testimonialsRef.current,
-            start: "top 80%",
-          }
-        }
-      );
-    }
-
-    // CTA animation
-    if (ctaRef.current) {
-      gsap.fromTo(ctaRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: "top 80%",
-          }
-        }
-      );
-    }
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6000);
+    return () => clearInterval(timer);
   }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
 
   return (
-    <div className="overflow-hidden pt-20">
-      {/* Hero Section */}
-      <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto px-4 py-12 md:py-24 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-              <div className="space-y-2">
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
-                  <Sparkles className="text-primary animate-pulse" size={24} />
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-                    Transform Your Knowledge
-                  </span>
-                </div>
-                
-<HeroTextAnimation />
-
-                
-                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary">
-                  <span>with</span>
-                  <span className="text-primary">Markaz Umaza</span>
-                </div>
-              </div>
-
-              <p className="text-lg sm:text-xl text-foreground/70 max-w-2xl leading-relaxed">
-                Embark on a transformative journey to master Arabic, deepen your understanding of the Quran, 
-                and connect with authentic Islamic knowledge.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Link
-                  href="/courses"
-                  className="group relative px-8 py-4 bg-primary text-background rounded-full font-semibold text-lg hover:bg-accent hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
-                >
-                  Get Started
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-                
-                <Link
-                  href="/about"
-                  className="px-8 py-4 border-2 border-secondary text-secondary rounded-full font-semibold text-lg hover:bg-secondary hover:text-background transition-all duration-300 hover:scale-105 flex items-center justify-center"
-                >
-                  Learn More
-                </Link>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 mt-8 pt-8 border-t border-primary/20">
-                <div className="text-center lg:text-left">
-                  <div className="text-3xl font-bold text-primary">500+</div>
-                  <div className="text-sm text-foreground/60">Students</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-3xl font-bold text-accent">20+</div>
-                  <div className="text-sm text-foreground/60">Courses</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-3xl font-bold text-secondary">10+</div>
-                  <div className="text-sm text-foreground/60">Instructors</div>
-                </div>
-              </div>
+    <div className="bg-background min-h-screen">
+      {/* Hero Section - Full Screen with Images */}
+      <section className="relative h-screen w-full overflow-hidden">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {/* Background Image with Parallax Effect */}
+            <div className="absolute inset-0">
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-full object-cover scale-105"
+                style={{
+                  transform: index === currentSlide ? 'scale(1)' : 'scale(1.05)',
+                  transition: 'transform 10s ease-out'
+                }}
+              />
+              {/* Dark Overlay with Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
             </div>
+            
+            {/* Content Container */}
+            <div className="relative z-20 container mx-auto px-6 h-full flex items-center">
+              <div className="max-w-3xl">
+                {/* Badge */}
+                <div className={`inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-md border border-primary/30 rounded-full mb-8 transition-all duration-700 delay-300 ${
+                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}>
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                  <span className="text-primary font-bold text-sm tracking-wider uppercase">Premium Education</span>
+                </div>
 
-            <div className="shrink-0 relative">
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-spin-slow"></div>
-                <div className="absolute inset-4 rounded-full border-4 border-accent/20 animate-spin-reverse"></div>
-                <div className="absolute inset-8 bg-linear-to-br from-primary/10 to-secondary/10 rounded-full flex items-center justify-center backdrop-blur-sm shadow-2xl">
-                  <div className="w-48 h-48 relative">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full animate-pulse">
-                      <Image
-                        src="/assets/markaz_umaza_logo_white.svg"
-                        alt="Placeholder"
-                        className="w-full h-full object-contain p-8"
-                        width={320}
-                        height={320}
-                      />
+                {/* Main Title */}
+                <h1 className={`text-6xl md:text-8xl font-black text-foreground mb-6 leading-none transition-all duration-700 delay-500 ${
+                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}>
+                  {slide.title}
+                </h1>
+
+                {/* Accent Line */}
+                <div className={`w-32 h-2 bg-gradient-to-r from-primary via-secondary to-accent mb-6 transition-all duration-700 delay-700 ${
+                  index === currentSlide ? 'opacity-100 w-32' : 'opacity-0 w-0'
+                }`}></div>
+                
+                {/* Subtitle */}
+                <h2 className={`text-3xl md:text-4xl text-primary font-bold mb-6 transition-all duration-700 delay-[900ms] ${
+                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}>
+                  {slide.subtitle}
+                </h2>
+                
+                {/* Description */}
+                <p className={`text-xl md:text-2xl text-foreground/90 leading-relaxed mb-10 max-w-2xl transition-all duration-700 delay-[1100ms] ${
+                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}>
+                  {slide.description}
+                </p>
+                
+                {/* CTA Buttons */}
+                <div className={`flex flex-wrap gap-4 transition-all duration-700 delay-[1300ms] ${
+                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}>
+                  <a
+                    href={slide.ctaLink}
+                    className="group px-10 py-5 bg-primary text-background rounded-xl font-bold text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center gap-3"
+                  >
+                    <Play size={22} className="group-hover:translate-x-1 transition-transform" />
+                    {slide.cta}
+                  </a>
+                  <a
+                    href="/about"
+                    className="px-10 py-5 bg-background/90 backdrop-blur-md border-2 border-foreground/20 text-foreground rounded-xl font-bold text-lg hover:border-primary hover:bg-background transition-all flex items-center gap-3"
+                  >
+                    <Info size={22} />
+                    Learn More
+                  </a>
+                </div>
+
+                {/* Stats Bar */}
+                <div className={`mt-12 flex flex-wrap gap-8 transition-all duration-700 delay-[1500ms] ${
+                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-primary/20 backdrop-blur-md rounded-lg flex items-center justify-center">
+                      <Users className="text-primary" size={24} />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-foreground">150+</div>
+                      <div className="text-sm text-foreground/60">Students</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-secondary/20 backdrop-blur-md rounded-lg flex items-center justify-center">
+                      <BookOpen className="text-secondary" size={24} />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-foreground">5+</div>
+                      <div className="text-sm text-foreground/60">Courses</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-accent/20 backdrop-blur-md rounded-lg flex items-center justify-center">
+                      <Star className="text-accent" size={24} fill="currentColor" />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-foreground">98%</div>
+                      <div className="text-sm text-foreground/60">Satisfaction</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        ))}
 
-      <div className="flex justify-center pb-12 animate-bounce">
-        <div className="flex flex-col items-center gap-2 text-secondary/60 hover:text-primary transition-colors cursor-pointer">
-          <span className="text-sm font-medium">Scroll to explore</span>
-          <ArrowDown size={32} />
-        </div>
-      </div>
-
-      {/* Features Section */}
-      <section ref={featuresRef} className="py-20 bg-linear-to-b from-background to-card/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Why Choose <span className="text-primary">Markaz Umaza</span>
-            </h2>
-            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Experience a comprehensive learning platform designed for your spiritual and linguistic growth
-            </p>
+        {/* Navigation Controls */}
+        <div className="absolute bottom-10 right-10 z-30 flex items-center gap-4">
+          <button
+            onClick={prevSlide}
+            className="w-16 h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center hover:bg-primary hover:text-background hover:border-primary transition-all group"
+          >
+            <ChevronLeft size={28} className="group-hover:-translate-x-0.5 transition-transform" />
+          </button>
+          
+          <div className="flex gap-2">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`transition-all duration-500 ${
+                  index === currentSlide 
+                    ? 'w-16 h-2 bg-primary rounded-full' 
+                    : 'w-2 h-2 bg-foreground/30 rounded-full hover:bg-foreground/50'
+                }`}
+              ></button>
+            ))}
           </div>
+          
+          <button
+            onClick={nextSlide}
+            className="w-16 h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center hover:bg-primary hover:text-background hover:border-primary transition-all group"
+          >
+            <ChevronRight size={28} className="group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 group">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <BookOpen className="text-primary" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Structured Curriculum</h3>
-              <p className="text-foreground/70 leading-relaxed">
-                Follow a carefully designed path from beginner to advanced, with clear milestones and achievements.
-              </p>
-            </div>
-
-            <div className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-secondary/10 hover:border-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Users className="text-secondary" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Expert Instructors</h3>
-              <p className="text-foreground/70 leading-relaxed">
-                Learn from qualified scholars with years of experience in teaching Arabic and Islamic studies.
-              </p>
-            </div>
-
-            <div className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-accent/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 group">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Clock className="text-accent" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Flexible Schedule</h3>
-              <p className="text-foreground/70 leading-relaxed">
-                Study at your own pace with on-demand lessons and live sessions that fit your lifestyle.
-              </p>
-            </div>
-
-            <div className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 group">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Globe className="text-primary" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Interactive Learning</h3>
-              <p className="text-foreground/70 leading-relaxed">
-                Engage with multimedia content, quizzes, and interactive exercises for better retention.
-              </p>
-            </div>
-
-            <div className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-secondary/10 hover:border-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Award className="text-secondary" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Certificates</h3>
-              <p className="text-foreground/70 leading-relaxed">
-                Earn recognized certificates upon course completion to showcase your achievements.
-              </p>
-            </div>
-
-            <div className="feature-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-accent/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 group">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Heart className="text-accent" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Community Support</h3>
-              <p className="text-foreground/70 leading-relaxed">
-                Join a vibrant community of learners, share experiences, and grow together in faith.
-              </p>
-            </div>
-          </div>
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-xs text-foreground/60 font-semibold tracking-wider uppercase">Scroll</span>
+          <div className="w-0.5 h-8 bg-gradient-to-b from-primary to-transparent"></div>
         </div>
       </section>
-
-      {/* Stats Section */}
-      {/* <section ref={statsRef} className="py-20 bg-linear-to-r from-primary/5 via-secondary/5 to-accent/5">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="stat-item text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">500+</div>
-              <div className="text-lg text-foreground/70">Active Students</div>
-            </div>
-            <div className="stat-item text-center">
-              <div className="text-5xl md:text-6xl font-bold text-secondary mb-2">25+</div>
-              <div className="text-lg text-foreground/70">Courses Available</div>
-            </div>
-            <div className="stat-item text-center">
-              <div className="text-5xl md:text-6xl font-bold text-accent mb-2">15+</div>
-              <div className="text-lg text-foreground/70">Expert Instructors</div>
-            </div>
-            <div className="stat-item text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">98%</div>
-              <div className="text-lg text-foreground/70">Satisfaction Rate</div>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* Featured Courses Section */}
-      <section ref={coursesRef} className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-24 px-6 bg-background">
+        <div className="container mx-auto max-w-7xl">
+          {/* Section Header */}
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+                <span className="text-primary font-bold text-sm tracking-wider uppercase">Popular Courses</span>
+              </div>
+              <h2 className="text-5xl font-black text-foreground">Explore Our Courses</h2>
+            </div>
+            <a href="/courses" className="hidden md:flex items-center gap-2 text-primary hover:gap-4 transition-all font-bold">
+              View All <ArrowRight size={20} />
+            </a>
+          </div>
+
+          {loading ? (
+            <div className="text-center text-foreground/60 py-20">Loading courses...</div>
+          ) : courses.length === 0 ? (
+            <div className="text-center text-foreground/60 py-20">No courses found.</div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {courses.map((course, idx) => (
+                  <a
+                    key={course._id}
+                    href={`/courses/${course._id}/enroll`}
+                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2"
+                  >
+                    {/* Course Image/Thumbnail */}
+                    <div className="relative aspect-[4/3] bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 overflow-hidden">
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                      
+                      {/* Badge */}
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1.5 bg-primary text-background text-xs font-black uppercase tracking-wide rounded-lg shadow-lg">
+                          {course.difficultyLevel || 'Beginner'}
+                        </span>
+                      </div>
+
+                      {/* Rating Badge */}
+                      <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-lg">
+                        <Star size={14} fill="currentColor" className="text-accent" />
+                        <span className="font-bold text-foreground text-sm">{course.rating || 5.0}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Course Info */}
+                    <div className="p-6 space-y-4">
+                      <h3 className="font-bold text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2 min-h-[3.5rem]">
+                        {course.title}
+                      </h3>
+                      
+                      {/* Meta Info */}
+                      <div className="flex items-center justify-between text-sm text-foreground/60">
+                        <div className="flex items-center gap-1.5">
+                          <Users size={16} />
+                          <span className="font-semibold">{course.enrolledStudents || 0}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={16} />
+                          <span className="font-semibold">{course.durationWeeks || 0} weeks</span>
+                        </div>
+                      </div>
+                      
+                      {/* Price & Arrow */}
+                      <div className="pt-4 border-t border-foreground/10 flex items-center justify-between">
+                        <div className="text-3xl font-black text-primary">
+                          ${course.price || 0}
+                        </div>
+                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary transition-all">
+                          <ArrowRight size={20} className="text-primary group-hover:text-background group-hover:translate-x-0.5 transition-all" />
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+              
+              <div className="text-center mt-12 md:hidden">
+                <a
+                  href="/courses"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-background rounded-xl font-bold hover:shadow-2xl transition-all"
+                >
+                  View All Courses
+                  <ArrowRight size={20} />
+                </a>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-24 px-6 bg-gradient-to-b from-card/30 to-background">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Featured <span className="text-primary">Courses</span>
-            </h2>
-            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Start your journey with our most popular courses
+            <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-4">
+              <span className="text-secondary font-bold text-sm tracking-wider uppercase">Our Approach</span>
+            </div>
+            <h2 className="text-5xl font-black text-foreground mb-4">Why Students Choose Us</h2>
+            <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
+              Experience a comprehensive learning platform designed for your success
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="course-card group bg-card rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20">
-              <div className="h-48 bg-linear-to-br from-primary/20 to-accent/20 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Brain className="text-primary" size={64} />
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Feature Cards */}
+            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/50 hover:shadow-2xl transition-all">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <BookOpen className="text-background" size={32} />
               </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">Beginner</span>
-                  <span className="px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full">12 Weeks</span>
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  Arabic Fundamentals
-                </h3>
-                <p className="text-foreground/70 mb-4 leading-relaxed">
-                  Master the Arabic alphabet, basic grammar, and essential vocabulary for everyday conversation.
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-accent">
-                    <Star size={18} fill="currentColor" />
-                    <span className="font-semibold">4.9</span>
-                    <span className="text-foreground/60 text-sm">(234)</span>
-                  </div>
-                  <Link href="/courses" className="text-primary font-semibold hover:gap-2 flex items-center gap-1 transition-all">
-                    Enroll Now <ArrowRight size={18} />
-                  </Link>
-                </div>
-              </div>
+              <h3 className="text-2xl font-black text-foreground mb-3">Expert Teachers</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Learn from qualified scholars with decades of combined teaching experience in Arabic language education.
+              </p>
             </div>
 
-            <div className="course-card group bg-card rounded-2xl overflow-hidden border border-secondary/10 hover:border-secondary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/20">
-              <div className="h-48 bg-linear-to-br from-secondary/20 to-primary/20 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <BookOpen className="text-secondary" size={64} />
-                </div>
+            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/50 hover:shadow-2xl transition-all">
+              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Zap className="text-background" size={32} />
               </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full">Intermediate</span>
-                  <span className="px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full">16 Weeks</span>
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-secondary transition-colors">
-                  Quranic Arabic
-                </h3>
-                <p className="text-foreground/70 mb-4 leading-relaxed">
-                  Understand the language of the Quran with detailed grammar analysis and vocabulary building.
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-accent">
-                    <Star size={18} fill="currentColor" />
-                    <span className="font-semibold">5.0</span>
-                    <span className="text-foreground/60 text-sm">(189)</span>
-                  </div>
-                  <Link href="/courses" className="text-secondary font-semibold hover:gap-2 flex items-center gap-1 transition-all">
-                    Enroll Now <ArrowRight size={18} />
-                  </Link>
-                </div>
-              </div>
+              <h3 className="text-2xl font-black text-foreground mb-3">Fast Progress</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Our proven methodology helps students achieve fluency faster with structured lessons and practice.
+              </p>
             </div>
 
-            <div className="course-card group bg-card rounded-2xl overflow-hidden border border-accent/10 hover:border-accent/30 transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20">
-              <div className="h-48 bg-linear-to-br from-accent/20 to-secondary/20 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Award className="text-accent" size={64} />
-                </div>
+            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/50 hover:shadow-2xl transition-all">
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Clock className="text-background" size={32} />
               </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">Advanced</span>
-                  <span className="px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full">20 Weeks</span>
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
-                  Classical Arabic Literature
-                </h3>
-                <p className="text-foreground/70 mb-4 leading-relaxed">
-                  Explore classical texts, poetry, and advanced linguistic concepts for mastery.
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-accent">
-                    <Star size={18} fill="currentColor" />
-                    <span className="font-semibold">4.8</span>
-                    <span className="text-foreground/60 text-sm">(156)</span>
-                  </div>
-                  <Link href="/courses" className="text-accent font-semibold hover:gap-2 flex items-center gap-1 transition-all">
-                    Enroll Now <ArrowRight size={18} />
-                  </Link>
-                </div>
-              </div>
+              <h3 className="text-2xl font-black text-foreground mb-3">Flexible Schedule</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Study whenever and wherever suits you with 24/7 access to all course materials and resources.
+              </p>
             </div>
-          </div>
 
-          <div className="text-center mt-12">
-            <Link
-              href="/courses"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-background rounded-full font-semibold text-lg hover:bg-primary hover:shadow-lg hover:shadow-secondary/30 transition-all duration-300 hover:scale-105"
-            >
-              View All Courses
-              <ArrowRight size={20} />
-            </Link>
+            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/50 hover:shadow-2xl transition-all">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Users className="text-background" size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-foreground mb-3">Active Community</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Join a vibrant community of learners who support and motivate each other throughout the journey.
+              </p>
+            </div>
+
+            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/50 hover:shadow-2xl transition-all">
+              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Trophy className="text-background" size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-foreground mb-3">Proven Results</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                98% of our students successfully achieve their learning goals and gain Arabic proficiency.
+              </p>
+            </div>
+
+            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/50 hover:shadow-2xl transition-all">
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Award className="text-background" size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-foreground mb-3">Certification</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Earn recognized certificates upon course completion to showcase your Arabic language skills.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section ref={testimonialsRef} className="py-20 bg-linear-to-b from-card/20 to-background">
-        <div className="container mx-auto px-4">
+      {/* Testimonials */}
+      <section className="py-24 px-6 bg-background">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              What Our <span className="text-primary">Students Say</span>
-            </h2>
-            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Real experiences from our learning community
+            <div className="inline-block px-4 py-2 bg-accent/10 rounded-full mb-4">
+              <span className="text-accent font-bold text-sm tracking-wider uppercase">Success Stories</span>
+            </div>
+            <h2 className="text-5xl font-black text-foreground mb-4">What Students Say</h2>
+            <p className="text-xl text-foreground/60 max-w-2xl mx-auto">
+              Hear from learners who transformed their Arabic skills with us
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="testimonial-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-300">
-              <div className="flex items-center gap-1 text-accent mb-4">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Testimonial Cards */}
+            <div className="bg-gradient-to-br from-card to-card/50 border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/30 hover:shadow-xl transition-all">
+              <div className="flex items-center gap-1 text-accent mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={20} fill="currentColor" />
                 ))}
               </div>
-              <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                &quot;The structured approach and supportive community made learning Arabic enjoyable and effective. I&apos;ve made incredible progress in just a few months!&quot;
+              <p className="text-foreground/90 text-lg mb-8 leading-relaxed italic">
+                "The structured approach made learning Arabic enjoyable and effective. I've made incredible progress!"
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
                   AH
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Ahmed Hassan</div>
-                  <div className="text-sm text-foreground/60">Software Engineer</div>
+                  <div className="font-black text-foreground">Ahmed Hassan</div>
+                  <div className="text-sm text-foreground/60 font-semibold">Software Engineer</div>
                 </div>
               </div>
             </div>
 
-            <div className="testimonial-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-secondary/10 hover:border-secondary/30 transition-all duration-300">
-              <div className="flex items-center gap-1 text-accent mb-4">
+            <div className="bg-gradient-to-br from-card to-card/50 border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/30 hover:shadow-xl transition-all">
+              <div className="flex items-center gap-1 text-accent mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={20} fill="currentColor" />
                 ))}
               </div>
-              <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                &quot;As a mother of three, the flexible schedule was perfect for me. The instructors are patient and knowledgeable. Highly recommend!&quot;
+              <p className="text-foreground/90 text-lg mb-8 leading-relaxed italic">
+                "Perfect for my busy schedule. The instructors are patient, knowledgeable, and truly dedicated."
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center font-bold text-secondary">
+                <div className="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
                   FZ
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Fatima Zahra</div>
-                  <div className="text-sm text-foreground/60">Home Educator</div>
+                  <div className="font-black text-foreground">Fatima Zahra</div>
+                  <div className="text-sm text-foreground/60 font-semibold">Home Educator</div>
                 </div>
               </div>
             </div>
 
-            <div className="testimonial-card bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-accent/10 hover:border-accent/30 transition-all duration-300">
-              <div className="flex items-center gap-1 text-accent mb-4">
+            <div className="bg-gradient-to-br from-card to-card/50 border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/30 hover:shadow-xl transition-all">
+              <div className="flex items-center gap-1 text-accent mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={20} fill="currentColor" />
                 ))}
               </div>
-              <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                &quot;The Quranic Arabic course deepened my understanding of the Quran tremendously. The teachers explain complex concepts with clarity.&quot;
+              <p className="text-foreground/90 text-lg mb-8 leading-relaxed italic">
+                "Deepened my understanding tremendously. Complex concepts explained with remarkable clarity."
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center font-bold text-accent">
+                <div className="w-14 h-14 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
                   YA
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Yusuf Ali</div>
-                  <div className="text-sm text-foreground/60">Medical Student</div>
+                  <div className="font-black text-foreground">Yusuf Ali</div>
+                  <div className="text-sm text-foreground/60 font-semibold">Medical Student</div>
                 </div>
               </div>
             </div>
@@ -574,285 +478,66 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section ref={ctaRef} className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-r from-primary via-accent to-secondary opacity-10"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Ready to Begin Your <span className="text-primary">Journey?</span>
+      <section className="py-24 px-6 bg-gradient-to-b from-card/30 to-background relative overflow-hidden">
+        {/* Background Decoration */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto max-w-5xl relative">
+          <div className="text-center">
+            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
+              <span className="text-primary font-bold text-sm tracking-wider uppercase">Join Today</span>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-black text-foreground mb-6">
+              Ready to Start Your<br />Arabic Journey?
             </h2>
-            <p className="text-xl text-foreground/70 mb-10 leading-relaxed">
-              Join thousands of students worldwide in mastering Arabic and deepening your connection with Islamic knowledge.
+            
+            <p className="text-xl text-foreground/60 mb-12 max-w-2xl mx-auto">
+              Transform your future by mastering Arabic. Join thousands of successful students worldwide.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
-              <Link
+            <div className="flex flex-wrap justify-center gap-4 mb-16">
+              <a
                 href="/register"
-                className="group px-10 py-5 bg-primary text-background rounded-full font-bold text-xl hover:bg-accent hover:shadow-2xl hover:shadow-primary/40 transition-all duration-300 hover:scale-110 flex items-center gap-3"
+                className="group px-12 py-6 bg-primary text-background rounded-xl font-black text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center gap-3"
               >
-                Start Learning Today
-                <ArrowRight className="group-hover:translate-x-2 transition-transform" size={24} />
-              </Link>
-              
-              <Link
+                <Play size={24} className="group-hover:translate-x-1 transition-transform" />
+                Start Learning Now
+              </a>
+              <a
                 href="/courses"
-                className="px-10 py-5 border-3 border-secondary text-secondary rounded-full font-bold text-xl hover:bg-secondary hover:text-background transition-all duration-300 hover:scale-110 flex items-center gap-3"
+                className="px-12 py-6 bg-card border-2 border-foreground/20 text-foreground rounded-xl font-black text-lg hover:border-primary hover:text-primary transition-all flex items-center gap-3"
               >
-                <Play size={24} />
                 Explore Courses
-              </Link>
+                <ArrowRight size={24} />
+              </a>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-8 text-foreground/60">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="text-primary" size={24} />
-                <span>No Credit Card Required</span>
+            {/* Trust Bar */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t-2 border-foreground/10">
+              <div className="text-center">
+                <div className="text-4xl font-black text-primary mb-2">150+</div>
+                <div className="text-foreground/60 font-bold">Students</div>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="text-primary" size={24} />
-                <span>Free Trial Available</span>
+              <div className="text-center">
+                <div className="text-4xl font-black text-secondary mb-2">5+</div>
+                <div className="text-foreground/60 font-bold">Courses</div>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="text-primary" size={24} />
-                <span>Cancel Anytime</span>
+              <div className="text-center">
+                <div className="text-4xl font-black text-accent mb-2">2+</div>
+                <div className="text-foreground/60 font-bold">Instructors</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-black text-primary mb-2">98%</div>
+                <div className="text-foreground/60 font-bold">Satisfaction</div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Why Arabic Section */}
-      <section className="py-20 bg-linear-to-b from-background to-card/20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-linear-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl"></div>
-                <div className="relative bg-card/80 backdrop-blur-sm p-8 rounded-2xl border border-primary/20">
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                        <CheckCircle className="text-primary" size={24} />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-lg text-foreground mb-2">Understand the Quran</h4>
-                        <p className="text-foreground/70">Connect directly with the words of Allah without translation barriers.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
-                        <CheckCircle className="text-secondary" size={24} />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-lg text-foreground mb-2">Access Classical Texts</h4>
-                        <p className="text-foreground/70">Read authentic Islamic literature and scholarly works in their original form.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
-                        <CheckCircle className="text-accent" size={24} />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-lg text-foreground mb-2">Connect with Heritage</h4>
-                        <p className="text-foreground/70">Bridge the gap with your cultural and religious roots through language.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 group hover:translate-x-2 transition-transform">
-                      <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                        <CheckCircle className="text-primary" size={24} />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-lg text-foreground mb-2">Enhance Your Prayers</h4>
-                        <p className="text-foreground/70">Deepen your khushu by understanding every word you recite in salah.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-2 h-12 bg-primary rounded-full"></div>
-                <span className="text-primary font-semibold uppercase tracking-wider">The Power of Arabic</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Why Learn <span className="text-primary">Arabic?</span>
-              </h2>
-              <p className="text-xl text-foreground/70 leading-relaxed mb-6">
-                Arabic is not just a language—it&apos;s the key to unlocking a deeper understanding of Islam, 
-                the Quran, and centuries of Islamic scholarship and wisdom.
-              </p>
-              <p className="text-lg text-foreground/60 leading-relaxed mb-8">
-                Whether you want to recite the Quran with proper tajweed, understand Islamic lectures, 
-                or connect with Arabic-speaking communities, our comprehensive courses will guide you every step of the way.
-              </p>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 text-primary font-semibold text-lg hover:gap-4 transition-all group"
-              >
-                Learn More About Our Mission
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Learning Process Section */}
-      <section className="py-20 bg-linear-to-r from-primary/5 via-transparent to-secondary/5">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Your Learning <span className="text-primary">Journey</span>
-            </h2>
-            <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              A simple, proven path to Arabic mastery
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-            {/* Connecting line for desktop */}
-            <div className="hidden md:block absolute top-16 left-0 right-0 h-1 bg-linear-to-r from-primary via-secondary to-accent opacity-20"></div>
-
-            <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-linear-to-br from-primary to-accent rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform relative z-10">
-                <span className="text-5xl font-bold text-background">1</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Sign Up</h3>
-              <p className="text-foreground/70">Create your free account and explore our course catalog</p>
-            </div>
-
-            <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-linear-to-br from-secondary to-primary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-secondary/30 group-hover:scale-110 transition-transform relative z-10">
-                <span className="text-5xl font-bold text-background">2</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Choose Course</h3>
-              <p className="text-foreground/70">Select courses that match your level and goals</p>
-            </div>
-
-            <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-linear-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-accent/30 group-hover:scale-110 transition-transform relative z-10">
-                <span className="text-5xl font-bold text-background">3</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Learn & Practice</h3>
-              <p className="text-foreground/70">Follow structured lessons with interactive exercises</p>
-            </div>
-
-            <div className="relative text-center group">
-              <div className="w-32 h-32 mx-auto bg-linear-to-br from-primary via-accent to-secondary rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform relative z-10">
-                <span className="text-5xl font-bold text-background">4</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Achieve Mastery</h3>
-              <p className="text-foreground/70">Earn certificates and unlock advanced content</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Preview Section */}
-      <section className="py-20 bg-card/20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Frequently Asked <span className="text-primary">Questions</span>
-              </h2>
-              <p className="text-xl text-foreground/70">
-                Quick answers to common questions
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <details className="group bg-card/50 backdrop-blur-sm rounded-2xl border border-primary/10 hover:border-primary/30 transition-all overflow-hidden">
-                <summary className="px-6 py-5 cursor-pointer font-semibold text-lg text-foreground flex items-center justify-between list-none">
-                  <span>Do I need any prior knowledge of Arabic?</span>
-                  <ArrowDown className="group-open:rotate-180 transition-transform text-primary" size={24} />
-                </summary>
-                <div className="px-6 pb-5 text-foreground/70 leading-relaxed">
-                  No prior knowledge is required! Our beginner courses start from the very basics, teaching you the Arabic alphabet, 
-                  pronunciation, and fundamental grammar. We guide you step-by-step from zero to fluency.
-                </div>
-              </details>
-
-              <details className="group bg-card/50 backdrop-blur-sm rounded-2xl border border-secondary/10 hover:border-secondary/30 transition-all overflow-hidden">
-                <summary className="px-6 py-5 cursor-pointer font-semibold text-lg text-foreground flex items-center justify-between list-none">
-                  <span>How long does it take to complete a course?</span>
-                  <ArrowDown className="group-open:rotate-180 transition-transform text-secondary" size={24} />
-                </summary>
-                <div className="px-6 pb-5 text-foreground/70 leading-relaxed">
-                  Course duration varies from 8 to 20 weeks depending on the level and intensity. However, you can learn at your own pace—
-                  all courses remain accessible, and you can take as much time as you need to master the material.
-                </div>
-              </details>
-
-              <details className="group bg-card/50 backdrop-blur-sm rounded-2xl border border-accent/10 hover:border-accent/30 transition-all overflow-hidden">
-                <summary className="px-6 py-5 cursor-pointer font-semibold text-lg text-foreground flex items-center justify-between list-none">
-                  <span>Are the courses taught live or pre-recorded?</span>
-                  <ArrowDown className="group-open:rotate-180 transition-transform text-accent" size={24} />
-                </summary>
-                <div className="px-6 pb-5 text-foreground/70 leading-relaxed">
-                  We offer both! You get access to high-quality pre-recorded lessons that you can watch anytime, plus optional live sessions 
-                  with instructors for real-time interaction, Q&A, and personalized feedback.
-                </div>
-              </details>
-
-              <details className="group bg-card/50 backdrop-blur-sm rounded-2xl border border-primary/10 hover:border-primary/30 transition-all overflow-hidden">
-                <summary className="px-6 py-5 cursor-pointer font-semibold text-lg text-foreground flex items-center justify-between list-none">
-                  <span>Will I receive a certificate?</span>
-                  <ArrowDown className="group-open:rotate-180 transition-transform text-primary" size={24} />
-                </summary>
-                <div className="px-6 pb-5 text-foreground/70 leading-relaxed">
-                  Yes! Upon successful completion of each course, you&apos;ll receive a certificate of completion that you can download and share. 
-                  These certificates demonstrate your commitment and achievement in Arabic language studies.
-                </div>0
-              </details>
-            </div>
-
-            <div className="text-center mt-10">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-primary font-semibold text-lg hover:gap-4 transition-all"
-              >
-                Have more questions? Contact us
-                <MessageSquare size={20} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <style jsx global>{`
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-        @keyframes spin-reverse {
-          from { transform: rotate(360deg); }
-          to { transform: rotate(0deg); }
-        }
-        
-        .animate-gradient {
-          animation: gradient 3s ease infinite;
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .animate-spin-reverse {
-          animation: spin-reverse 15s linear infinite;
-        }
-      `}</style>
     </div>
   );
 }

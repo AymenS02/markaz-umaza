@@ -177,7 +177,7 @@ const CoursesPage = () => {
   }
 
   return (
-    <div className='overflow-hidden min-h-screen bg-gradient-to-b from-background to-card/20 pt-32'>
+    <div className='overflow-hidden min-h-screen bg-gradient-to-b from-background to-card/20 pt-32 mt-42'>
       {/* Header */}
       <div ref={headerRef} className='relative pb-12'>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/middleware/auth';
-import connectDB from '@/lib/mongodb';
-import Course from '@/models/Course';
-import Enrollment from '@/models/Enrollment';
+import connectDB from '../../../../lib/config/db';
+import Course from '@/lib/models/courseSchema';
+import Enrollment from '@/lib/models/enrollmentSchema';
 
 export async function POST(request) {
   try {
