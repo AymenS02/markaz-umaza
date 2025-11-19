@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { 
   BookOpen, Clock, Users, Star, Calendar, Award,
   Sparkles, Filter, Search, ArrowRight, Play, Lock,
-  BadgeCheck, Zap
+  BadgeCheck, Zap, LayoutDashboard
 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -21,6 +21,7 @@ const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [enrollments, setEnrollments] = useState([]); // Store user's enrollments
   
   const headerRef = useRef(null);
   const tabsRef = useRef(null);
@@ -68,7 +69,10 @@ const CoursesPage = () => {
   const checkAuth = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) return;
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
       const response = await fetch('/api/auth/me', {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -78,11 +82,28 @@ const CoursesPage = () => {
         const userData = await response.json();
         setUser(userData);
         setIsAuthenticated(true);
+        // Fetch user's enrollments
+        await fetchEnrollments(token);
       } else {
         localStorage.removeItem('token');
       }
     } catch (error) {
       console.error('Auth check failed:', error);
+    }
+  };
+
+  const fetchEnrollments = async (token) => {
+    try {
+      const response = await fetch('/api/enrollments/my-enrollments', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setEnrollments(data);
+      }
+    } catch (error) {
+      console.error('Error fetching enrollments:', error);
     }
   };
 
@@ -101,7 +122,33 @@ const CoursesPage = () => {
   };
 
   const handleEnroll = (courseId) => {
+    if (!isAuthenticated) {
+      router.push(`/login?redirect=/courses/${courseId}/enroll`);
+      return;
+    }
     router.push(`/courses/${courseId}/enroll`);
+  };
+
+  const handleDashboard = (courseId) => {
+    router.push(`/courses/${courseId}/dashboard`);
+  };
+
+  // Check if user is enrolled and get enrollment status
+  const getEnrollmentStatus = (courseId) => {
+    if (!isAuthenticated || !enrollments.length) return null;
+    
+    const enrollment = enrollments.find(e => e.course._id === courseId || e.course === courseId);
+    return enrollment || null;
+  };
+
+  const isUserApproved = (courseId) => {
+    const enrollment = getEnrollmentStatus(courseId);
+    return enrollment && enrollment.status === 'active';
+  };
+
+  const isUserPending = (courseId) => {
+    const enrollment = getEnrollmentStatus(courseId);
+    return enrollment && enrollment.status === 'pending_payment';
   };
 
   // --- Fixed course status logic ---
@@ -162,8 +209,6 @@ const CoursesPage = () => {
       year: 'numeric' 
     });
   };
-
-  const isUserEnrolled = (courseId) => false;
 
   if (loading) {
     return (
@@ -291,7 +336,9 @@ const CoursesPage = () => {
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
             {filteredCourses.map((course, index) => {
-              const isEnrolled = isUserEnrolled(course._id);
+              const isApproved = isUserApproved(course._id);
+              const isPending = isUserPending(course._id);
+              
               return (
                 <div key={course._id} className='course-card group'>
                   <div className='h-full bg-card backdrop-blur-sm rounded-2xl border-2 border-foreground/10 hover:border-primary/40 transition-all duration-500 overflow-hidden hover:shadow-xl flex flex-col'>
@@ -303,12 +350,16 @@ const CoursesPage = () => {
                           <span className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 ${getLevelColor(course.difficultyLevel)}`}>
                             {course.difficultyLevel}
                           </span>
-                          {course.enrolledStudents > 0 && (
-                            <div className='flex items-center gap-1 bg-background/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-foreground/10'>
-                              <Star size={14} fill="currentColor" className='text-accent' />
-                              <span className='text-sm font-bold text-foreground'>
-                                {course.enrolledStudents}
-                              </span>
+                          {isApproved && (
+                            <div className='flex items-center gap-1 bg-success/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-success/30'>
+                              <BadgeCheck size={14} className='text-background' />
+                              <span className='text-xs font-bold text-background'>Enrolled</span>
+                            </div>
+                          )}
+                          {isPending && (
+                            <div className='flex items-center gap-1 bg-warning/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-warning/30'>
+                              <Clock size={14} className='text-background' />
+                              <span className='text-xs font-bold text-background'>Pending</span>
                             </div>
                           )}
                         </div>
@@ -354,13 +405,22 @@ const CoursesPage = () => {
                       <div className='flex items-center justify-between gap-3 mt-auto'>
                         <span className='text-3xl font-black text-primary'>{formatPrice(course.price)}</span>
                         
-                        {activeTab === 'current' && isEnrolled ? (
+                        {/* Show Dashboard button if approved */}
+                        {isApproved ? (
                           <button
-                            onClick={() => handleEnroll(course._id)}
-                            className='flex-1 px-6 py-3 bg-primary text-background rounded-full font-bold hover:bg-accent hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2'
+                            onClick={() => handleDashboard(course._id)}
+                            className='flex-1 px-6 py-3 bg-success text-background rounded-full font-bold hover:bg-success/90 hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2'
                           >
-                            Continue
-                            <ArrowRight size={18} />
+                            <LayoutDashboard size={18} />
+                            Dashboard
+                          </button>
+                        ) : isPending ? (
+                          <button
+                            disabled
+                            className='flex-1 px-6 py-3 bg-warning/20 text-warning rounded-full font-bold cursor-not-allowed flex items-center justify-center gap-2 border-2 border-warning/30'
+                          >
+                            <Clock size={18} />
+                            Pending Approval
                           </button>
                         ) : activeTab === 'past' ? (
                           <button

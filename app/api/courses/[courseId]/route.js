@@ -1,3 +1,4 @@
+// app/api/courses/[courseId]/route.js
 import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/config/db';
 import Course from '@/lib/models/courseSchema';
@@ -5,9 +6,9 @@ import Course from '@/lib/models/courseSchema';
 export async function GET(request, { params }) {
   try {
     await connectDB();
-    const { id } = await params;
+    const { courseId } = await params;  // ← Changed from id to courseId
     
-    const course = await Course.findById(id);
+    const course = await Course.findById(courseId);
     
     if (!course) {
       return NextResponse.json(

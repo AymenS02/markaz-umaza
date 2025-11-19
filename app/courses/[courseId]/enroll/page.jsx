@@ -14,7 +14,8 @@ import { authClient } from '@/lib/auth-client';
 const CourseEnrollmentPage = () => {
   const router = useRouter();
   const params = useParams();
-  const courseId = params?.id;
+  // Change from params?.id to params?.courseId
+  const courseId = params?.courseId;
   
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
@@ -30,7 +31,9 @@ const CourseEnrollmentPage = () => {
   const formRef = useRef(null);
 
   useEffect(() => {
-    checkAuthAndLoadCourse();
+    if (courseId) {
+      checkAuthAndLoadCourse();
+    }
   }, [courseId]);
 
   useEffect(() => {
@@ -65,10 +68,12 @@ const CourseEnrollmentPage = () => {
       const courseResponse = await fetch(`/api/courses/${courseId}`);
       
       if (!courseResponse.ok) {
+        console.error('Course fetch failed:', courseResponse.status);
         throw new Error('Course not found');
       }
       
       const courseData = await courseResponse.json();
+      console.log('Course data loaded:', courseData);
       setCourse(courseData);
       
     } catch (error) {
@@ -89,7 +94,7 @@ const CourseEnrollmentPage = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await authClient.fetchWithAuth('/api/enrollment/etransfer', {
+      const response = await authClient.fetchWithAuth('/api/enrollments/etransfer', {
         method: 'POST',
         body: JSON.stringify({
           courseId: course._id,
