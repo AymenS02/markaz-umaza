@@ -1,6 +1,25 @@
 @import "tailwindcss";
 
 @theme {
+   
+  /* Core Brand Colors - adjusted for dark mode */
+  --color-primary: hsl(43, 95%, 72%);  
+  --color-secondary: hsl(157, 20%, 75%); 
+  --color-accent: hsl(81, 25%, 85%);     
+
+  /* Backgrounds & Surfaces */
+  --color-background: hsl(120, 2%, 10%);  /* near #242423 */
+  --color-foreground: hsl(81, 29%, 90%);  /* E8EDDF */
+  --color-card: hsl(120, 2%, 14%);        /* 242423 */
+
+  /* Status Colors - boosted for dark mode */
+  --color-success: hsl(120, 45%, 55%);
+  --color-warning: hsl(43, 95%, 70%);
+  --color-error: hsl(0, 80%, 65%);
+  --color-info: hsl(200, 75%, 65%);
+}
+
+.light {
 
   /* Core Brand Colors */
   --color-primary: hsl(43, 89%, 47%);     /* F5CB5C - golden yellow */
@@ -16,7 +35,7 @@
   --color-success: hsl(120, 35%, 45%);  
   --color-warning: hsl(43, 89%, 60%);   /* slightly stronger primary */
   --color-error: hsl(0, 70%, 55%);      
-  --color-info: hsl(200, 60%, 50%);      
+  --color-info: hsl(200, 60%, 50%);   
 
 }
 
@@ -39,6 +58,7 @@
   --color-info: hsl(200, 75%, 65%);
 
 }
+
 /* === TYPOGRAPHY === */
 body {
   font-family: var(--font-old-standard);
@@ -52,23 +72,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Hero gradient overlays - only visible in dark mode */
+.light .hero-gradient-horizontal {
+  background: transparent;
+}
+
+.light .hero-gradient-vertical {
+  background: transparent;
+}
+
 .hero-gradient-horizontal {
-  background: transparent;
-}
-
-.hero-gradient-vertical {
-  background: transparent;
-}
-
-.dark .hero-gradient-horizontal {
   background: linear-gradient(to right, var(--color-background), hsla(from var(--color-background) h s l / 0.95), hsla(from var(--color-background) h s l / 0.3));
 }
 
-.dark .hero-gradient-vertical {
+.hero-gradient-vertical {
   background: linear-gradient(to top, hsla(from var(--color-background) h s l / 0.8), transparent, transparent);
 }
 
-.container-box {
+.light .container-box {
   background-color: rgb(179 204 194 / 0.9);
   padding-top: 2rem;     /* py-8 */
   padding-bottom: 2rem;
@@ -81,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
   border-color: hsl(var(--color-primary));
 }
 
-.dark .container-box {
+.container-box {
   background-color: transparent;
   border-color: transparent;
   box-shadow: none;
