@@ -8,7 +8,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className='bg-card border-t border-primary/20 text-foreground py-12'>
+    <footer className='bg-background border-t border-primary/20 text-foreground py-12'>
       <div className='max-w-7xl mx-auto px-6'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-12 items-start'>
           
@@ -26,7 +26,7 @@ const Footer = () => {
               </div>
               <h2 className='text-2xl font-bold text-primary'>Markaz Umaza</h2>
             </div>
-            <p className='text-secondary text-sm leading-relaxed'>
+            <p className='text-foreground text-sm leading-relaxed'>
               Awakening curiosity and understanding through the Arabic language.
             </p>
             <p className='text-foreground/60 text-xs mt-2'>
@@ -40,7 +40,7 @@ const Footer = () => {
             
             <a 
               href="tel:+12894569089" 
-              className='flex items-center gap-3 text-secondary hover:text-primary transition-colors duration-300 group'
+              className='flex items-center gap-3 text-foreground hover:text-primary transition-colors duration-300 group'
             >
               <div className='w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors'>
                 <Phone size={16} className='group-hover:scale-110 transition-transform' />
@@ -52,7 +52,7 @@ const Footer = () => {
               href="https://wa.me/12894569089" 
               target="_blank"
               rel="noopener noreferrer"
-              className='flex items-center gap-3 text-secondary hover:text-primary transition-colors duration-300 group'
+              className='flex items-center gap-3 text-foreground hover:text-primary transition-colors duration-300 group'
             >
               <div className='w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors'>
                 <MessageCircle size={16} className='group-hover:scale-110 transition-transform' />
@@ -62,7 +62,7 @@ const Footer = () => {
 
             <a 
               href="mailto:m.saleem@markazumaza.com" 
-              className='flex items-center gap-3 text-secondary hover:text-primary transition-colors duration-300 group'
+              className='flex items-center gap-3 text-foreground hover:text-primary transition-colors duration-300 group'
             >
               <div className='w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors'>
                 <Mail size={16} className='group-hover:scale-110 transition-transform' />
@@ -111,7 +111,7 @@ const Footer = () => {
                 href="https://instagram.com/markazumaza" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-accent/20 flex items-center justify-center text-secondary hover:text-accent transition-all duration-300 hover:scale-110'
+                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-accent/20 flex items-center justify-center text-foreground hover:text-accent transition-all duration-300 hover:scale-110'
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
@@ -121,7 +121,7 @@ const Footer = () => {
                 href="https://youtube.com/@markazumaza" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-error/20 flex items-center justify-center text-secondary hover:text-error transition-all duration-300 hover:scale-110'
+                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-error/20 flex items-center justify-center text-foreground hover:text-error transition-all duration-300 hover:scale-110'
                 aria-label="YouTube"
               >
                 <Youtube size={20} />
@@ -130,7 +130,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div className='mt-4'>
-              <h4 className='text-sm font-semibold text-secondary mb-3'>Quick Links</h4>
+              <h4 className='text-sm font-semibold text-foreground mb-3'>Quick Links</h4>
               <div className='flex flex-col gap-2'>
                 <Link 
                   href="/instructors" 
