@@ -90,7 +90,7 @@ export default function Home() {
                   transition: 'transform 10s ease-out'
                 }}
               />
-              {/* Dark Overlay with Gradient */}
+              {/* Dark Overlay with Gradient - Restored */}
               <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/30"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
             </div>
@@ -102,7 +102,7 @@ export default function Home() {
                 <div className={`inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-md border border-primary/30 rounded-full mb-8 transition-all duration-700 delay-300 ${
                   index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}>
-                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full"></div>
                   <span className="text-primary font-bold text-sm tracking-wider uppercase">Premium Education</span>
                 </div>
 
@@ -114,7 +114,7 @@ export default function Home() {
                 </h1>
 
                 {/* Accent Line */}
-                <div className={`w-32 h-2 bg-gradient-to-r from-primary via-secondary to-accent mb-6 transition-all duration-700 delay-700 ${
+                <div className={`w-32 h-2 bg-primary mb-6 transition-all duration-700 delay-700 ${
                   index === currentSlide ? 'opacity-100 w-32' : 'opacity-0 w-0'
                 }`}></div>
                 
@@ -138,7 +138,7 @@ export default function Home() {
                 }`}>
                   <a
                     href={slide.ctaLink}
-                    className="group px-10 py-5 bg-primary text-background rounded-xl font-bold text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center gap-3"
+                    className="group px-10 py-5 bg-primary text-background rounded-xl font-bold text-lg shadow-xl hover:scale-105 transition-all flex items-center gap-3"
                   >
                     <Play size={22} className="group-hover:translate-x-1 transition-transform" />
                     {slide.cta}
@@ -223,7 +223,7 @@ export default function Home() {
         {/* Scroll Indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 animate-bounce">
           <span className="text-xs text-foreground/60 font-semibold tracking-wider uppercase">Scroll</span>
-          <div className="w-0.5 h-8 bg-gradient-to-b from-primary to-transparent"></div>
+          <div className="w-0.5 h-8 bg-primary"></div>
         </div>
       </section>
 
@@ -254,22 +254,22 @@ export default function Home() {
                   <a
                     key={course._id}
                     href={`/courses/${course._id}/enroll`}
-                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2"
+                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Course Image/Thumbnail */}
-                    <div className="relative aspect-[4/3] bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 overflow-hidden">
+                    <div className="relative aspect-[4/3] bg-primary/20 overflow-hidden">
                       {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                      <div className="absolute inset-0 bg-background/80"></div>
                       
                       {/* Badge */}
-                      <div className="absolute top-4 left-4">
+                      <div className="absolute top-4 left-4 z-10">
                         <span className="px-3 py-1.5 bg-primary text-background text-xs font-black uppercase tracking-wide rounded-lg shadow-lg">
                           {course.difficultyLevel || 'Beginner'}
                         </span>
                       </div>
 
                       {/* Rating Badge */}
-                      <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-lg">
+                      <div className="absolute top-4 right-4 z-10 flex items-center gap-1 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-lg">
                         <Star size={14} fill="currentColor" className="text-accent" />
                         <span className="font-bold text-foreground text-sm">{course.rating || 5.0}</span>
                       </div>
@@ -310,7 +310,7 @@ export default function Home() {
               <div className="text-center mt-12 md:hidden">
                 <a
                   href="/courses"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-background rounded-xl font-bold hover:shadow-2xl transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-background rounded-xl font-bold hover:shadow-xl transition-all"
                 >
                   View All Courses
                   <ArrowRight size={20} />
@@ -322,7 +322,7 @@ export default function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 px-6 bg-gradient-to-b from-card/30 to-background">
+      <section className="py-24 px-6 bg-card">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-secondary/10 rounded-full mb-4">
@@ -336,8 +336,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Feature Cards */}
-            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/50 hover:shadow-2xl transition-all">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/50 hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <BookOpen className="text-background" size={32} />
               </div>
               <h3 className="text-2xl font-black text-foreground mb-3">Expert Teachers</h3>
@@ -346,8 +346,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/50 hover:shadow-2xl transition-all">
-              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/50 hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Zap className="text-background" size={32} />
               </div>
               <h3 className="text-2xl font-black text-foreground mb-3">Fast Progress</h3>
@@ -356,8 +356,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/50 hover:shadow-2xl transition-all">
-              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/50 hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Clock className="text-background" size={32} />
               </div>
               <h3 className="text-2xl font-black text-foreground mb-3">Flexible Schedule</h3>
@@ -366,8 +366,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/50 hover:shadow-2xl transition-all">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/50 hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Users className="text-background" size={32} />
               </div>
               <h3 className="text-2xl font-black text-foreground mb-3">Active Community</h3>
@@ -376,8 +376,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/50 hover:shadow-2xl transition-all">
-              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/50 hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Trophy className="text-background" size={32} />
               </div>
               <h3 className="text-2xl font-black text-foreground mb-3">Proven Results</h3>
@@ -386,8 +386,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/50 hover:shadow-2xl transition-all">
-              <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/50 hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Award className="text-background" size={32} />
               </div>
               <h3 className="text-2xl font-black text-foreground mb-3">Certification</h3>
@@ -414,7 +414,7 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Testimonial Cards */}
-            <div className="bg-gradient-to-br from-card to-card/50 border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/30 hover:shadow-xl transition-all">
+            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-primary/30 hover:shadow-xl transition-all">
               <div className="flex items-center gap-1 text-accent mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={20} fill="currentColor" />
@@ -424,7 +424,7 @@ export default function Home() {
                 "The structured approach made learning Arabic enjoyable and effective. I've made incredible progress!"
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
+                <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
                   AH
                 </div>
                 <div>
@@ -434,7 +434,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-card to-card/50 border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/30 hover:shadow-xl transition-all">
+            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-secondary/30 hover:shadow-xl transition-all">
               <div className="flex items-center gap-1 text-accent mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={20} fill="currentColor" />
@@ -444,7 +444,7 @@ export default function Home() {
                 "Perfect for my busy schedule. The instructors are patient, knowledgeable, and truly dedicated."
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
+                <div className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
                   FZ
                 </div>
                 <div>
@@ -454,7 +454,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-card to-card/50 border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/30 hover:shadow-xl transition-all">
+            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-8 hover:border-accent/30 hover:shadow-xl transition-all">
               <div className="flex items-center gap-1 text-accent mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={20} fill="currentColor" />
@@ -464,7 +464,7 @@ export default function Home() {
                 &quot;Deepened my understanding tremendously. Complex concepts explained with remarkable clarity.&quot;
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
+                <div className="w-14 h-14 bg-accent rounded-full flex items-center justify-center font-black text-background text-xl shadow-lg">
                   YA
                 </div>
                 <div>
@@ -478,14 +478,8 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-b from-card/30 to-background relative overflow-hidden">
-        {/* Background Decoration */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto max-w-5xl relative">
+      <section className="py-24 px-6 bg-card">
+        <div className="container mx-auto max-w-5xl">
           <div className="text-center">
             <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
               <span className="text-primary font-bold text-sm tracking-wider uppercase">Join Today</span>
@@ -502,14 +496,14 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-4 mb-16">
               <a
                 href="/register"
-                className="group px-12 py-6 bg-primary text-background rounded-xl font-black text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all flex items-center gap-3"
+                className="group px-12 py-6 bg-primary text-background rounded-xl font-black text-lg shadow-xl hover:scale-105 transition-all flex items-center gap-3"
               >
                 <Play size={24} className="group-hover:translate-x-1 transition-transform" />
                 Start Learning Now
               </a>
               <a
                 href="/courses"
-                className="px-12 py-6 bg-card border-2 border-foreground/20 text-foreground rounded-xl font-black text-lg hover:border-primary hover:text-primary transition-all flex items-center gap-3"
+                className="px-12 py-6 bg-background border-2 border-foreground/20 text-foreground rounded-xl font-black text-lg hover:border-primary hover:text-primary transition-all flex items-center gap-3"
               >
                 Explore Courses
                 <ArrowRight size={24} />
