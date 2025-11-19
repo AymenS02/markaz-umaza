@@ -39,8 +39,6 @@
   --color-info: hsl(200, 75%, 65%);
 
 }
-
-
 /* === TYPOGRAPHY === */
 body {
   font-family: var(--font-old-standard);
@@ -52,3 +50,41 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-old-standard);
 }
+
+/* Hero gradient overlays - only visible in dark mode */
+.hero-gradient-horizontal {
+  background: transparent;
+}
+
+.hero-gradient-vertical {
+  background: transparent;
+}
+
+.dark .hero-gradient-horizontal {
+  background: linear-gradient(to right, var(--color-background), hsla(from var(--color-background) h s l / 0.95), hsla(from var(--color-background) h s l / 0.3));
+}
+
+.dark .hero-gradient-vertical {
+  background: linear-gradient(to top, hsla(from var(--color-background) h s l / 0.8), transparent, transparent);
+}
+
+.container-box {
+  background-color: rgb(179 204 194 / 0.9);
+  padding-top: 2rem;     /* py-8 */
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;  /* px-6 */
+  padding-right: 1.5rem;
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
+              0 4px 6px -4px rgba(0,0,0,0.1); /* shadow-xl */
+  border-width: 2px;      /* border-2 */
+  border-color: hsl(var(--color-primary));
+}
+
+.dark .container-box {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
