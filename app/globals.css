@@ -3,9 +3,9 @@
 @theme {
 
   /* Core Brand Colors */
-  --color-primary: hsl(43, 89%, 67%);     /* F5CB5C - golden yellow */
-  --color-secondary: hsl(157, 16%, 84%);  /* CFDBD5 - mint gray */
-  --color-accent: hsl(81, 29%, 90%);      /* E8EDDF - soft green-yellow */
+  --color-primary: hsl(43, 89%, 47%);     /* F5CB5C - golden yellow */
+  --color-secondary: hsl(157, 16%, 64%);  /* CFDBD5 - mint gray */
+  --color-accent: hsl(81, 29%, 70%);      /* E8EDDF - soft green-yellow */
 
   /* Backgrounds & Surfaces */
   --color-background: hsl(81, 29%, 90%);  /* E8EDDF */

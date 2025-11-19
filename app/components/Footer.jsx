@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import {
-  Instagram, Youtube, Mail, Phone, MessageCircle
+  InstagramIcon, YoutubeIcon, SendIcon,  MessageCircleMore, Mail, Phone, MessageCircle
 } from "lucide-react";
 
 const Footer = () => {
@@ -79,42 +79,30 @@ const Footer = () => {
                 href="https://wa.me/12894569089" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-primary/20 flex items-center justify-center transition-all duration-300 hover:scale-110 group'
+                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-green-800/20 flex items-center justify-center text-foreground hover:text-green-600 transition-all duration-300 hover:scale-110 group'
                 aria-label="WhatsApp"
               >
-                <Image 
-                  src="/assets/whatsapp.png" 
-                  alt="WhatsApp" 
-                  width={20} 
-                  height={20}
-                  className='group-hover:scale-110 transition-transform'
-                />
+                <MessageCircleMore size={20} className='group-hover:scale-110 transition-transform' />
               </a>
 
               <a 
                 href="https://t.me/markazumaza" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-primary/20 flex items-center justify-center transition-all duration-300 hover:scale-110 group'
+                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-blue-600/20 flex items-center justify-center text-foreground hover:text-blue-600 transition-all duration-300 hover:scale-110 group'
                 aria-label="Telegram"
               >
-                <Image 
-                  src="/assets/telegram.png" 
-                  alt="Telegram" 
-                  width={20} 
-                  height={20}
-                  className='group-hover:scale-110 transition-transform'
-                />
+                <SendIcon size={20} className='group-hover:scale-110 transition-transform' />
               </a>
 
               <a 
                 href="https://instagram.com/markazumaza" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-accent/20 flex items-center justify-center text-foreground hover:text-accent transition-all duration-300 hover:scale-110'
+                className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-purple-800/20 flex items-center justify-center text-foreground hover:text-purple-800 transition-all duration-300 hover:scale-110'
                 aria-label="Instagram"
               >
-                <Instagram size={20} />
+                <InstagramIcon size={20} />
               </a>
 
               <a 
@@ -124,7 +112,7 @@ const Footer = () => {
                 className='w-10 h-10 rounded-lg bg-secondary/10 hover:bg-error/20 flex items-center justify-center text-foreground hover:text-error transition-all duration-300 hover:scale-110'
                 aria-label="YouTube"
               >
-                <Youtube size={20} />
+                <YoutubeIcon size={20} />
               </a>
             </div>
 

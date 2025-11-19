@@ -21,18 +21,18 @@ const Header = () => {
   if (!hydrated) return null; // Prevent SSR/client mismatch
 
   return (
-    <header className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background text-foreground shadow-lg z-50">
-      <div className="max-w-[90%] mx-auto flex items-center justify-between">
+    <header className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background/95 backdrop-blur-md text-foreground shadow-lg border-b-2 border-foreground/10 z-50">
+      <div className="max-w-[90%] mx-auto flex items-center justify-between py-2">
         {/* Logo */}
         <div className="flex items-center">
           <div
-            className="mr-3 cursor-pointer hover:scale-105 transition-transform "
+            className="mr-3 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => window.location.href='/'}
           >
             <Image
               src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
-              className="w-30 h-30 object-fit"
+              className="w-24 h-24 object-fit"
               width={24}
               height={24}
               priority
@@ -42,15 +42,15 @@ const Header = () => {
 
         {/* Navigation Menu */}
         <nav className="flex items-center space-x-6">
-          <Link href="/" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
+          <Link href="/" className="text-foreground hover:text-primary hover:scale-105 transition-all duration-300 font-bold">
             Home
           </Link>
 
-          <Link href="/instructors" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
+          <Link href="/instructors" className="text-foreground hover:text-primary hover:scale-105 transition-all duration-300 font-bold">
             Instructors
           </Link>
 
-          <Link href="/contact" className="text-secondary hover:text-primary hover:scale-105 transition-all duration-300 font-medium">
+          <Link href="/contact" className="text-foreground hover:text-primary hover:scale-105 transition-all duration-300 font-bold">
             Contact Us
           </Link>
 
@@ -60,7 +60,7 @@ const Header = () => {
               {/* Courses button */}
               <Link
                 href="/courses"
-                className="px-4 py-2 rounded-full font-medium border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer"
+                className="px-6 py-2 rounded-full font-bold border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
               >
                 Courses
               </Link>
@@ -68,7 +68,7 @@ const Header = () => {
               {/* Account button */}
               <Link
                 href="/account"
-                className="px-4 py-2 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer"
+                className="px-6 py-2 rounded-full font-bold bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
               >
                 Account
               </Link>
@@ -77,7 +77,7 @@ const Header = () => {
               {user.role === 'ADMIN' && (
                 <Link
                   href="/admin"
-                  className="px-4 py-2 rounded-full font-medium bg-accent text-background hover:bg-primary hover:shadow-lg hover:shadow-accent/30 hover:scale-105 transition-all duration-300 cursor-pointer"
+                  className="px-6 py-2 rounded-full font-bold bg-accent text-background hover:bg-primary hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
                 >
                   Admin
                 </Link>
@@ -87,7 +87,7 @@ const Header = () => {
             // Show Sign Up if not logged in
             <Link
               href="/sign-up"
-              className="px-4 py-2 rounded-full font-medium bg-primary text-background hover:bg-accent hover:shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300 cursor-pointer"
+              className="px-6 py-2 rounded-full font-bold bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
             >
               Sign Up
             </Link>

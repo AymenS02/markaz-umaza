@@ -47,26 +47,20 @@ const InstructorsPage = () => {
   }, []);
 
   return (
-    <div className='overflow-hidden min-h-screen bg-gradient-to-b from-background to-card/20 pt-24 md:pt-42'>
+    <div className='overflow-hidden min-h-screen bg-background pt-24 md:pt-42'>
       {/* Header Section */}
       <div ref={headerRef} className='relative pt-32 pb-20'>
-        {/* Background Decorative Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 left-10 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
         <div className='container mx-auto px-4 relative z-10'>
           <div className='text-center max-w-4xl mx-auto'>
             <div className='flex items-center justify-center gap-2 mb-6'>
-              <Sparkles className="text-primary animate-pulse" size={24} />
+              <Sparkles className="text-primary" size={24} />
               <span className="text-sm font-semibold text-primary uppercase tracking-wider">
                 Meet Your Teachers
               </span>
             </div>
             
             <h1 className='text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6'>
-              Our <span className='text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary'>Expert Instructors</span>
+              Our <span className='text-primary'>Expert Instructors</span>
             </h1>
             
             <p className='text-xl md:text-2xl text-foreground/70 leading-relaxed'>
@@ -98,20 +92,16 @@ const InstructorsPage = () => {
           
           {/* Instructor 1 - Ustadh Umair */}
           <div className='instructor-card group'>
-            <div className='bg-card/50 backdrop-blur-sm rounded-3xl border border-primary/20 hover:border-primary/40 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-primary/20'>
+            <div className='bg-card backdrop-blur-sm rounded-3xl border-2 border-foreground/10 hover:border-primary/40 transition-all duration-500 overflow-hidden hover:shadow-xl'>
               <div className='grid grid-cols-1 lg:grid-cols-5 gap-8 p-8 lg:p-12'>
                 
                 {/* Image Section */}
                 <div className='lg:col-span-2 flex flex-col items-center justify-center'>
                   <div className='relative'>
-                    {/* Decorative rings */}
-                    <div className='absolute inset-0 rounded-full border-4 border-primary/30 animate-ping opacity-20'></div>
-                    <div className='absolute inset-4 rounded-full border-4 border-accent/30 animate-pulse'></div>
-                    
                     {/* Image container */}
-                    <div className='relative w-64 h-64 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-2 group-hover:scale-105 transition-transform duration-500'>
-                      <div className='w-full h-full rounded-full bg-accent/10 p-8 flex items-center justify-center'>
-                        <div className='w-48 h-48 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden'>
+                    <div className='relative w-64 h-64 rounded-full bg-primary/20 p-2 group-hover:scale-105 transition-transform duration-500'>
+                      <div className='w-full h-full rounded-full bg-card p-8 flex items-center justify-center'>
+                        <div className='w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden'>
                           <Image
                             src="/assets/instructor_umair.svg"
                             alt="Instructor Image"
@@ -122,7 +112,6 @@ const InstructorsPage = () => {
                         </div>
                       </div>
                     </div>
-
                   </div>
 
                   {/* Rating */}
@@ -146,7 +135,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Credentials */}
-                  <div className='flex items-start gap-3 bg-primary/5 rounded-xl p-4 border border-primary/10'>
+                  <div className='flex items-start gap-3 bg-primary/10 rounded-xl p-4 border border-primary/20'>
                     <GraduationCap className='text-primary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Education</h4>
@@ -157,7 +146,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Expertise */}
-                  <div className='flex items-start gap-3 bg-secondary/5 rounded-xl p-4 border border-secondary/10'>
+                  <div className='flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20'>
                     <BookOpen className='text-secondary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Expertise</h4>
@@ -168,7 +157,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Experience */}
-                  <div className='flex items-start gap-3 bg-accent/5 rounded-xl p-4 border border-accent/10'>
+                  <div className='flex items-start gap-3 bg-accent/10 rounded-xl p-4 border border-accent/20'>
                     <Award className='text-accent flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Experience</h4>
@@ -200,7 +189,7 @@ const InstructorsPage = () => {
 
           {/* Instructor 2 - Ustadh Uzair */}
           <div className='instructor-card group'>
-            <div className='bg-card/50 backdrop-blur-sm rounded-3xl border border-secondary/20 hover:border-secondary/40 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-secondary/20'>
+            <div className='bg-card backdrop-blur-sm rounded-3xl border-2 border-foreground/10 hover:border-secondary/40 transition-all duration-500 overflow-hidden hover:shadow-xl'>
               <div className='grid grid-cols-1 lg:grid-cols-5 gap-8 p-8 lg:p-12'>
                 
                 {/* Content Section - Flipped order for variety */}
@@ -215,7 +204,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Credentials */}
-                  <div className='flex items-start gap-3 bg-secondary/5 rounded-xl p-4 border border-secondary/10'>
+                  <div className='flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20'>
                     <GraduationCap className='text-secondary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Education</h4>
@@ -226,7 +215,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Expertise */}
-                  <div className='flex items-start gap-3 bg-accent/5 rounded-xl p-4 border border-accent/10'>
+                  <div className='flex items-start gap-3 bg-accent/10 rounded-xl p-4 border border-accent/20'>
                     <BookOpen className='text-accent flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Expertise</h4>
@@ -237,7 +226,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Experience */}
-                  <div className='flex items-start gap-3 bg-primary/5 rounded-xl p-4 border border-primary/10'>
+                  <div className='flex items-start gap-3 bg-primary/10 rounded-xl p-4 border border-primary/20'>
                     <Award className='text-primary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Experience</h4>
@@ -267,14 +256,10 @@ const InstructorsPage = () => {
                 {/* Image Section */}
                 <div className='lg:col-span-2 flex flex-col items-center justify-center order-1 lg:order-2'>
                   <div className='relative'>
-                    {/* Decorative rings */}
-                    <div className='absolute inset-0 rounded-full border-4 border-secondary/30 animate-ping opacity-20'></div>
-                    <div className='absolute inset-4 rounded-full border-4 border-primary/30 animate-pulse'></div>
-                    
                     {/* Image container */}
-                    <div className='relative w-64 h-64 rounded-full bg-gradient-to-br from-secondary/20 to-primary/20 p-2 group-hover:scale-105 transition-transform duration-500'>
-                      <div className='w-full h-full rounded-full bg-secondary/10 p-8 flex items-center justify-center'>
-                        <div className='w-48 h-48 rounded-full bg-secondary/20 flex items-center justify-center overflow-hidden relative'>
+                    <div className='relative w-64 h-64 rounded-full bg-secondary/20 p-2 group-hover:scale-105 transition-transform duration-500'>
+                      <div className='w-full h-full rounded-full bg-card p-8 flex items-center justify-center'>
+                        <div className='w-48 h-48 rounded-full bg-secondary/10 flex items-center justify-center overflow-hidden relative'>
                           <Image
                             src="/assets/instructor_uzair.svg"
                             alt="Instructor Image"
@@ -285,7 +270,6 @@ const InstructorsPage = () => {
                         </div>
                       </div>
                     </div>
-
                   </div>
 
                   {/* Rating */}
@@ -303,7 +287,7 @@ const InstructorsPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className='py-20 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5'>
+      <div className='py-20 bg-card'>
         <div className='container mx-auto px-4 text-center'>
           <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-6'>
             Ready to Learn with Our <span className='text-primary'>Expert Instructors?</span>
@@ -314,7 +298,7 @@ const InstructorsPage = () => {
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <a
               href="/courses"
-              className='group px-8 py-4 bg-primary text-background rounded-full font-semibold text-lg hover:bg-accent hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2'
+              className='group px-8 py-4 bg-primary text-background rounded-full font-semibold text-lg hover:bg-accent hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2'
             >
               View All Courses
               <span className="group-hover:translate-x-1 transition-transform">→</span>

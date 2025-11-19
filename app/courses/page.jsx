@@ -136,10 +136,10 @@ const CoursesPage = () => {
 
   const getLevelColor = (level) => {
     switch(level) {
-      case 'beginner': return 'text-primary bg-primary/10 border-primary/20';
-      case 'intermediate': return 'text-accent bg-accent/10 border-accent/20';
-      case 'advanced': return 'text-secondary bg-secondary/10 border-secondary/20';
-      default: return 'text-foreground/60 bg-foreground/5 border-foreground/10';
+      case 'beginner': return 'text-primary bg-primary/10 border-primary/30';
+      case 'intermediate': return 'text-accent bg-accent/10 border-accent/30';
+      case 'advanced': return 'text-secondary bg-secondary/10 border-secondary/30';
+      default: return 'text-foreground/60 bg-foreground/5 border-foreground/20';
     }
   };
 
@@ -167,30 +167,29 @@ const CoursesPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-card/20">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary mx-auto mb-4"></div>
-          <p className="text-foreground/60">Loading courses...</p>
+          <p className="text-foreground/60 font-semibold">Loading courses...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='overflow-hidden min-h-screen bg-gradient-to-b from-background to-card/20 pt-32 md:mt-42'>
+    <div className='overflow-hidden min-h-screen bg-background pt-32 md:mt-42'>
       {/* Header */}
       <div ref={headerRef} className='relative pb-12'>
-
         <div className='container mx-auto px-4 relative z-10 text-center max-w-4xl'>
           <div className='flex items-center justify-center gap-2 mb-6'>
-            <Sparkles className="text-primary animate-pulse" size={24} />
+            <Sparkles className="text-primary" size={24} />
             <span className="text-sm font-semibold text-primary uppercase tracking-wider">
               Your Learning Journey
             </span>
           </div>
           
           <h1 className='text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6'>
-            Explore Our <span className='text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary'>Courses</span>
+            Explore Our <span className='text-primary'>Courses</span>
           </h1>
           
           <p className='text-xl md:text-2xl text-foreground/70 leading-relaxed'>
@@ -200,16 +199,16 @@ const CoursesPage = () => {
       </div>
 
       {/* Tabs & Filters */}
-      <div ref={tabsRef} className='sticky top-0 z-30 bg-background/80 backdrop-blur-lg border-b border-primary/10'>
+      <div ref={tabsRef} className='sticky top-0 z-30 bg-background/95 backdrop-blur-lg border-b-2 border-foreground/10'>
         <div className='container mx-auto px-4 py-6'>
           {/* Tabs */}
           <div className='flex flex-wrap items-center justify-center gap-3 mb-6'>
             <button
               onClick={() => setActiveTab('current')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
                 activeTab === 'current'
-                  ? 'bg-primary text-background shadow-lg shadow-primary/30'
-                  : 'bg-card/50 text-foreground/70 hover:bg-card hover:text-foreground'
+                  ? 'bg-primary text-background shadow-lg'
+                  : 'bg-card border-2 border-foreground/20 text-foreground/70 hover:bg-card hover:text-foreground hover:border-primary/30'
               }`}
             >
               <div className='flex items-center gap-2'>
@@ -220,10 +219,10 @@ const CoursesPage = () => {
             
             <button
               onClick={() => setActiveTab('upcoming')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
                 activeTab === 'upcoming'
-                  ? 'bg-secondary text-background shadow-lg shadow-secondary/30'
-                  : 'bg-card/50 text-foreground/70 hover:bg-card hover:text-foreground'
+                  ? 'bg-secondary text-background shadow-lg'
+                  : 'bg-card border-2 border-foreground/20 text-foreground/70 hover:bg-card hover:text-foreground hover:border-secondary/30'
               }`}
             >
               <div className='flex items-center gap-2'>
@@ -234,10 +233,10 @@ const CoursesPage = () => {
             
             <button
               onClick={() => setActiveTab('past')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+              className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
                 activeTab === 'past'
-                  ? 'bg-accent text-background shadow-lg shadow-accent/30'
-                  : 'bg-card/50 text-foreground/70 hover:bg-card hover:text-foreground'
+                  ? 'bg-accent text-background shadow-lg'
+                  : 'bg-card border-2 border-foreground/20 text-foreground/70 hover:bg-card hover:text-foreground hover:border-accent/30'
               }`}
             >
               <div className='flex items-center gap-2'>
@@ -256,7 +255,7 @@ const CoursesPage = () => {
                 placeholder="Search courses..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className='w-full pl-12 pr-4 py-3 rounded-full bg-card/50 border border-primary/10 focus:border-primary/30 focus:outline-none text-foreground placeholder:text-foreground/40 transition-all'
+                className='w-full pl-12 pr-4 py-3 rounded-full bg-card border-2 border-foreground/20 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-foreground placeholder:text-foreground/40 transition-all'
               />
             </div>
             
@@ -265,7 +264,7 @@ const CoursesPage = () => {
               <select
                 value={filterLevel}
                 onChange={(e) => setFilterLevel(e.target.value)}
-                className='w-full pl-12 pr-4 py-3 rounded-full bg-card/50 border border-primary/10 focus:border-primary/30 focus:outline-none text-foreground appearance-none cursor-pointer transition-all'
+                className='w-full pl-12 pr-4 py-3 rounded-full bg-card border-2 border-foreground/20 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-foreground appearance-none cursor-pointer transition-all'
               >
                 <option value="all">All Levels</option>
                 <option value="beginner">Beginner</option>
@@ -295,20 +294,20 @@ const CoursesPage = () => {
               const isEnrolled = isUserEnrolled(course._id);
               return (
                 <div key={course._id} className='course-card group'>
-                  <div className='h-full bg-card/50 backdrop-blur-sm rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 flex flex-col'>
+                  <div className='h-full bg-card backdrop-blur-sm rounded-2xl border-2 border-foreground/10 hover:border-primary/40 transition-all duration-500 overflow-hidden hover:shadow-xl flex flex-col'>
                     
-                    {/* Image */}
+                    {/* Image - KEEP GRADIENT */}
                     <div className={`h-48 bg-gradient-to-br ${getImageGradient(index)} relative overflow-hidden`}>
                       <div className='absolute inset-0 flex flex-col justify-between p-6'>
                         <div className='flex items-start justify-between'>
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(course.difficultyLevel)}`}>
+                          <span className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 ${getLevelColor(course.difficultyLevel)}`}>
                             {course.difficultyLevel}
                           </span>
                           {course.enrolledStudents > 0 && (
-                            <div className='flex items-center gap-1 bg-background/80 backdrop-blur-sm px-2 py-1 rounded-full'>
+                            <div className='flex items-center gap-1 bg-background/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-foreground/10'>
                               <Star size={14} fill="currentColor" className='text-accent' />
-                              <span className='text-sm font-semibold text-foreground'>
-                                {course.enrolledStudents} enrolled
+                              <span className='text-sm font-bold text-foreground'>
+                                {course.enrolledStudents}
                               </span>
                             </div>
                           )}
@@ -322,7 +321,7 @@ const CoursesPage = () => {
                         {course.title}
                       </h3>
                       
-                      <p className='text-sm text-foreground/60 mb-4 flex items-center gap-2'>
+                      <p className='text-sm text-foreground/60 mb-4 flex items-center gap-2 font-semibold'>
                         <Users size={14} />
                         {course.instructor}
                       </p>
@@ -332,41 +331,41 @@ const CoursesPage = () => {
                       </p>
 
                       {/* Info */}
-                      <div className='grid grid-cols-2 gap-3 mb-4 pb-4 border-b border-primary/10'>
+                      <div className='grid grid-cols-2 gap-3 mb-4 pb-4 border-t-2 border-foreground/10 pt-4'>
                         <div className='flex items-center gap-2 text-foreground/60'>
                           <Clock size={16} className='text-primary' />
-                          <span className='text-sm'>{course.durationWeeks} weeks</span>
+                          <span className='text-sm font-semibold'>{course.durationWeeks} weeks</span>
                         </div>
                         <div className='flex items-center gap-2 text-foreground/60'>
                           <BookOpen size={16} className='text-secondary' />
-                          <span className='text-sm'>{course.totalLessons} lessons</span>
+                          <span className='text-sm font-semibold'>{course.totalLessons} lessons</span>
                         </div>
                         <div className='flex items-center gap-2 text-foreground/60'>
                           <Calendar size={16} className='text-accent' />
-                          <span className='text-sm'>{formatDate(course.startDate)}</span>
+                          <span className='text-sm font-semibold'>{formatDate(course.startDate)}</span>
                         </div>
                         <div className='flex items-center gap-2 text-foreground/60'>
                           <Users size={16} className='text-primary' />
-                          <span className='text-sm'>{course.enrolledStudents || 0} students</span>
+                          <span className='text-sm font-semibold'>{course.enrolledStudents || 0} students</span>
                         </div>
                       </div>
 
                       {/* Button */}
                       <div className='flex items-center justify-between gap-3 mt-auto'>
-                        <span className='text-2xl font-bold text-primary'>{formatPrice(course.price)}</span>
+                        <span className='text-3xl font-black text-primary'>{formatPrice(course.price)}</span>
                         
                         {activeTab === 'current' && isEnrolled ? (
                           <button
                             onClick={() => handleEnroll(course._id)}
-                            className='flex-1 px-6 py-3 bg-primary text-background rounded-full font-semibold hover:bg-accent hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2'
+                            className='flex-1 px-6 py-3 bg-primary text-background rounded-full font-bold hover:bg-accent hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2'
                           >
-                            Continue Learning
+                            Continue
                             <ArrowRight size={18} />
                           </button>
                         ) : activeTab === 'past' ? (
                           <button
                             disabled
-                            className='flex-1 px-6 py-3 bg-foreground/5 text-foreground/40 rounded-full font-semibold cursor-not-allowed flex items-center justify-center gap-2'
+                            className='flex-1 px-6 py-3 bg-foreground/5 text-foreground/40 rounded-full font-bold cursor-not-allowed flex items-center justify-center gap-2 border-2 border-foreground/10'
                           >
                             <Lock size={18} />
                             Completed
@@ -374,9 +373,9 @@ const CoursesPage = () => {
                         ) : (
                           <button
                             onClick={() => handleEnroll(course._id)}
-                            className='flex-1 px-6 py-3 bg-secondary text-background rounded-full font-semibold hover:bg-primary hover:shadow-lg hover:shadow-secondary/30 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2'
+                            className='flex-1 px-6 py-3 bg-secondary text-background rounded-full font-bold hover:bg-primary hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2'
                           >
-                            Enroll Now
+                            Enroll
                             <ArrowRight size={18} />
                           </button>
                         )}
@@ -391,7 +390,7 @@ const CoursesPage = () => {
       </div>
 
       {/* CTA Section */}
-      <div className='py-20 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5'>
+      <div className='py-20 bg-card'>
         <div className='container mx-auto px-4 text-center'>
           <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-6'>
             Can&apos;t Find What You&apos;re <span className='text-primary'>Looking For?</span>
@@ -401,7 +400,7 @@ const CoursesPage = () => {
           </p>
           <Link
             href="/contact"
-            className='inline-flex items-center gap-2 px-8 py-4 bg-primary text-background rounded-full font-semibold text-lg hover:bg-accent hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:scale-105'
+            className='inline-flex items-center gap-2 px-8 py-4 bg-primary text-background rounded-full font-bold text-lg hover:bg-accent hover:shadow-lg transition-all duration-300 hover:scale-105'
           >
             Contact Us
             <ArrowRight size={20} />
