@@ -327,8 +327,6 @@ export default function CreateQuizPage() {
                   >
                     <option value="practice">Practice</option>
                     <option value="graded">Graded</option>
-                    <option value="midterm">Midterm</option>
-                    <option value="final">Final</option>
                   </select>
                 </div>
 

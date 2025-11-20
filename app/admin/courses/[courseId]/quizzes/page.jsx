@@ -110,8 +110,6 @@ export default function QuizzesListPage() {
     switch(type) {
       case 'practice': return 'bg-secondary/10 text-secondary border-secondary/30';
       case 'graded': return 'bg-primary/10 text-primary border-primary/30';
-      case 'midterm': return 'bg-accent/10 text-accent border-accent/30';
-      case 'final': return 'bg-error/10 text-error border-error/30';
       default: return 'bg-foreground/10 text-foreground border-foreground/30';
     }
   };
@@ -163,7 +161,7 @@ export default function QuizzesListPage() {
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-card border-2 border-foreground/10 rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <FileText className="text-primary" size={20} />
@@ -192,15 +190,15 @@ export default function QuizzesListPage() {
             </div>
           </div>
 
-          <div className="bg-card border-2 border-foreground/10 rounded-xl p-4">
+          {/* <div className="bg-card border-2 border-foreground/10 rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <Award className="text-accent" size={20} />
-              <span className="text-sm text-foreground/60 font-bold">Graded</span>
+              <span className="text-sm text-foreground/60 font-bold">Quizzes Worth Marks</span>
             </div>
             <div className="text-3xl font-black text-foreground">
               {quizzes.filter(q => q.quizType === 'graded').length}
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Filters */}
@@ -226,9 +224,7 @@ export default function QuizzesListPage() {
             >
               <option value="all">All Types</option>
               <option value="practice">Practice</option>
-              <option value="graded">Graded</option>
-              <option value="midterm">Midterm</option>
-              <option value="final">Final</option>
+              <option value="graded">Quizzes Worth Marks</option>
             </select>
 
             {/* Published Filter */}
@@ -311,18 +307,18 @@ export default function QuizzesListPage() {
                     <div className="flex flex-wrap gap-4 text-sm text-foreground/60">
                       <div className="flex items-center gap-1.5">
                         <FileText size={16} />
-                        <span className="font-semibold">{quiz.questions.length} questions</span>
+                        <span className="font-semibold">{quiz.questions.length} question(s)</span>
                       </div>
                       
                       <div className="flex items-center gap-1.5">
                         <Award size={16} />
-                        <span className="font-semibold">{quiz.totalPoints} points</span>
+                        <span className="font-semibold">{quiz.totalPoints} point(s)</span>
                       </div>
                       
                       {quiz.timeLimit > 0 && (
                         <div className="flex items-center gap-1.5">
                           <Clock size={16} />
-                          <span className="font-semibold">{quiz.timeLimit} min</span>
+                          <span className="font-semibold">{quiz.timeLimit} min(s)</span>
                         </div>
                       )}
                       
@@ -343,7 +339,7 @@ export default function QuizzesListPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex lg:flex-col gap-2">
+                  <div className="flex flex-wrap lg:flex-col gap-2">
                     <button
                       onClick={() => togglePublish(quiz._id, quiz.isPublished)}
                       className={`px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2 ${
@@ -358,8 +354,15 @@ export default function QuizzesListPage() {
                     </button>
 
                     <Link
-                      href={`/admin/courses/${courseId}/quizzes/${quiz._id}/edit`}
-                      className="px-4 py-2 bg-secondary/10 text-secondary hover:bg-secondary/20 rounded-lg font-bold transition-all flex items-center justify-center gap-2 border-2 border-secondary/30"
+                      href={quiz.isPublished ? "#" : `/admin/courses/${courseId}/quizzes/${quiz._id}/edit`}
+                      onClick={(e) => quiz.isPublished && e.preventDefault()}
+                      className={`px-4 py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2 border-2 
+                        ${quiz.isPublished 
+                          ? "bg-secondary/5 text-foreground/40 border-secondary/10 cursor-not-allowed opacity-50" 
+                          : "bg-secondary/10 text-secondary hover:bg-secondary/20 border-secondary/30"
+                        }`
+                      }
+                      aria-disabled={quiz.isPublished}
                     >
                       <Edit2 size={18} />
                       Edit

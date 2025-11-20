@@ -43,7 +43,7 @@ export async function GET(request, { params }) {
     const { attemptId } = await params;
     
     const attempt = await QuizAttempt.findById(attemptId)
-      .populate('user', 'name email')
+      .populate('user', 'firstName lastName email')
       .populate('quiz');
 
     if (!attempt) {

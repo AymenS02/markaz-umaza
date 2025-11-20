@@ -475,7 +475,7 @@ export default function StudentDashboard() {
 
                       <div className="mt-4 flex gap-3">
                         <Link
-                          href={`/courses/${courseId}/quizzes/${grade.quizId}/results?attemptId=691e336a326e43e428f4f0df`}
+                          href={`/courses/${courseId}/quizzes/${grade.quizId}/results?attemptId=${grade.attemptId}`}
                           className="flex-1 px-4 py-2 bg-secondary/10 text-secondary border-2 border-secondary/30 rounded-lg font-bold hover:bg-secondary/20 transition-all text-center"
                         >
                           View Details

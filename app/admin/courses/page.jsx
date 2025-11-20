@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { gsap } from 'gsap';
 import Link from 'next/link';
+import { authClient } from '@/lib/auth-client'; // ← ADD THIS IMPORT
 
 const AdminCourseCreator = () => {
   const router = useRouter();
@@ -56,10 +57,14 @@ const AdminCourseCreator = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('/api/admin/courses');
+      // ✅ UPDATED: Use authClient
+      const response = await authClient.fetchWithAuth('/api/admin/courses');
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
+      } else if (response.status === 401) {
+        alert('Session expired. Please log in again.');
+        router.push('/login');
       }
     } catch (error) {
       console.error('Error fetching courses:', error);
@@ -84,12 +89,10 @@ const AdminCourseCreator = () => {
       
       const method = isEditing ? 'PATCH' : 'POST';
 
-      const response = await fetch(url, {
+      // ✅ UPDATED: Use authClient
+      const response = await authClient.fetchWithAuth(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData)
       });
 
       if (response.ok) {
@@ -101,6 +104,9 @@ const AdminCourseCreator = () => {
         setTimeout(() => {
           setShowSuccess(false);
         }, 3000);
+      } else if (response.status === 401) {
+        alert('Session expired. Please log in again.');
+        router.push('/login');
       } else {
         const error = await response.json();
         alert(`Error: ${error.message || 'Failed to save course'}`);
@@ -141,18 +147,24 @@ const AdminCourseCreator = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this course?')) return;
+    if (!confirm('Are you sure you want to delete this course? This will also delete all related quizzes, modules, and enrollments.')) return;
 
     try {
-      const response = await fetch(`/api/admin/courses/${id}`, {
-        method: 'DELETE',
+      // ✅ UPDATED: Use authClient
+      const response = await authClient.fetchWithAuth(`/api/admin/courses/${id}`, {
+        method: 'DELETE'
       });
 
       if (response.ok) {
+        const result = await response.json();
         fetchCourses();
-        alert('Course deleted successfully');
+        alert(result.message || 'Course deleted successfully');
+      } else if (response.status === 401) {
+        alert('Session expired. Please log in again.');
+        router.push('/login');
       } else {
-        alert('Failed to delete course');
+        const error = await response.json();
+        alert(`Failed to delete course: ${error.message}`);
       }
     } catch (error) {
       console.error('Error deleting course:', error);

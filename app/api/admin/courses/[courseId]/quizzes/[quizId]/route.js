@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/config/db';
 import Quiz from '@/lib/models/quizSchema';
+import QuizAttempt from '@/lib/models/quizAttemptSchema';
 import CourseModule from '@/lib/models/courseModuleSchema';
 import User from '@/lib/models/userSchema';
 import jwt from 'jsonwebtoken';
@@ -145,7 +146,7 @@ export async function PUT(request, { params }) {
   }
 }
 
-// DELETE - Delete quiz
+// DELETE - Delete quiz with cascade deletion
 export async function DELETE(request, { params }) {
   try {
     await dbConnect();
@@ -167,17 +168,40 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ message: 'Quiz not found' }, { status: 404 });
     }
     
-    // Remove quiz from module
+    console.log(`Starting cascade deletion for quiz ${quizId}`);
+    
+    // 1. Delete all quiz attempts related to this quiz
+    const attemptsResult = await QuizAttempt.deleteMany({ quiz: quizId });
+    console.log(`Deleted ${attemptsResult.deletedCount} quiz attempts for quiz ${quizId}`);
+    
+    // 2. Remove quiz from its module
     if (quiz.module) {
       await CourseModule.findByIdAndUpdate(
         quiz.module,
         { $pull: { quizzes: quiz._id } }
       );
+      console.log(`Removed quiz ${quizId} from module ${quiz.module}`);
     }
     
-    await Quiz.findByIdAndDelete(quizId);
+    // 3. Remove quiz from any other modules that might reference it
+    const modulesResult = await CourseModule.updateMany(
+      { quizzes: quizId },
+      { $pull: { quizzes: quizId } }
+    );
+    console.log(`Removed quiz ${quizId} from ${modulesResult.modifiedCount} additional module(s)`);
     
-    return NextResponse.json({ message: 'Quiz deleted successfully' }, { status: 200 });
+    // 4. Finally delete the quiz
+    await Quiz.findByIdAndDelete(quizId);
+    console.log(`Successfully deleted quiz ${quizId}`);
+    
+    return NextResponse.json({ 
+      message: 'Quiz deleted successfully',
+      details: {
+        quizId,
+        attemptsDeleted: attemptsResult.deletedCount,
+        modulesUpdated: modulesResult.modifiedCount + (quiz.module ? 1 : 0)
+      }
+    }, { status: 200 });
     
   } catch (error) {
     console.error('Error deleting quiz:', error);

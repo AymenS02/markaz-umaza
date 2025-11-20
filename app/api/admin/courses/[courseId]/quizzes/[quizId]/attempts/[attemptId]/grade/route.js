@@ -95,7 +95,7 @@ export async function POST(request, { params }) {
     attempt.overallFeedback = overallFeedback;
     await attempt.save();
     
-    await attempt.populate('user', 'name email');
+    await attempt.populate('user', 'firstName lastName email');
     await attempt.populate('quiz');
     
     return NextResponse.json(attempt, { status: 200 });

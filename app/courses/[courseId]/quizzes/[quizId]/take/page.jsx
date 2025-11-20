@@ -4,7 +4,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
-  ArrowLeft, Clock, Save, Send, AlertCircle, CheckCircle,
+  ArrowLeft, Clock, Send, AlertCircle, CheckCircle,
   ChevronLeft, ChevronRight, Flag, Loader
 } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
@@ -21,26 +21,40 @@ export default function TakeQuizPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [timeElapsed, setTimeElapsed] = useState(0);
-  const [saving, setSaving] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
 
-  const autoSaveInterval = useRef(null);
   const timerInterval = useRef(null);
+  const hasSubmitted = useRef(false);
 
   useEffect(() => {
     startQuiz();
+    
+    // Warn user before leaving page
+    const handleBeforeUnload = (e) => {
+      if (!hasSubmitted.current) {
+        e.preventDefault();
+        e.returnValue = 'Your quiz is in progress. If you leave now, you will lose all your answers. Are you sure?';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, [courseId, quizId]);
 
   useEffect(() => {
     if (quiz && attempt) {
-      // Initialize answers from attempt
+      // Initialize empty answers
       const initialAnswers = {};
-      attempt.answers.forEach(answer => {
-        initialAnswers[answer.questionId] = {
-          questionType: answer.questionType,
-          selectedOptionIndex: answer.selectedOptionIndex,
-          textAnswer: answer.textAnswer || ''
+      quiz.questions.forEach(question => {
+        initialAnswers[question._id] = {
+          questionType: question.questionType,
+          selectedOptionIndex: undefined,
+          textAnswer: ''
         };
       });
       setAnswers(initialAnswers);
@@ -90,17 +104,6 @@ export default function TakeQuizPage() {
     return () => clearInterval(elapsedInterval);
   }, []);
 
-  useEffect(() => {
-    // Auto-save every 30 seconds
-    if (quiz && attempt) {
-      autoSaveInterval.current = setInterval(() => {
-        saveAnswers(false);
-      }, 30000);
-
-      return () => clearInterval(autoSaveInterval.current);
-    }
-  }, [quiz, attempt, answers]);
-
   const startQuiz = async () => {
     try {
       // Start attempt
@@ -137,39 +140,6 @@ export default function TakeQuizPage() {
     }
   };
 
-  const saveAnswers = async (showNotification = true) => {
-    if (!attempt || saving) return;
-    
-    setSaving(true);
-    try {
-      const answersArray = Object.entries(answers).map(([questionId, answer]) => ({
-        questionId,
-        questionType: answer.questionType,
-        selectedOptionIndex: answer.selectedOptionIndex,
-        textAnswer: answer.textAnswer
-      }));
-
-      await authClient.fetchWithAuth(
-        `/api/student/courses/${courseId}/quizzes/${quizId}/save`,
-        {
-          method: 'PUT',
-          body: JSON.stringify({
-            attemptId: attempt._id,
-            answers: answersArray
-          })
-        }
-      );
-
-      if (showNotification) {
-        // Show saved notification briefly
-      }
-    } catch (error) {
-      console.error('Error saving answers:', error);
-    } finally {
-      setSaving(false);
-    }
-  };
-
   const handleAnswerChange = (questionId, value, type) => {
     setAnswers(prev => ({
       ...prev,
@@ -185,17 +155,35 @@ export default function TakeQuizPage() {
   };
 
   const handleSubmit = async (autoSubmit = false) => {
-    if (submitting) return;
+    if (submitting || hasSubmitted.current) return;
 
     if (!autoSubmit && !confirm('Are you sure you want to submit your quiz? You cannot change your answers after submission.')) {
       return;
     }
 
     setSubmitting(true);
+    hasSubmitted.current = true;
 
     try {
-      // Save current answers first
-      await saveAnswers(false);
+      // Prepare answers to save
+      const answersArray = Object.entries(answers).map(([questionId, answer]) => ({
+        questionId,
+        questionType: answer.questionType,
+        selectedOptionIndex: answer.selectedOptionIndex,
+        textAnswer: answer.textAnswer
+      }));
+
+      // Save and submit in one call
+      await authClient.fetchWithAuth(
+        `/api/student/courses/${courseId}/quizzes/${quizId}/save`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            attemptId: attempt._id,
+            answers: answersArray
+          })
+        }
+      );
 
       // Submit quiz
       const response = await authClient.fetchWithAuth(
@@ -210,21 +198,20 @@ export default function TakeQuizPage() {
       );
 
       if (response.ok) {
-        const data = await response.json();
-        
         // Clear intervals
         if (timerInterval.current) clearInterval(timerInterval.current);
-        if (autoSaveInterval.current) clearInterval(autoSaveInterval.current);
 
         // Redirect to results
         router.push(`/courses/${courseId}/quizzes/${quizId}/results?attemptId=${attempt._id}`);
       } else {
         const error = await response.json();
         alert(error.message);
+        hasSubmitted.current = false;
       }
     } catch (error) {
       console.error('Error submitting quiz:', error);
-      alert('Failed to submit quiz');
+      alert('Failed to submit quiz. Please try again.');
+      hasSubmitted.current = false;
     } finally {
       setSubmitting(false);
     }
@@ -267,6 +254,16 @@ export default function TakeQuizPage() {
   return (
     <div className="min-h-screen bg-background py-8 px-4 mt-32">
       <div className="container mx-auto max-w-4xl">
+        {/* Warning Banner */}
+        <div className="bg-warning/10 border-2 border-warning/30 rounded-2xl p-4 mb-6">
+          <div className="flex items-center gap-3">
+            <AlertCircle className="text-warning flex-shrink-0" size={20} />
+            <p className="text-sm text-foreground font-bold">
+              ⚠️ Your answers are NOT auto-saved. Make sure to complete and submit the quiz before leaving this page.
+            </p>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 mb-6 sticky top-4 z-10 shadow-lg">
           <div className="flex items-center justify-between mb-4">
@@ -300,13 +297,6 @@ export default function TakeQuizPage() {
             <span>{answeredCount} of {totalQuestions} answered</span>
             <span>{Math.round((answeredCount / totalQuestions) * 100)}% complete</span>
           </div>
-
-          {saving && (
-            <div className="flex items-center gap-2 text-sm text-primary mt-2">
-              <Loader className="animate-spin" size={14} />
-              Saving...
-            </div>
-          )}
         </div>
 
         {/* Question Card */}
@@ -376,10 +366,7 @@ export default function TakeQuizPage() {
         {/* Navigation */}
         <div className="flex items-center justify-between mb-6">
           <button
-            onClick={() => {
-              saveAnswers(false);
-              setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1));
-            }}
+            onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
             disabled={currentQuestionIndex === 0}
             className="px-6 py-3 bg-card border-2 border-foreground/20 text-foreground rounded-xl font-bold hover:border-primary hover:text-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
@@ -387,20 +374,9 @@ export default function TakeQuizPage() {
             Previous
           </button>
 
-          <button
-            onClick={() => saveAnswers(true)}
-            className="px-6 py-3 bg-secondary/10 text-secondary border-2 border-secondary/30 rounded-xl font-bold hover:bg-secondary/20 transition-all flex items-center gap-2"
-          >
-            <Save size={20} />
-            Save Progress
-          </button>
-
           {currentQuestionIndex < totalQuestions - 1 ? (
             <button
-              onClick={() => {
-                saveAnswers(false);
-                setCurrentQuestionIndex(Math.min(totalQuestions - 1, currentQuestionIndex + 1));
-              }}
+              onClick={() => setCurrentQuestionIndex(Math.min(totalQuestions - 1, currentQuestionIndex + 1))}
               className="px-6 py-3 bg-primary text-background rounded-xl font-bold hover:bg-accent transition-all flex items-center gap-2"
             >
               Next
@@ -433,10 +409,7 @@ export default function TakeQuizPage() {
               return (
                 <button
                   key={q._id}
-                  onClick={() => {
-                    saveAnswers(false);
-                    setCurrentQuestionIndex(index);
-                  }}
+                  onClick={() => setCurrentQuestionIndex(index)}
                   className={`aspect-square rounded-lg font-bold transition-all ${
                     index === currentQuestionIndex
                       ? 'bg-primary text-background shadow-lg scale-110'

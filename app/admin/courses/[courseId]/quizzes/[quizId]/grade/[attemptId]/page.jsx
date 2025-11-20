@@ -221,7 +221,7 @@ export default function GradeAttemptPage() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-foreground">
                   <User size={18} className="text-primary" />
-                  <span className="font-bold">{attempt.user?.name}</span>
+                  <span className="font-bold">{attempt.user?.firstName + ' ' + attempt.user?.lastName}</span>
                 </div>
                 <div className="flex items-center gap-2 text-foreground/70">
                   <Mail size={18} className="text-secondary" />
@@ -553,6 +553,7 @@ export default function GradeAttemptPage() {
             placeholder="Enter overall feedback for the student..."
             className="w-full px-4 py-3 bg-background border-2 border-foreground/20 rounded-xl text-foreground focus:border-primary focus:outline-none resize-none mb-4"
           />
+          <div className="flex items-center gap-6">
           <button
             onClick={saveOverallFeedback}
             disabled={saving}
@@ -570,6 +571,12 @@ export default function GradeAttemptPage() {
               </>
             )}
           </button>
+          
+          <div>
+            <ArrowLeft size={16} className="inline-block ml-2 transform" />
+            <span className="text-xs text-foreground/60 ml-1">Don&apos;t forget to save before completing the grading!</span>
+          </div>
+          </div>
         </div>
 
         {/* Action Buttons */}

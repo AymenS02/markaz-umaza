@@ -79,18 +79,38 @@ export async function GET(request, { params }) {
       enrollment: enrollment._id
     }).populate('quiz', 'title totalPoints passingScore');
 
+    // Filter out attempts where quiz was deleted and clean them up
+    const validAttempts = [];
+    const orphanedAttempts = [];
+
+    for (const attempt of attempts) {
+      if (!attempt.quiz) {
+        orphanedAttempts.push(attempt._id);
+        console.warn('Found orphaned attempt (deleted quiz):', attempt._id);
+      } else {
+        validAttempts.push(attempt);
+      }
+    }
+
+    // Delete orphaned attempts in the background (don't wait)
+    if (orphanedAttempts.length > 0) {
+      QuizAttempt.deleteMany({ _id: { $in: orphanedAttempts } })
+        .then(() => console.log(`Cleaned up ${orphanedAttempts.length} orphaned attempts`))
+        .catch(err => console.error('Error cleaning orphaned attempts:', err));
+    }
+
     // Calculate progress
     const totalQuizzes = allQuizzes.length;
-    const completedQuizzes = attempts.filter(a => a.status === 'graded').length;
-    const averageScore = attempts.length > 0
-      ? Math.round(attempts.reduce((sum, a) => sum + (a.scorePercentage || 0), 0) / attempts.length)
+    const completedQuizzes = validAttempts.filter(a => a.status === 'graded').length;
+    const averageScore = validAttempts.length > 0
+      ? Math.round(validAttempts.reduce((sum, a) => sum + (a.scorePercentage || 0), 0) / validAttempts.length)
       : 0;
 
-    // Get grades for completed quizzes - FIXED: Include attemptId
-    const grades = attempts
-      .filter(a => a.status === 'graded' || a.status === 'submitted')
+    // Get grades for completed quizzes - with null check
+    const grades = validAttempts
+      .filter(a => (a.status === 'graded' || a.status === 'submitted') && a.quiz)
       .map(attempt => ({
-        attemptId: attempt._id,  // ← ADDED THIS
+        attemptId: attempt._id,
         quizId: attempt.quiz._id,
         quizTitle: attempt.quiz.title,
         score: attempt.scorePercentage,
@@ -106,7 +126,7 @@ export async function GET(request, { params }) {
     // Get available quizzes (not yet attempted or can retry)
     const availableQuizzes = [];
     for (const quiz of allQuizzes) {
-      const userAttempts = attempts.filter(a => a.quiz._id.toString() === quiz._id.toString());
+      const userAttempts = validAttempts.filter(a => a.quiz && a.quiz._id.toString() === quiz._id.toString());
       const canAttempt = userAttempts.length < quiz.maxAttempts;
       const lastAttempt = userAttempts.length > 0 ? userAttempts[userAttempts.length - 1] : null;
       
@@ -147,8 +167,8 @@ export async function GET(request, { params }) {
         totalQuizzes,
         completedQuizzes,
         averageScore,
-        totalPoints: attempts.reduce((sum, a) => sum + (a.totalPointsEarned || 0), 0),
-        possiblePoints: attempts.reduce((sum, a) => sum + (a.totalPointsPossible || 0), 0)
+        totalPoints: validAttempts.reduce((sum, a) => sum + (a.totalPointsEarned || 0), 0),
+        possiblePoints: validAttempts.reduce((sum, a) => sum + (a.totalPointsPossible || 0), 0)
       },
       availableQuizzes,
       grades
