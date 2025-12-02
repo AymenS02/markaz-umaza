@@ -45,7 +45,7 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background/50 backdrop-blur-xl text-foreground shadow-lg border-b-2 border-foreground/10 z-50"
+      className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background/50 backdrop-blur-xl text-foreground shadow-lg z-50"
     >
       <div className="max-w-[90%] mx-auto flex items-center justify-between py-2">
         {/* Logo */}

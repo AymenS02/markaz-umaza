@@ -10,7 +10,7 @@
   /* Backgrounds & Surfaces */
   --color-background: #000000;  /* near #242423 */
   --color-foreground: hsl(81, 29%, 90%);  /* E8EDDF */
-  --color-card: hsl(120, 2%, 14%);        /* 242423 */
+  --color-card: hsl(120, 2%, 8%);        /* 242423 */
 
   /* Status Colors - boosted for dark mode */
   --color-success: hsl(120, 45%, 55%);
