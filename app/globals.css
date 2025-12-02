@@ -3,12 +3,12 @@
 @theme {
    
   /* Core Brand Colors - adjusted for dark mode */
-  --color-primary: hsl(43, 95%, 72%);  
+  --color-primary: hsl(48, 100%, 65%);  
   --color-secondary: hsl(157, 20%, 75%); 
   --color-accent: hsl(81, 25%, 85%);     
 
   /* Backgrounds & Surfaces */
-  --color-background: hsl(120, 2%, 10%);  /* near #242423 */
+  --color-background: #000000;  /* near #242423 */
   --color-foreground: hsl(81, 29%, 90%);  /* E8EDDF */
   --color-card: hsl(120, 2%, 14%);        /* 242423 */
 
@@ -22,7 +22,7 @@
 .light {
 
   /* Core Brand Colors */
-  --color-primary: hsl(43, 89%, 47%);     /* F5CB5C - golden yellow */
+  --color-primary: hsl(43, 84%, 52%);     /* F5CB5C - golden yellow */
   --color-secondary: hsl(157, 16%, 64%);  /* CFDBD5 - mint gray */
   --color-accent: hsl(81, 29%, 70%);      /* E8EDDF - soft green-yellow */
 
@@ -106,5 +106,9 @@ h1, h2, h3, h4, h5, h6 {
   border-color: transparent;
   box-shadow: none;
   padding: 0;
+}
+
+.light .backy {
+  @apply bg-white/20 backdrop-blur-sm;
 }
 

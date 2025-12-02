@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -12,29 +12,54 @@ const DarkModeToggle = dynamic(() => import('@/darkMode'), { ssr: false });
 const Header = () => {
   const { user } = useAuth();
   const [hydrated, setHydrated] = useState(false);
+  // Plain JS ref (no TypeScript generic) so this works in .jsx files
+  const headerRef = useRef(null);
 
   useEffect(() => {
     setHydrated(true);
-    console.log("User in Header:", user);
+    // you can log user here if you want
+    // console.log("User in Header:", user);
   }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    const el = headerRef.current;
+    if (!el) return;
+
+    const setVar = () => {
+      // set CSS variable on the root so other components can use it
+      document.documentElement.style.setProperty('--header-height', `${el.offsetHeight}px`);
+    };
+
+    setVar();
+
+    // Watch for changes in header size (responsive, font changes, etc.)
+    const ro = new ResizeObserver(() => setVar());
+    ro.observe(el);
+
+    return () => ro.disconnect();
+  }, [hydrated]);
 
   if (!hydrated) return null; // Prevent SSR/client mismatch
 
   return (
-    <header className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background/95 backdrop-blur-md text-foreground shadow-lg border-b-2 border-foreground/10 z-50">
+    <header
+      ref={headerRef}
+      className="max-md:hidden fixed top-0 left-0 w-full px-2 bg-background/50 backdrop-blur-xl text-foreground shadow-lg border-b-2 border-foreground/10 z-50"
+    >
       <div className="max-w-[90%] mx-auto flex items-center justify-between py-2">
         {/* Logo */}
         <div className="flex items-center">
           <div
             className="mr-3 cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => window.location.href='/'}
+            onClick={() => (window.location.href = '/')}
           >
             <Image
               src="/assets/markaz_umaza_header_logo.svg"
               alt="Fitrah Foundation Logo"
-              className="w-24 h-24 object-fit"
+              className="w-24 h-18 object-fit"
               width={24}
-              height={24}
+              height={18}
               priority
             />
           </div>
@@ -54,10 +79,8 @@ const Header = () => {
             Contact Us
           </Link>
 
-          {/* Conditional buttons */}
           {user ? (
             <>
-              {/* Courses button */}
               <Link
                 href="/courses"
                 className="px-6 py-2 rounded-full font-bold border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
@@ -65,7 +88,6 @@ const Header = () => {
                 Courses
               </Link>
 
-              {/* Account button */}
               <Link
                 href="/account"
                 className="px-6 py-2 rounded-full font-bold bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
@@ -73,7 +95,6 @@ const Header = () => {
                 Account
               </Link>
 
-              {/* Admin button only for admins */}
               {user.role === 'ADMIN' && (
                 <Link
                   href="/admin"
@@ -84,7 +105,6 @@ const Header = () => {
               )}
             </>
           ) : (
-            // Show Sign Up if not logged in
             <Link
               href="/sign-up"
               className="px-6 py-2 rounded-full font-bold bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
@@ -93,7 +113,7 @@ const Header = () => {
             </Link>
           )}
 
-          <DarkModeToggle />
+          {/* <DarkModeToggle /> */}
         </nav>
       </div>
     </header>

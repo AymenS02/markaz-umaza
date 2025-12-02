@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { AuthProvider } from "./components/authContext";
+import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 // Fonts
 const oldStandardTT = Old_Standard_TT({
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Header />
           <Sidebar />
-          <main>{children}</main>
+          <SmoothScrollProvider>
+            <main className="md:mt-22">{children}</main>
+          </SmoothScrollProvider>
           <Footer />
         </AuthProvider>
       </body>

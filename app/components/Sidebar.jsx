@@ -160,9 +160,9 @@ const Sidebar = () => {
         </nav>
 
         {/* Footer with Dark Mode Toggle */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 py-4 border-t border-primary/20 bg-gradient-to-t from-primary/5 to-transparent">
+        {/* <div className="absolute bottom-0 left-0 right-0 px-6 py-4 border-t border-primary/20 bg-gradient-to-t from-primary/5 to-transparent">
           <DarkModeToggle />
-        </div>
+        </div> */}
       </aside>
     </>
   );

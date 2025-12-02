@@ -436,7 +436,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-foreground/90 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed italic">
-                "The structured approach made learning Arabic enjoyable and effective. I've made incredible progress!"
+                &quot;The structured approach made learning Arabic enjoyable and effective. I&apos;ve made incredible progress!&quot;
               </p>
               <div className="flex items-center gap-3 sm:gap-4">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary rounded-full flex items-center justify-center font-black text-background text-lg sm:text-xl shadow-lg">
@@ -456,7 +456,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-foreground/90 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed italic">
-                "Perfect for my busy schedule. The instructors are patient, knowledgeable, and truly dedicated."
+                &quot;Perfect for my busy schedule. The instructors are patient, knowledgeable, and truly dedicated.&quot;
               </p>
               <div className="flex items-center gap-3 sm:gap-4">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 bg-secondary rounded-full flex items-center justify-center font-black text-background text-lg sm:text-xl shadow-lg">
