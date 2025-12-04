@@ -1,4 +1,5 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
 
 @theme {
    
@@ -10,7 +11,7 @@
   /* Backgrounds & Surfaces */
   --color-background: #000000;  /* near #242423 */
   --color-foreground: hsl(81, 29%, 90%);  /* E8EDDF */
-  --color-card: hsl(120, 2%, 8%);        /* 242423 */
+  --color-card: #000000;        /* 242423 */
 
   /* Status Colors - boosted for dark mode */
   --color-success: hsl(120, 45%, 55%);
@@ -61,14 +62,14 @@
 
 /* === TYPOGRAPHY === */
 body {
-  font-family: var(--font-old-standard);
+  font-family: 'Montserrat', sans-serif;
   background-color: var(--color-background);
   color: var(--color-foreground);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-old-standard);
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Hero gradient overlays - only visible in dark mode */

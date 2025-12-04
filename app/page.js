@@ -98,13 +98,6 @@ export default function Home() {
             {/* Content Container */}
             <div className="relative z-20 container mx-auto px-4 sm:px-6 h-full flex items-center">
               <div className="max-w-3xl w-full">
-                {/* Badge */}
-                <div className={`inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/20 backdrop-blur-md border border-primary/30 rounded-full mb-4 sm:mb-8 transition-all duration-700 delay-300 ${
-                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}>
-                  <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-primary font-bold text-xs sm:text-sm tracking-wider uppercase">Premium Education</span>
-                </div>
 
                 {/* Main Title */}
                 <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-foreground mb-4 sm:mb-6 leading-none transition-all duration-700 delay-500 ${
@@ -138,52 +131,22 @@ export default function Home() {
                 }`}>
                   <a
                     href={slide.ctaLink}
-                    className="group px-6 sm:px-10 py-3 sm:py-5 bg-primary text-background rounded-xl font-bold text-base sm:text-lg shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3"
+                    className="group px-6 sm:px-10 py-3 sm:py-5 bg-gradient-to-r from-primary/70 to-primary text-background rounded-xl font-bold text-base sm:text-lg shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3"
                   >
                     <Play size={20} className="group-hover:translate-x-1 transition-transform" />
                     {slide.cta}
                   </a>
                   <a
                     href="/about"
-                    className="px-6 sm:px-10 py-3 sm:py-5 bg-background/90 backdrop-blur-md border-2 border-foreground/20 text-foreground rounded-xl font-bold text-base sm:text-lg hover:border-primary hover:bg-background transition-all flex items-center justify-center gap-3"
+                    className="relative rounded-xl font-bold text-base sm:text-lg transition-all flex items-center justify-center gap-3 bg-foreground/30 hover:bg-gradient-to-r from-primary to-primary/30 p-[2px] group"
                   >
-                    <Info size={20} />
-                    Learn More
+                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-[10px] px-6 sm:px-10 py-3 sm:py-5 group-hover:bg-background transition-all">
+                      <Info size={20} />
+                      Learn More
+                    </span>
                   </a>
                 </div>
 
-                {/* Stats Bar */}
-                <div className={`mt-8 sm:mt-12 flex flex-wrap gap-4 sm:gap-6 lg:gap-8 transition-all duration-700 delay-[1500ms] ${
-                  index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/20 backdrop-blur-md rounded-lg flex items-center justify-center">
-                      <Users className="text-primary" size={20} />
-                    </div>
-                    <div>
-                      <div className="text-xl sm:text-2xl font-bold text-foreground">150+</div>
-                      <div className="text-xs sm:text-sm text-foreground/60">Students</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-secondary/20 backdrop-blur-md rounded-lg flex items-center justify-center">
-                      <BookOpen className="text-secondary" size={20} />
-                    </div>
-                    <div>
-                      <div className="text-xl sm:text-2xl font-bold text-foreground">5+</div>
-                      <div className="text-xs sm:text-sm text-foreground/60">Courses</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent/20 backdrop-blur-md rounded-lg flex items-center justify-center">
-                      <Star className="text-accent" size={20} fill="currentColor" />
-                    </div>
-                    <div>
-                      <div className="text-xl sm:text-2xl font-bold text-foreground">98%</div>
-                      <div className="text-xs sm:text-sm text-foreground/60">Satisfaction</div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -337,8 +300,9 @@ export default function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-card">
-        <div className="container mx-auto max-w-7xl">
+      <section className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-card">
+        <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-30" />
+        <div className="relative container mx-auto max-w-7xl z-20">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/10 rounded-full mb-3 sm:mb-4">
               <span className="text-secondary font-bold text-xs sm:text-sm tracking-wider uppercase">Our Approach</span>

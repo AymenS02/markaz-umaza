@@ -8,7 +8,10 @@ import {
 
 const Footer = () => {
   return (
-    <footer className='bg-background border-t border-primary/20 text-foreground py-12'>
+    <footer className='relative bg-background border-t border-primary/20 text-foreground py-12'>
+
+      <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-30" />
+
       <div className='max-w-7xl mx-auto px-6'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-12 items-start'>
           
