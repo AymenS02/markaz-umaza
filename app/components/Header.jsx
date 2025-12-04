@@ -67,15 +67,15 @@ const Header = () => {
 
         {/* Navigation Menu */}
         <nav className="flex items-center space-x-6">
-          <Link href="/" className="text-foreground hover:text-primary hover:scale-105 transition-all duration-300 font-bold">
+          <Link href="/"   className="inline-block text-foreground hover:underline underline-offset-4 decoration-primary transition-colors duration-300">
             Home
           </Link>
 
-          <Link href="/instructors" className="text-foreground hover:text-primary hover:scale-105 transition-all duration-300 font-bold">
+          <Link href="/instructors" className="inline-block text-foreground hover:underline underline-offset-4 decoration-primary transition-colors duration-300">
             Instructors
           </Link>
 
-          <Link href="/contact" className="text-foreground hover:text-primary hover:scale-105 transition-all duration-300 font-bold">
+          <Link href="/contact" className="inline-block text-foreground hover:underline underline-offset-4 decoration-primary transition-colors duration-300">
             Contact Us
           </Link>
 
@@ -83,14 +83,14 @@ const Header = () => {
             <>
               <Link
                 href="/courses"
-                className="px-6 py-2 rounded-full font-bold border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
+                className="px-6 py-2 rounded-full  border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
               >
                 Courses
               </Link>
 
               <Link
                 href="/account"
-                className="px-6 py-2 rounded-full font-bold bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
+                className="px-6 py-2 rounded-full  bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
               >
                 Account
               </Link>
@@ -98,7 +98,7 @@ const Header = () => {
               {user.role === 'ADMIN' && (
                 <Link
                   href="/admin"
-                  className="px-6 py-2 rounded-full font-bold bg-accent text-background hover:bg-primary hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
+                  className="px-6 py-2 rounded-full  bg-accent text-background hover:bg-primary hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
                 >
                   Admin
                 </Link>
@@ -107,7 +107,7 @@ const Header = () => {
           ) : (
             <Link
               href="/sign-up"
-              className="px-6 py-2 rounded-full font-bold bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
+              className="px-6 py-2 rounded-full  bg-primary text-background hover:bg-accent hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
             >
               Sign Up
             </Link>
