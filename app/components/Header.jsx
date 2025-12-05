@@ -67,15 +67,15 @@ const Header = () => {
 
         {/* Navigation Menu */}
         <nav className="flex items-center space-x-6">
-          <Link href="/"   className="inline-block text-foreground hover:underline underline-offset-4 decoration-primary transition-colors duration-300">
+          <Link href="/"   className="inline-block text-foreground border-b-2 border-transparent hover:border-primary transition-all duration-300">
             Home
           </Link>
 
-          <Link href="/instructors" className="inline-block text-foreground hover:underline underline-offset-4 decoration-primary transition-colors duration-300">
+          <Link href="/instructors" className=" text-foreground border-b-2 border-transparent hover:border-primary transition-all duration-300">
             Instructors
           </Link>
 
-          <Link href="/contact" className="inline-block text-foreground hover:underline underline-offset-4 decoration-primary transition-colors duration-300">
+          <Link href="/contact" className=" text-foreground border-b-2 border-transparent hover:border-primary transition-all duration-300">
             Contact Us
           </Link>
 
