@@ -9,67 +9,98 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScrollProvider({ children }) {
   useEffect(() => {
-    let isMobile = window.innerWidth <= 900;
+    let lenis;
+    let isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-    const getScrollSettings = (mobile) =>
-      mobile
-        ? {
-            duration: 1,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: "vertical",
-            gestureDirection: "vertical",
-            smooth: true,
-            smoothTouch: true,
-            touchMultiplier: 1.5,
-            infinite: false,
-            lerp: 0.05,
-            wheelMultiplier: 1,
-            orientation: "vertical",
-            smoothWheel: true,
-            syncTouch: true,
-          }
-        : {
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: "vertical",
-            gestureDirection: "vertical",
-            smooth: true,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false,
-            lerp: 0.1,
-            wheelMultiplier: 1,
-            orientation: "vertical",
-            smoothWheel: true,
-            syncTouch: true,
-          };
-
-    let lenis = new Lenis(getScrollSettings(isMobile));
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
+    const getScrollSettings = (mobile) => ({
+      // Keep easing consistent
+      duration: mobile ? 1 : 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+      // Mobile: let native touch be snappy; disable smoothTouch/syncTouch
+      smoothTouch: false,
+      syncTouch: false,
+      // Lower multipliers to reduce jitter/overshoot
+      touchMultiplier: mobile ? 1 : 1.25,
+      wheelMultiplier: 1,
+      lerp: mobile ? 0.08 : 0.12,
+      direction: "vertical",
+      gestureDirection: "vertical",
+      orientation: "vertical",
+      infinite: false,
     });
 
-    gsap.ticker.lagSmoothing(0);
+    // Create lenis once
+    lenis = new Lenis(getScrollSettings(isMobile));
 
-    const handleResize = () => {
-      const wasMobile = isMobile;
-      isMobile = window.innerWidth <= 900;
+    // ScrollTrigger scrollerProxy to read Lenis positions
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (arguments.length) {
+          lenis.scrollTo(value, { immediate: true });
+        } else {
+          return lenis.scroll;
+        }
+      },
+      getBoundingClientRect() {
+        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+      },
+      // Use fixed pinType for mobile to avoid jitter
+      pinType: document.body.style.transform ? "transform" : "fixed",
+    });
 
-      if (wasMobile !== isMobile) {
+    // Update ScrollTrigger on Lenis scroll
+    lenis.on("scroll", () => {
+      ScrollTrigger.update();
+    });
+
+    // Prefer Lenis RAF loop over gsap.ticker
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    // Build triggers after proxy
+    ScrollTrigger.refresh();
+
+    // Handle breakpoint changes without destroying instance
+    const mediaQuery = window.matchMedia("(max-width: 900px)");
+    const onChange = (e) => {
+      isMobile = e.matches;
+      const settings = getScrollSettings(isMobile);
+      // Update settings on the existing instance (Lenis v1 supports .options update via new Lenis? If not, re-init cautiously)
+      try {
+        // If your Lenis version doesn’t allow live updates, do a controlled re-init:
+        const currentScroll = lenis.scroll;
         lenis.destroy();
-        lenis = new Lenis(getScrollSettings(isMobile));
-        lenis.on("scroll", ScrollTrigger.update);
+        lenis = new Lenis(settings);
+        ScrollTrigger.scrollerProxy(document.body, {
+          scrollTop(value) {
+            if (arguments.length) {
+              lenis.scrollTo(value, { immediate: true });
+            } else {
+              return lenis.scroll;
+            }
+          },
+          getBoundingClientRect() {
+            return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+          },
+          pinType: document.body.style.transform ? "transform" : "fixed",
+        });
+        lenis.scrollTo(currentScroll, { immediate: true });
+        ScrollTrigger.refresh();
+      } catch (err) {
+        // Fallback: do nothing
       }
     };
-
-    window.addEventListener("resize", handleResize);
+    mediaQuery.addEventListener("change", onChange);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      lenis.destroy();
+      mediaQuery.removeEventListener("change", onChange);
+      lenis?.destroy();
+      // Clear any ScrollTrigger state if needed
+      ScrollTrigger.kill();
     };
   }, []);
 
