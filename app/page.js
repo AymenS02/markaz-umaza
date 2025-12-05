@@ -136,8 +136,8 @@ export default function Home() {
               />
               {/* Dark Overlay with softer gradient */}
               <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute inset-0 hero-gradient-horizontal"></div>
-              <div className="absolute inset-0 hero-gradient-vertical"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-black via-black/90 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black to-transparent"></div>
               </div>
             </div>
 
