@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
@@ -13,8 +13,7 @@ import {
   Trophy,
   Clock,
   Zap,
-  Award,
-  Target
+  Award
 } from 'lucide-react';
 
 export default function Home() {
@@ -22,41 +21,28 @@ export default function Home() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Sidebar state for mobile frosty overlay + scroll lock
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  useEffect(() => {
-    if (sidebarOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [sidebarOpen]);
-
   const heroSlides = [
     {
-      title: 'LEARN ARABIC',
-      subtitle: 'MASTER THE LANGUAGE OF THE QURAN',
+      title: 'Learn Arabic',
+      subtitle: 'Master the language of the Quran',
       description: 'Join thousands of students worldwide in their journey to Arabic fluency',
-      cta: 'START LEARNING',
+      cta: 'Start Learning',
       ctaLink: '/courses',
       image: '/assets/hero-1.jpg'
     },
     {
-      title: 'EXPERT INSTRUCTORS',
-      subtitle: 'LEARN FROM QUALIFIED SCHOLARS',
+      title: 'Expert Instructors',
+      subtitle: 'Learn from qualified scholars',
       description: 'Our instructors have years of experience teaching Arabic at all levels',
-      cta: 'MEET OUR TEAM',
+      cta: 'Meet Our Team',
       ctaLink: '/instructors',
       image: '/assets/hero-2.jpg'
     },
     {
-      title: 'FLEXIBLE LEARNING',
-      subtitle: 'STUDY AT YOUR OWN PACE',
+      title: 'Flexible Learning',
+      subtitle: 'Study at your own pace',
       description: 'Access courses anytime, anywhere with our comprehensive online platform',
-      cta: 'VIEW COURSES',
+      cta: 'View Courses',
       ctaLink: '/courses',
       image: '/assets/hero-3.jpg'
     }
@@ -96,24 +82,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background min-h-screen font-montserrat">
-      {/* Optional mobile sidebar back-drop to dismiss on outside click */}
-      {sidebarOpen && (
-        <button
-          aria-label="Dismiss sidebar"
-          onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm"
-        />
-      )}
-      {/* Example frosty sidebar container (hook up to your actual sidebar) */}
-      <aside
-        className={`fixed top-0 right-0 h-full w-72 sm:w-80 z-[70] transition-transform duration-300 ${
-          sidebarOpen ? 'translate-x-0' : 'translate-x-full'
-        } bg-background/40 backdrop-blur-xl border-l border-foreground/10`}
-      >
-        {/* Your sidebar content */}
-      </aside>
-
+    <div className="bg-background min-h-screen font-montserrat md:mt-[-88px]">
       {/* Hero Section - Full Screen with Images */}
       <section className="relative h-screen w-full overflow-hidden">
         {heroSlides.map((slide, index) => (
@@ -134,19 +103,34 @@ export default function Home() {
                   transition: 'transform 10s ease-out'
                 }}
               />
-              {/* Dark Overlay with softer gradient */}
+
+              {/* Dark Overlay with softer gradient (less strong) */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-linear-to-r from-black via-black/90 to-transparent"></div>
-                <div className="absolute inset-0 bg-linear-to-t from-black to-transparent"></div>
+                {/* Horizontal: black -> black with hex alpha 40 -> transparent */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to right, #000000, #00000040, rgba(0,0,0,0))'
+                  }}
+                />
+                {/* Vertical: black with alpha 40 -> transparent */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to top, #00000040, rgba(0,0,0,0), rgba(0,0,0,0))'
+                  }}
+                />
               </div>
             </div>
 
             {/* Content Container */}
             <div className="relative z-20 container mx-auto px-4 sm:px-6 h-full flex items-center">
               <div className="max-w-3xl w-full">
-                {/* Main Title: 3.75rem, uppercase, boldness toned down */}
+                {/* Main Title: 3.75rem and toned boldness (font-extrabold) */}
                 <h1
-                  className={`text-[3.75rem] sm:text-[3.75rem] md:text-[3.75rem] lg:text-[3.75rem] leading-none font-extrabold text-foreground uppercase mb-4 sm:mb-6 transition-all duration-700 delay-500 ${
+                  className={`text-[3.75rem] leading-none font-extrabold text-foreground mb-4 sm:mb-6 transition-all duration-700 delay-500 ${
                     index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                   }`}
                   style={{ lineHeight: 1 }}
@@ -154,16 +138,17 @@ export default function Home() {
                   {slide.title}
                 </h1>
 
-                {/* Accent Line */}
+                {/* Accent Line (new darker gradient dea10d -> ebca00) */}
                 <div
-                  className={`w-20 sm:w-32 h-1.5 sm:h-2 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] mb-4 sm:mb-6 transition-all duration-700 delay-700 ${
+                  className={`w-20 sm:w-32 h-1.5 sm:h-2 mb-4 sm:mb-6 transition-all duration-700 delay-700 ${
                     index === currentSlide ? 'opacity-100' : 'opacity-0 w-0'
                   }`}
+                  style={{ background: 'linear-gradient(to right, #dea10d, #ebca00)' }}
                 />
 
-                {/* Subtitle (kept bold, uppercase) */}
+                {/* Subtitle */}
                 <h2
-                  className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary font-bold uppercase mb-4 sm:mb-6 transition-all duration-700 delay-[900ms] ${
+                  className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary font-bold mb-4 sm:mb-6 transition-all duration-700 delay-[900ms] ${
                     index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
                 >
@@ -187,18 +172,20 @@ export default function Home() {
                 >
                   <a
                     href={slide.ctaLink}
-                    className="group px-6 sm:px-10 py-3 sm:py-5 rounded-full font-normal text-base sm:text-lg shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 uppercase text-white bg-gradient-to-r from-[#f2b10d] to-[#ffdd00]"
+                    className="group px-6 sm:px-10 py-3 sm:py-5 rounded-full font-normal text-base sm:text-lg shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-white"
+                    style={{ background: 'linear-gradient(to right, #dea10d, #ebca00)' }}
                   >
                     <Play size={20} className="group-hover:translate-x-1 transition-transform" />
-                    {slide.cta}
+                    {slide.cta.toUpperCase()}
                   </a>
+
                   <a
                     href="/about"
-                    className="relative rounded-full font-normal text-base sm:text-lg transition-all flex items-center justify-center gap-3 p-[2px] group uppercase"
+                    className="relative rounded-full font-normal text-base sm:text-lg transition-all flex items-center justify-center gap-3 p-[2px] group"
                   >
-                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-full px-6 sm:px-10 py-3 sm:py-5 border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0_0_18px_#ffff33] text-white hover:text-white transition-all">
-                      <Info size={20} className="text-foreground group-hover:text-white" />
-                      LEARN MORE
+                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-full px-6 sm:px-10 py-3 sm:py-5 group-hover:bg-background transition-all text-white">
+                      <Info size={20} />
+                      Learn More
                     </span>
                   </a>
                 </div>
@@ -211,7 +198,7 @@ export default function Home() {
         <div className="hidden sm:flex absolute bottom-6 sm:bottom-10 right-4 sm:right-10 z-30 items-center gap-3 sm:gap-4">
           <button
             onClick={prevSlide}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center hover:bg-[#f2b10d] hover:text-background hover:border-[#f2b10d] transition-all group hover:shadow-[0_0_18px_#ffff33]"
+            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center hover:bg-[#dea10d] hover:text-background hover:border-[#dea10d] transition-all group hover:shadow-[0_0_18px_#ffff33]"
           >
             <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
           </button>
@@ -223,16 +210,17 @@ export default function Home() {
                 onClick={() => setCurrentSlide(index)}
                 className={`transition-all duration-500 ${
                   index === currentSlide
-                    ? 'w-12 sm:w-16 h-2 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] rounded-full'
-                    : 'w-2 h-2 bg-foreground/30 rounded-full hover:bg-foreground/50'
+                    ? 'w-12 sm:w-16 h-2 rounded-full'
+                    : 'w-2 h-2 rounded-full bg-foreground/30'
                 }`}
+                style={index === currentSlide ? { background: 'linear-gradient(to right, #dea10d, #ebca00)' } : {}}
               />
             ))}
           </div>
 
           <button
             onClick={nextSlide}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center hover:bg-[#f2b10d] hover:text-background hover:border-[#f2b10d] transition-all group hover:shadow-[0_0_18px_#ffff33]"
+            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center hover:bg-[#dea10d] hover:text-background hover:border-[#dea10d] transition-all group hover:shadow-[0_0_18px_#ffff33]"
           >
             <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
@@ -245,18 +233,11 @@ export default function Home() {
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`transition-all duration-500 ${
-                index === currentSlide
-                  ? 'w-8 h-2 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] rounded-full'
-                  : 'w-2 h-2 bg-foreground/30 rounded-full'
+                index === currentSlide ? 'w-8 h-2 rounded-full' : 'w-2 h-2 rounded-full bg-foreground/30'
               }`}
+              style={index === currentSlide ? { background: 'linear-gradient(to right, #dea10d, #ebca00)' } : {}}
             />
           ))}
-        </div>
-
-        {/* Scroll Indicator - Hidden on mobile */}
-        <div className="hidden sm:flex absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex-col items-center gap-2 animate-bounce">
-          <span className="text-xs text-foreground/60 font-semibold tracking-wider uppercase">SCROLL</span>
-          <div className="w-0.5 h-8 bg-gradient-to-b from-[#f2b10d] to-[#ffdd00]" />
         </div>
       </section>
 
@@ -267,15 +248,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 sm:mb-12 gap-4">
             <div>
               <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 rounded-full mb-3 sm:mb-4">
-                <span className="text-primary font-bold text-xs sm:text-sm tracking-wider uppercase">POPULAR COURSES</span>
+                <span className="text-primary font-bold text-xs sm:text-sm tracking-wider uppercase">Popular Courses</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground uppercase">EXPLORE OUR COURSES</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground uppercase">Explore Our Courses</h2>
             </div>
-            <a
-              href="/courses"
-              className="hidden md:flex items-center gap-2 text-primary hover:gap-4 transition-all font-bold uppercase"
-            >
-              VIEW ALL <ArrowRight size={20} />
+            <a href="/courses" className="hidden md:flex items-center gap-2 text-primary hover:gap-4 transition-all font-bold uppercase">
+              View All <ArrowRight size={20} />
             </a>
           </div>
 
@@ -286,38 +264,30 @@ export default function Home() {
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {courses.map((course, idx) => (
+                {courses.map((course) => (
                   <a
                     key={course._id}
                     href={`/courses/${course._id}/enroll`}
-                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d]/60 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#dea10d]/60 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
                   >
-                    {/* Course Image/Thumbnail */}
                     <div className="relative aspect-[4/3] bg-primary/20 overflow-hidden">
-                      {/* Overlay */}
                       <div className="absolute inset-0 bg-background/80" />
-
-                      {/* Badge */}
                       <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
-                        <span className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] text-white text-xs font-extrabold uppercase tracking-wide rounded-full shadow-lg">
-                          {course.difficultyLevel || 'BEGINNER'}
+                        <span className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#dea10d] to-[#ebca00] text-white text-xs font-extrabold uppercase tracking-wide rounded-full shadow-lg">
+                          {course.difficultyLevel || 'Beginner'}
                         </span>
                       </div>
-
-                      {/* Rating Badge */}
                       <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-background/90 backdrop-blur-sm rounded-full">
                         <Star size={12} fill="currentColor" className="text-accent" />
                         <span className="font-bold text-foreground text-xs sm:text-sm">{course.rating || 5.0}</span>
                       </div>
                     </div>
 
-                    {/* Course Info */}
                     <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
-                      <h3 className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem] uppercase">
+                      <h3 className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem]">
                         {course.title}
                       </h3>
 
-                      {/* Meta Info */}
                       <div className="flex items-center justify-between text-xs sm:text-sm text-foreground/60">
                         <div className="flex items-center gap-1.5">
                           <Users size={14} />
@@ -329,16 +299,10 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Price & Arrow */}
                       <div className="pt-3 sm:pt-4 border-t border-foreground/10 flex items-center justify-between">
-                        <div className="text-2xl sm:text-3xl font-extrabold text-primary">
-                          ${course.price || 0}
-                        </div>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] transition-all">
-                          <ArrowRight
-                            size={18}
-                            className="text-primary group-hover:text-white group-hover:translate-x-0.5 transition-all"
-                          />
+                        <div className="text-2xl sm:text-3xl font-extrabold text-primary">${course.price || 0}</div>
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r from-[#dea10d] to-[#ebca00] transition-all">
+                          <ArrowRight size={18} className="text-primary group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </div>
                     </div>
@@ -349,9 +313,10 @@ export default function Home() {
               <div className="text-center mt-8 sm:mt-12">
                 <a
                   href="/courses"
-                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-normal text-base sm:text-lg hover:shadow-xl transition-all uppercase text-white bg-gradient-to-r from-[#f2b10d] to-[#ffdd00]"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-normal text-base sm:text-lg hover:shadow-xl transition-all uppercase text-white"
+                  style={{ background: 'linear-gradient(to right, #dea10d, #ebca00)' }}
                 >
-                  VIEW ALL COURSES
+                  View All Courses
                   <ArrowRight size={20} />
                 </a>
               </div>
@@ -360,33 +325,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Grid */}
+      {/* Features Grid ("Why Students Choose Us") */}
       <section className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-card">
-        <img
-          src="/assets/cali-1.svg"
-          alt="Cali"
-          className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-30"
-        />
+        <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-30" />
         <div className="relative container mx-auto max-w-7xl z-20">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/10 rounded-full mb-3 sm:mb-4">
-              <span className="text-secondary font-bold text-xs sm:text-sm tracking-wider uppercase">OUR APPROACH</span>
+              <span className="text-secondary font-bold text-xs sm:text-sm tracking-wider uppercase">Our Approach</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 sm:mb-4 uppercase">
-              WHY STUDENTS CHOOSE US
-            </h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 sm:mb-4">Why Students Choose Us</h2>
             <p className="text-base sm:text-lg lg:text-xl text-foreground/60 max-w-2xl mx-auto px-4">
               Experience a comprehensive learning platform designed for your success
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {/* Feature Cards */}
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d]/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#dea10d]/60 hover:shadow-xl transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <BookOpen className="text-primary" size={36} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 uppercase">EXPERT TEACHERS</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">Expert Teachers</h3>
               <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                 Learn from qualified scholars with decades of combined teaching experience in Arabic language education.
               </p>
@@ -396,7 +354,7 @@ export default function Home() {
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Zap className="text-secondary" size={36} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 uppercase">FAST PROGRESS</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">Fast Progress</h3>
               <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                 Our proven methodology helps students achieve fluency faster with structured lessons and practice.
               </p>
@@ -406,17 +364,17 @@ export default function Home() {
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Clock className="text-accent" size={36} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 uppercase">FLEXIBLE SCHEDULE</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">Flexible Schedule</h3>
               <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                 Study whenever and wherever suits you with 24/7 access to all course materials and resources.
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d]/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#dea10d]/60 hover:shadow-xl transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Users className="text-primary" size={36} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 uppercase">ACTIVE COMMUNITY</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">Active Community</h3>
               <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                 Join a vibrant community of learners who support and motivate each other throughout the journey.
               </p>
@@ -426,7 +384,7 @@ export default function Home() {
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Trophy className="text-secondary" size={36} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 uppercase">PROVEN RESULTS</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">Proven Results</h3>
               <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                 98% of our students successfully achieve their learning goals and gain Arabic proficiency.
               </p>
@@ -436,7 +394,7 @@ export default function Home() {
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Award className="text-accent" size={36} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 uppercase">CERTIFICATION</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">Certification</h3>
               <p className="text-sm sm:text-base text-foreground/70 leading-relaxed">
                 Earn recognized certificates upon course completion to showcase your Arabic language skills.
               </p>
