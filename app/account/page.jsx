@@ -169,7 +169,7 @@ export default function AccountPage() {
         {/* Profile Info */}
         <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
           <div className="bg-primary px-4 sm:px-6 py-3 sm:py-4">
-            <h2 className="text-lg sm:text-xl font-semibold text-white flex items-center">
+            <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center">
               <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Profile Information
             </h2>
           </div>
@@ -200,7 +200,7 @@ export default function AccountPage() {
         ].map(({ icon: Icon, title, value, setValue, handler, loading, placeholder }, i) => (
           <div key={i} className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
             <div className="bg-accent px-4 sm:px-6 py-3 sm:py-4">
-              <h2 className="text-lg sm:text-xl font-semibold text-white flex items-center">
+              <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center">
                 <Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> {title}
               </h2>
             </div>
@@ -221,7 +221,7 @@ export default function AccountPage() {
               <button
                 onClick={handler}
                 disabled={loading}
-                className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-hover transition flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full bg-primary text-black py-3 rounded-lg hover:bg-primary-hover transition flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -239,7 +239,7 @@ export default function AccountPage() {
         {/* Password */}
         <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
           <div className="bg-secondary px-4 sm:px-6 py-3 sm:py-4">
-            <h2 className="text-lg sm:text-xl font-semibold text-white flex items-center">
+            <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center">
               <Lock className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Change Password
             </h2>
           </div>
@@ -272,7 +272,7 @@ export default function AccountPage() {
             <button
               onClick={handlePasswordUpdate}
               disabled={loading.password}
-              className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-hover transition flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-primary text-black py-3 rounded-lg hover:bg-primary-hover transition flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading.password ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
