@@ -42,7 +42,7 @@ export default function Home() {
       description: 'Join thousands of students worldwide in their journey to Arabic fluency',
       cta: 'START LEARNING',
       ctaLink: '/courses',
-      image: '/assets/hero-4.webp'
+      image: '/assets/hero-1.webp'
     },
     {
       title: 'EXPERT INSTRUCTORS',
@@ -141,7 +141,7 @@ export default function Home() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      'linear-gradient(to right, #000000, #00000055, rgba(0,0,0,0))'
+                      'linear-gradient(to right, #000000, #00000095, rgba(0,0,0,0))'
                   }}
                 />
                 {/* Vertical: black with alpha 40 -> transparent */}
@@ -149,7 +149,7 @@ export default function Home() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      'linear-gradient(to top, #00000055, rgba(0,0,0,0), rgba(0,0,0,0))'
+                      'linear-gradient(to top, #00000095, rgba(0,0,0,0), rgba(0,0,0,0))'
                   }}
                 />
               </div>
@@ -210,7 +210,7 @@ export default function Home() {
                     href="/about"
                     className="relative rounded-full font-normal text-base sm:text-lg transition-all flex items-center justify-center gap-3 p-[2px] group uppercase"
                   >
-                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-full px-6 sm:px-10 py-3 sm:py-5 border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#ffcc33] text-white hover:text-white transition-all">
+                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-full px-6 sm:px-10 py-3 sm:py-5 border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] text-white hover:text-white transition-all">
                       <Info size={20} className="text-foreground group-hover:text-white" />
                       LEARN MORE
                     </span>
@@ -225,7 +225,7 @@ export default function Home() {
         <div className="hidden sm:flex absolute bottom-6 sm:bottom-10 right-4 sm:right-10 z-30 items-center gap-3 sm:gap-4">
           <button
             onClick={prevSlide}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#ffcc33] text-white hover:text-white transition-all group "
+            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all group "
           >
             <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
           </button>
@@ -246,7 +246,7 @@ export default function Home() {
 
           <button
             onClick={nextSlide}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#ffcc33] text-white hover:text-white transition-all group "
+            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all group "
           >
             <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
@@ -304,7 +304,7 @@ export default function Home() {
                   <a
                     key={course._id}
                     href={`/courses/${course._id}/enroll`}
-                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d]/60 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Course Image/Thumbnail */}
                     <div className="relative aspect-[4/3] bg-primary/20 overflow-hidden">
@@ -348,7 +348,7 @@ export default function Home() {
                         <div className="text-2xl sm:text-3xl font-extrabold text-primary">
                           ${course.price || 0}
                         </div>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#ffcc33] text-white hover:text-white transition-all">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all">
                           <ArrowRight
                             size={18}
                             className="text-primary"
@@ -389,7 +389,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#dea10d]/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <BookOpen className="text-primary" size={36} />
               </div>
@@ -399,7 +399,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Zap className="text-secondary" size={36} />
               </div>
@@ -409,7 +409,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Clock className="text-accent" size={36} />
               </div>
@@ -419,7 +419,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#dea10d]/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Users className="text-primary" size={36} />
               </div>
@@ -429,7 +429,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Trophy className="text-secondary" size={36} />
               </div>
@@ -439,7 +439,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-xl transition-all text-center">
+            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Award className="text-accent" size={36} />
               </div>
@@ -453,7 +453,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-background">
+      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[url('/assets/hero-4.webp')] bg-no-repeat bg-center bg-cover">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 rounded-full mb-3 sm:mb-4">
@@ -469,7 +469,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Testimonial Cards */}
-            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d]/40 hover:shadow-xl transition-all">
+            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -489,7 +489,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/40 hover:shadow-xl transition-all">
+            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -509,7 +509,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/40 hover:shadow-xl transition-all">
+            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -559,7 +559,7 @@ export default function Home() {
               </a>
               <a
                 href="/courses"
-                className="px-8 sm:px-12 py-4 sm:py-6 bg-background border-2 border-foreground/20 text-foreground rounded-full font-normal text-base sm:text-lg border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#ffcc33] text-white hover:text-white transition-all flex items-center justify-center gap-3 uppercase"
+                className="px-8 sm:px-12 py-4 sm:py-6 bg-background border-2 border-foreground/20 text-foreground rounded-full font-normal text-base sm:text-lg border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] text-white hover:text-white transition-all flex items-center justify-center gap-3 uppercase"
               >
                 EXPLORE COURSES
                 <ArrowRight size={20} />
