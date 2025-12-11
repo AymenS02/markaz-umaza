@@ -307,10 +307,14 @@ export default function Home() {
                     className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Course Image/Thumbnail */}
-                    <div className="relative aspect-[4/3] bg-primary/20 overflow-hidden">
+                    <div className="relative w-full bg-primary/20 overflow-hidden">
                       {/* Overlay */}
-                      <div className="absolute inset-0 bg-background/80" />
-
+                      <div className="absolute inset-0" />
+                      <img
+                        src={course.thumbnailUrl || '/assets/course-placeholder.png'}
+                        alt={course.title}
+                        className="w-full h-full object-fill group-hover:scale-105 transition-transform duration-500"
+                      />
                       {/* Badge */}
                       <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
                         <span className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] text-white text-xs font-extrabold uppercase tracking-wide rounded-full shadow-lg">
@@ -376,7 +380,7 @@ export default function Home() {
 
             {/* Features Grid ("Why Students Choose Us") */}
       <section className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-card">
-        <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-30" />
+        <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-25" />
         <div className="relative container mx-auto max-w-7xl z-20">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/10 rounded-full mb-3 sm:mb-4">
