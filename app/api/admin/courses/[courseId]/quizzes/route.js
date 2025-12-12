@@ -12,11 +12,15 @@ async function verifyAuth(request) {
   try {
     const authHeader = request.headers.get('authorization');
     if (!authHeader) {
-      console.error('Auth verification failed: No authorization header');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Auth verification failed: No authorization header');
+      }
       return null;
     }
     if (!authHeader.startsWith('Bearer ')) {
-      console.error('Auth verification failed: Invalid authorization header format');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Auth verification failed: Invalid authorization header format');
+      }
       return null;
     }
 
@@ -27,13 +31,17 @@ async function verifyAuth(request) {
     const user = await User.findById(decoded.userId);
     
     if (!user) {
-      console.error('Auth verification failed: User not found');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Auth verification failed: User not found for decoded userId');
+      }
       return null;
     }
     
     return user;
   } catch (error) {
-    console.error('Auth verification error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Auth verification error:', error.message);
+    }
     return null;
   }
 }
