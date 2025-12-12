@@ -11,7 +11,12 @@ import jwt from 'jsonwebtoken';
 async function verifyAuth(request) {
   try {
     const authHeader = request.headers.get('authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader) {
+      console.error('Auth verification failed: No authorization header');
+      return null;
+    }
+    if (!authHeader.startsWith('Bearer ')) {
+      console.error('Auth verification failed: Invalid authorization header format');
       return null;
     }
 
@@ -20,6 +25,11 @@ async function verifyAuth(request) {
     
     await dbConnect();
     const user = await User.findById(decoded.userId);
+    
+    if (!user) {
+      console.error('Auth verification failed: User not found');
+      return null;
+    }
     
     return user;
   } catch (error) {
