@@ -210,7 +210,7 @@ export default function Home() {
                     href="/about"
                     className="relative rounded-full font-normal text-base sm:text-lg transition-all flex items-center justify-center gap-3 p-[2px] group uppercase"
                   >
-                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-full px-6 sm:px-10 py-3 sm:py-5 border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] text-white hover:text-white transition-all">
+                    <span className="flex items-center justify-center gap-3 w-full h-full bg-background/90 backdrop-blur-md rounded-full px-6 sm:px-10 py-3 sm:py-5 border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] text-white hover:text-white transition-all">
                       <Info size={20} className="text-foreground group-hover:text-white" />
                       LEARN MORE
                     </span>
@@ -225,7 +225,7 @@ export default function Home() {
         <div className="hidden sm:flex absolute bottom-6 sm:bottom-10 right-4 sm:right-10 z-30 items-center gap-3 sm:gap-4">
           <button
             onClick={prevSlide}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#805f0c] text-white hover:text-white transition-all group "
+            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all group "
           >
             <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
           </button>
@@ -246,7 +246,7 @@ export default function Home() {
 
           <button
             onClick={nextSlide}
-            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#805f0c] text-white hover:text-white transition-all group "
+            className="w-12 h-12 sm:w-16 sm:h-16 bg-background/80 backdrop-blur-xl border border-foreground/20 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all group "
           >
             <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
@@ -304,7 +304,7 @@ export default function Home() {
                   <a
                     key={course._id}
                     href={`/courses/${course._id}/enroll`}
-                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] transition-all duration-500 hover:-translate-y-2"
+                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Course Image/Thumbnail */}
                     <div className="relative w-full bg-primary/20 overflow-hidden">
@@ -352,7 +352,7 @@ export default function Home() {
                         <div className="text-2xl sm:text-3xl font-extrabold text-primary">
                           ${course.price || 0}
                         </div>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#805f0c] text-white hover:text-white transition-all">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all">
                           <ArrowRight
                             size={18}
                             className="text-primary"
@@ -378,7 +378,7 @@ export default function Home() {
         </div>
       </section>
 
-            {/* Features Grid ("Why Students Choose Us") */}
+      {/* Features Grid ("Why Students Choose Us") */}
       <section className="relative py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-card">
         <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-25" />
         <div className="relative container mx-auto max-w-7xl z-20">
@@ -393,7 +393,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] transition-all text-center">
+            <div className="group bg-background  border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <BookOpen className="text-primary" size={36} />
               </div>
@@ -403,7 +403,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all text-center">
+            <div className="group bg-background  border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Zap className="text-secondary" size={36} />
               </div>
@@ -413,7 +413,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all text-center">
+            <div className="group bg-background border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Clock className="text-accent" size={36} />
               </div>
@@ -423,7 +423,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] transition-all text-center">
+            <div className="group bg-background border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Users className="text-primary" size={36} />
               </div>
@@ -433,7 +433,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all text-center">
+            <div className="group bg-background border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Trophy className="text-secondary" size={36} />
               </div>
@@ -443,7 +443,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all text-center">
+            <div className="group bg-background border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Award className="text-accent" size={36} />
               </div>
@@ -473,7 +473,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Testimonial Cards */}
-            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] transition-all">
+            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -493,7 +493,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all">
+            <div className="bg-card border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -513,7 +513,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all">
+            <div className="bg-card border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -563,7 +563,7 @@ export default function Home() {
               </a>
               <a
                 href="/courses"
-                className="px-8 sm:px-12 py-4 sm:py-6 bg-background border-2 border-foreground/20 text-foreground rounded-full font-normal text-base sm:text-lg border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#805f0c] text-white hover:text-white transition-all flex items-center justify-center gap-3 uppercase"
+                className="px-8 sm:px-12 py-4 sm:py-6 bg-background border-2 border-foreground/20 text-foreground rounded-full font-normal text-base sm:text-lg border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] text-white hover:text-white transition-all flex items-center justify-center gap-3 uppercase"
               >
                 EXPLORE COURSES
                 <ArrowRight size={20} />
