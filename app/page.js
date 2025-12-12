@@ -493,7 +493,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all">
+            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -513,7 +513,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-card border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all">
+            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
