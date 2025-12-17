@@ -460,7 +460,7 @@ export default function Home() {
       <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-dark">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 rounded-full mb-3 sm:mb-4">
+            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 rounded-full mb-3 sm:mb-4 border-2 border-transparent hover:border-accent/30 duration-300 ease-in-out">
               <span className="text-accent font-bold text-xs sm:text-sm tracking-wider uppercase">SUCCESS STORIES</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 sm:mb-4 uppercase">
