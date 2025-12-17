@@ -383,7 +383,7 @@ export default function Home() {
         <img src="/assets/cali-1.svg" alt="Cali" className="absolute top-0 left-0 z-0 w-full h-full object-cover pointer-events-none opacity-25" />
         <div className="relative container mx-auto max-w-7xl z-20">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/10 rounded-full mb-3 sm:mb-4">
+            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/10 rounded-full mb-3 sm:mb-4 border-2 border-transparent hover:border-accent/30 duration-300 ease-in-out">
               <span className="text-secondary font-bold text-xs sm:text-sm tracking-wider uppercase">Our Approach</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-3 sm:mb-4">Why Students Choose Us</h2>
@@ -540,7 +540,7 @@ export default function Home() {
       <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[url('/assets/success.png')] bg-no-repeat bg-center bg-cover">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center">
-            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 rounded-full mb-4 sm:mb-6">
+            <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 rounded-full mb-4 sm:mb-6 border-2 border-transparent hover:border-accent/30 duration-300 ease-in-out">
               <span className="text-primary font-bold text-xs sm:text-sm tracking-wider uppercase">JOIN TODAY</span>
             </div>
 
