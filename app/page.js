@@ -403,7 +403,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2 text-center">
+            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary hover:shadow-[0px_7px_10px_#b3ccc2] transition-all duration-500 hover:-translate-y-2 text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Zap className="text-secondary" size={36} />
               </div>
@@ -413,7 +413,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2 text-center">
+            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent hover:shadow-[0px_7px_10px_#dce2cf] transition-all duration-500 hover:-translate-y-2 text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Clock className="text-accent" size={36} />
               </div>
@@ -433,7 +433,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2 text-center">
+            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary hover:shadow-[0px_7px_10px_#b3ccc2] transition-all duration-500 hover:-translate-y-2 text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Trophy className="text-secondary" size={36} />
               </div>
@@ -443,7 +443,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2 text-center">
+            <div className="group bg-background  border-2 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent hover:shadow-[0px_7px_10px_#dce2cf] transition-all duration-500 hover:-translate-y-2 text-center">
               <div className="w-16 h-16 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
                 <Award className="text-accent" size={36} />
               </div>
@@ -473,7 +473,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Testimonial Cards */}
-            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all">
+            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -493,7 +493,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all">
+            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-secondary/60 hover:shadow-[0px_7px_10px_#b3ccc2] transition-all duration-500 hover:-translate-y-2">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -513,7 +513,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all">
+            <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-accent/60 hover:shadow-[0px_7px_10px_#dce2cf] transition-all duration-500 hover:-translate-y-2">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
