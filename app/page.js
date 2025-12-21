@@ -274,7 +274,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Courses Section */}
+     {/* Featured Courses Section */}
       <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-background">
         <div className="container mx-auto max-w-7xl">
           {/* Section Header */}
@@ -304,39 +304,40 @@ export default function Home() {
                   <a
                     key={course._id}
                     href={`/courses/${course._id}/enroll`}
-                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2"
+                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d]/60 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Course Image/Thumbnail */}
-                    <div className="relative w-full bg-primary/20 overflow-hidden">
-                      {/* Overlay */}
-                      <div className="absolute inset-0" />
+                    <div className="relative aspect-auto bg-primary/20 overflow-hidden">
                       <img
-                        src={course.thumbnailUrl || '/assets/course-placeholder.png'}
+                        src={course.thumbnailUrl || '/assets/course-placeholder.jpg'}
                         alt={course.title}
-                        className="w-full h-full object-fill group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-fit"
                       />
+                      {/* Overlay */}
+                      {/* <div className="absolute inset-0 bg-background/80" /> */}
+
                       {/* Badge */}
-                      <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
+                      {/* <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
                         <span className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] text-white text-xs font-extrabold uppercase tracking-wide rounded-full shadow-lg">
                           {course.difficultyLevel || 'BEGINNER'}
                         </span>
-                      </div>
+                      </div> */}
 
                       {/* Rating Badge */}
-                      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-background/90 backdrop-blur-sm rounded-full">
+                      {/* <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-background/90 backdrop-blur-sm rounded-full">
                         <Star size={12} fill="currentColor" className="text-accent" />
                         <span className="font-bold text-foreground text-xs sm:text-sm">{course.rating || 5.0}</span>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Course Info */}
-                    <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+                    {/* <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                       <h3 className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem] uppercase">
                         {course.title}
-                      </h3>
+                      </h3> */}
 
                       {/* Meta Info */}
-                      <div className="flex items-center justify-between text-xs sm:text-sm text-foreground/60">
+                      {/* <div className="flex items-center justify-between text-xs sm:text-sm text-foreground/60">
                         <div className="flex items-center gap-1.5">
                           <Users size={14} />
                           <span className="font-semibold">{course.enrolledStudents || 0}</span>
@@ -345,21 +346,21 @@ export default function Home() {
                           <Clock size={14} />
                           <span className="font-semibold">{course.durationWeeks || 0} weeks</span>
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* Price & Arrow */}
-                      <div className="pt-3 sm:pt-4 border-t border-foreground/10 flex items-center justify-between">
+                      {/* <div className="pt-3 sm:pt-4 border-t border-foreground/10 flex items-center justify-between">
                         <div className="text-2xl sm:text-3xl font-extrabold text-primary">
                           ${course.price || 0}
                         </div>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center border-2 border-foreground/30 hover:border-[#f2b10d] hover:shadow-[0px_3px_10px_#C18D08] text-white hover:text-white transition-all">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] transition-all">
                           <ArrowRight
                             size={18}
-                            className="text-primary"
+                            className="text-primary group-hover:text-white group-hover:translate-x-0.5 transition-all"
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </a>
                 ))}
               </div>
