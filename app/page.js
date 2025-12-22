@@ -299,71 +299,90 @@ export default function Home() {
             <div className="text-center text-foreground/60 py-12 sm:py-20">No courses found.</div>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                {courses.map((course, idx) => (
-                  <a
-                    key={course._id}
-                    href={`/courses/${course._id}/enroll`}
-                    className="group relative bg-card border-2 border-foreground/10 rounded-2xl overflow-hidden hover:border-[#f2b10d]/60 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                  >
-                    {/* Course Image/Thumbnail */}
-                    <div className="relative aspect-auto bg-primary/20 overflow-hidden">
-                      <img
-                        src={course.thumbnailUrl || '/assets/course-placeholder.jpg'}
-                        alt={course.title}
-                        className="w-full h-full object-fit"
-                      />
-                      {/* Overlay */}
-                      {/* <div className="absolute inset-0 bg-background/80" /> */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+              {courses.map((course, idx) => (
+                <a
+                  key={course._id}
+                  href={`/courses/${course._id}/enroll`}
+                  className="group relative bg-primary/10 rounded-3xl overflow-hidden hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-1 flex flex-col"
+                >
+                  {/* Course Image/Thumbnail */}
+                  <div className="relative aspect-video">
+                    <img
+                      src={course.thumbnailUrl || '/assets/course-placeholder.jpg'}
+                      alt={course.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 duration-300" />
+                  </div>
 
-                      {/* Badge */}
-                      {/* <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
-                        <span className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] text-white text-xs font-extrabold uppercase tracking-wide rounded-full shadow-lg">
-                          {course.difficultyLevel || 'BEGINNER'}
-                        </span>
-                      </div> */}
+                  {/* Course Info */}
+                  <div className="p-5 sm:p-6 flex flex-col flex-grow">
+                    <h3 className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-2 min-h-[3.5rem]">
+                      {course.title}
+                    </h3>
 
-                      {/* Rating Badge */}
-                      {/* <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-background/90 backdrop-blur-sm rounded-full">
-                        <Star size={12} fill="currentColor" className="text-accent" />
-                        <span className="font-bold text-foreground text-xs sm:text-sm">{course.rating || 5.0}</span>
-                      </div> */}
+                    {/* Instructor */}
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                      <svg 
+                        className="w-4 h-4" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+                        />
+                      </svg>
+                      <span className="line-clamp-1">{course.instructor || 'TBD'}</span>
                     </div>
 
-                    {/* Course Info */}
-                    {/* <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
-                      <h3 className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2 min-h-[3rem] sm:min-h-[3.5rem] uppercase">
-                        {course.title}
-                      </h3> */}
+                    {/* Optional: Add course stats */}
+                    {(course.studentsEnrolled || course.rating) && (
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
+                        {course.rating && (
+                          <div className="flex items-center gap-1">
+                            <svg className="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                            </svg>
+                            <span>{course.rating}</span>
+                          </div>
+                        )}
+                        {course.studentsEnrolled && (
+                          <span>{course.studentsEnrolled. toLocaleString()} students</span>
+                        )}
+                      </div>
+                    )}
 
-                      {/* Meta Info */}
-                      {/* <div className="flex items-center justify-between text-xs sm:text-sm text-foreground/60">
-                        <div className="flex items-center gap-1.5">
-                          <Users size={14} />
-                          <span className="font-semibold">{course.enrolledStudents || 0}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Clock size={14} />
-                          <span className="font-semibold">{course.durationWeeks || 0} weeks</span>
-                        </div>
-                      </div> */}
+                    {/* Spacer to push price to bottom */}
+                    <div className="flex-grow" />
 
-                      {/* Price & Arrow */}
-                      {/* <div className="pt-3 sm:pt-4 border-t border-foreground/10 flex items-center justify-between">
-                        <div className="text-2xl sm:text-3xl font-extrabold text-primary">
+                    {/* Price & CTA */}
+                    <div className="pt-4 border-t border-foreground/10 flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+                          Price
+                        </span>
+                        <div className="text-2xl sm: text-3xl font-extrabold bg-gradient-to-r from-primary via-[#f2b10d] to-[#ffdd00] bg-clip-text text-transparent">
                           ${course.price || 0}
                         </div>
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] transition-all">
-                          <ArrowRight
-                            size={18}
-                            className="text-primary group-hover:text-white group-hover:translate-x-0.5 transition-all"
-                          />
-                        </div>
                       </div>
-                    </div> */}
-                  </a>
-                ))}
-              </div>
+                      
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary/10 to-[#ffdd00]/10 rounded-full flex items-center justify-center group-hover:from-[#f2b10d] group-hover:to-[#ffdd00] transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/50">
+                        <ArrowRight
+                          className="w-5 h-5 text-primary group-hover:text-white duration-300"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
 
               <div className="text-center mt-8 sm:mt-12">
                 <a
