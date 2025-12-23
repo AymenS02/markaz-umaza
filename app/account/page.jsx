@@ -185,7 +185,7 @@ export default function AccountPage() {
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-muted-foreground mb-1">Role</label>
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-secondary/20 text-foreground border border-secondary">
+                <span className="inline-flex items-center px-3 py-1 rounded-md text-sm bg-secondary/20 text-foreground border border-secondary">
                   {user.role}
                 </span>
               </div>
