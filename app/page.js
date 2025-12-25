@@ -310,7 +310,7 @@ export default function Home() {
                   <div className="relative aspect-video">
                     <img
                       src={course.thumbnailUrl || '/assets/course-placeholder.jpg'}
-                      alt={course.title}
+                      alt={course. title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     
@@ -318,16 +318,16 @@ export default function Home() {
                     <div className="absolute inset-0 duration-300" />
                   </div>
 
-                  {/* Course Info */}
-                  <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                    <h3 className="font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-2 min-h-[3.5rem]">
+                  {/* Course Info - Made more compact */}
+                  <div className="p-4 flex flex-col flex-grow">
+                    <h3 className="font-bold text-base sm:text-lg text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-2 min-h-[2.5rem]">
                       {course.title}
                     </h3>
 
-                    {/* Instructor */}
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                    {/* Instructor - Made smaller */}
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
                       <svg 
-                        className="w-4 h-4" 
+                        className="w-3 h-3" 
                         fill="none" 
                         stroke="currentColor" 
                         viewBox="0 0 24 24"
@@ -342,12 +342,12 @@ export default function Home() {
                       <span className="line-clamp-1">{course.instructor || 'TBD'}</span>
                     </div>
 
-                    {/* Optional: Add course stats */}
+                    {/* Optional: Add course stats - Made smaller */}
                     {(course.studentsEnrolled || course.rating) && (
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
                         {course.rating && (
                           <div className="flex items-center gap-1">
-                            <svg className="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <svg className="w-3 h-3 text-yellow-500 fill-current" viewBox="0 0 20 20">
                               <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                             </svg>
                             <span>{course.rating}</span>
@@ -362,20 +362,21 @@ export default function Home() {
                     {/* Spacer to push price to bottom */}
                     <div className="flex-grow" />
 
-                    {/* Price & CTA */}
-                    <div className="pt-4 border-t border-foreground/10 flex items-center justify-between">
+                    {/* Price & CTA - Made more compact */}
+                    <div className="pt-3 border-t border-foreground/10 flex items-center justify-between">
                       <div className="flex flex-col">
-                        <span className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+                        <span className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
                           Price
                         </span>
-                        <div className="text-2xl sm: text-3xl font-extrabold bg-gradient-to-r from-primary via-[#f2b10d] to-[#ffdd00] bg-clip-text text-transparent">
+                        <div className="text-xl sm: text-2xl font-extrabold bg-gradient-to-r from-primary via-[#f2b10d] to-[#ffdd00] bg-clip-text text-transparent">
                           ${course.price || 0}
                         </div>
                       </div>
                       
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary/10 to-[#ffdd00]/10 rounded-full flex items-center justify-center group-hover:from-[#f2b10d] group-hover:to-[#ffdd00] transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/50">
+                      {/* Button with highlight instead of glow */}
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-primary/10 to-[#ffdd00]/10 rounded-full flex items-center justify-center group-hover:from-[#f2b10d] group-hover:to-[#ffdd00] transition-all duration-300 group-hover:brightness-110">
                         <ArrowRight
-                          className="w-5 h-5 text-primary group-hover:text-white duration-300"
+                          className="w-4 h-4 text-primary group-hover:text-white duration-300"
                         />
                       </div>
                     </div>
@@ -383,7 +384,6 @@ export default function Home() {
                 </a>
               ))}
             </div>
-
               <div className="text-center mt-8 sm:mt-12">
                 <a
                   href="/courses"
