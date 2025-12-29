@@ -66,7 +66,7 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
             Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-primary/80">
@@ -186,7 +186,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/80 disabled:opacity-50 transition duration-300"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/80 disabled:opacity-50 transition duration-300"
             >
               {loading ? 'Creating account...' : 'Create account'}
             </button>

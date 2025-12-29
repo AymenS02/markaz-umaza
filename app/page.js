@@ -374,10 +374,8 @@ export default function Home() {
                       </div>
                       
                       {/* Button with highlight instead of glow */}
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-primary/10 to-[#ffdd00]/10 rounded-full flex items-center justify-center group-hover:from-[#f2b10d] group-hover:to-[#ffdd00] transition-all duration-300 group-hover:brightness-110">
-                        <ArrowRight
-                          className="w-4 h-4 text-primary group-hover:text-white duration-300"
-                        />
+                      <div className=" w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-primary/10 to-[#ffdd00]/10 rounded-full flex items-center justify-center border border-transparent group-hover:border-primary transition-all duration-300">
+                        <ArrowRight className="w-4 h-4 text-primary" />
                       </div>
                     </div>
                   </div>

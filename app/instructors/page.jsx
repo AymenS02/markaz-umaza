@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Award, BookOpen, GraduationCap, Users, Sparkles, Star } from 'lucide-react';
+import { Award, BookOpen, GraduationCap, Sparkles, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const InstructorsPage = () => {
   const headerRef = useRef(null);
   const instructorsRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y:  0 });
 
   useEffect(() => {
     // Header animation
@@ -33,18 +34,36 @@ const InstructorsPage = () => {
         { opacity: 0, y: 50 },
         {
           opacity: 1,
-          y: 0,
+          y:  0,
           duration: 0.8,
           stagger: 0.3,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: instructorsRef.current,
+            trigger: instructorsRef. current,
             start: "top 80%",
           }
         }
       );
     }
   }, []);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setMousePosition({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePosition({ x: 0, y: 0 });
+  };
+
+  const calculateRotation = () => {
+    const maxRotation = 15;
+    const rotateY = (mousePosition.x / 150) * maxRotation;
+    const rotateX = -(mousePosition.y / 150) * maxRotation;
+    return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
 
   return (
     <div className='overflow-hidden min-h-screen bg-background pt-24 md:pt-42'>
@@ -97,9 +116,16 @@ const InstructorsPage = () => {
                 
                 {/* Image Section */}
                 <div className='lg:col-span-2 flex flex-col items-center justify-center'>
-                  <div className='relative'>
-                    {/* Image container */}
-                    <div className='relative w-64 h-64 rounded-full bg-primary/20 p-2 group-hover:scale-105 transition-transform duration-500'>
+                  <div 
+                    className='relative cursor-pointer'
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {/* Image container with 3D rotation */}
+                    <div 
+                      className='relative w-64 h-64 rounded-full bg-primary/20 p-2 transition-transform duration-200 ease-out'
+                      style={{ transform: calculateRotation() }}
+                    >
                       <div className='w-full h-full rounded-full bg-card p-8 flex items-center justify-center'>
                         <div className='w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden'>
                           <Image
@@ -113,14 +139,6 @@ const InstructorsPage = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Rating */}
-                  <div className='flex items-center gap-1 mt-6 text-accent'>
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={20} fill="currentColor" />
-                    ))}
-                  </div>
-                  <p className='text-sm text-foreground/60 mt-2'>5.0 Student Rating</p>
                 </div>
 
                 {/* Content Section */}
@@ -135,7 +153,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Credentials */}
-                  <div className='flex items-start gap-3 bg-primary/10 rounded-xl p-4 border border-primary/20'>
+                  <div className='hover:shadow-amber-100/20 hover:shadow-md flex items-start gap-3 bg-primary/10 rounded-xl p-4 border border-primary/20 transition-all duration-300'>
                     <GraduationCap className='text-primary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Education</h4>
@@ -146,40 +164,24 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Expertise */}
-                  <div className='flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20'>
+                  <div className='hover:shadow-amber-100/20 hover:shadow-md flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20 transition-all duration-300'>
                     <BookOpen className='text-secondary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Expertise</h4>
                       <p className='text-foreground/70 leading-relaxed'>
-                        Specializes in Arabic grammar, morphology, and modern standard Arabic. Expert in curriculum development and interactive teaching methodologies.
+                        Specializes in Arabic grammar, morphology, and modern standard Arabic.  Expert in curriculum development and interactive teaching methodologies. 
                       </p>
                     </div>
                   </div>
 
                   {/* Experience */}
-                  <div className='flex items-start gap-3 bg-accent/10 rounded-xl p-4 border border-accent/20'>
+                  <div className='hover:shadow-amber-100/20 hover:shadow-md flex items-start gap-3 bg-accent/10 rounded-xl p-4 border border-accent/20 transition-all duration-300'>
                     <Award className='text-accent flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Experience</h4>
                       <p className='text-foreground/70 leading-relaxed'>
                         Over 10 years of experience teaching Arabic to students of all levels, with a passion for making complex concepts accessible and engaging.
                       </p>
-                    </div>
-                  </div>
-
-                  {/* Teaching Stats */}
-                  <div className='flex flex-wrap gap-6 pt-4'>
-                    <div className='flex items-center gap-2'>
-                      <Users className='text-primary' size={20} />
-                      <span className='text-foreground/70'><strong className='text-primary'>300+</strong> Students</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <BookOpen className='text-secondary' size={20} />
-                      <span className='text-foreground/70'><strong className='text-secondary'>15+</strong> Courses</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <Award className='text-accent' size={20} />
-                      <span className='text-foreground/70'><strong className='text-accent'>98%</strong> Success Rate</span>
                     </div>
                   </div>
                 </div>
@@ -195,7 +197,7 @@ const InstructorsPage = () => {
                 {/* Content Section - Flipped order for variety */}
                 <div className='lg:col-span-3 flex flex-col justify-center space-y-6 order-2 lg:order-1'>
                   <div>
-                    <h2 className='text-4xl font-bold text-foreground mb-2 group-hover:text-secondary transition-colors'>
+                    <h2 className='text-4xl font-bold text-foreground mb-2 group-hover: text-secondary transition-colors'>
                       Ustadh Uzair
                     </h2>
                     <h3 className='text-xl font-semibold text-secondary mb-4'>
@@ -204,7 +206,7 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Credentials */}
-                  <div className='flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20'>
+                  <div className='hover:shadow-amber-100/20 hover:shadow-md flex items-start gap-3 bg-secondary/10 rounded-xl p-4 border border-secondary/20 transition-all duration-300'>
                     <GraduationCap className='text-secondary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Education</h4>
@@ -215,18 +217,18 @@ const InstructorsPage = () => {
                   </div>
 
                   {/* Expertise */}
-                  <div className='flex items-start gap-3 bg-accent/10 rounded-xl p-4 border border-accent/20'>
+                  <div className='hover:shadow-amber-100/20 hover:shadow-md flex items-start gap-3 bg-accent/10 rounded-xl p-4 border border-accent/20 transition-all duration-300'>
                     <BookOpen className='text-accent flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Expertise</h4>
                       <p className='text-foreground/70 leading-relaxed'>
-                        Focuses on classical Arabic literature, poetry analysis, and conversational Arabic. Known for his engaging teaching style and cultural insights.
+                        Focuses on classical Arabic literature, poetry analysis, and conversational Arabic.  Known for his engaging teaching style and cultural insights.
                       </p>
                     </div>
                   </div>
 
                   {/* Experience */}
-                  <div className='flex items-start gap-3 bg-primary/10 rounded-xl p-4 border border-primary/20'>
+                  <div className='hover:shadow-amber-100/20 hover:shadow-md flex items-start gap-3 bg-primary/10 rounded-xl p-4 border border-primary/20 transition-all duration-300'>
                     <Award className='text-primary flex-shrink-0 mt-1' size={24} />
                     <div>
                       <h4 className='font-semibold text-foreground mb-1'>Experience</h4>
@@ -235,29 +237,20 @@ const InstructorsPage = () => {
                       </p>
                     </div>
                   </div>
-
-                  {/* Teaching Stats */}
-                  <div className='flex flex-wrap gap-6 pt-4'>
-                    <div className='flex items-center gap-2'>
-                      <Users className='text-secondary' size={20} />
-                      <span className='text-foreground/70'><strong className='text-secondary'>350+</strong> Students</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <BookOpen className='text-accent' size={20} />
-                      <span className='text-foreground/70'><strong className='text-accent'>12+</strong> Courses</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <Award className='text-primary' size={20} />
-                      <span className='text-foreground/70'><strong className='text-primary'>97%</strong> Success Rate</span>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Image Section */}
                 <div className='lg:col-span-2 flex flex-col items-center justify-center order-1 lg:order-2'>
-                  <div className='relative'>
-                    {/* Image container */}
-                    <div className='relative w-64 h-64 rounded-full bg-secondary/20 p-2 group-hover:scale-105 transition-transform duration-500'>
+                  <div 
+                    className='relative cursor-pointer'
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {/* Image container with 3D rotation */}
+                    <div 
+                      className='relative w-64 h-64 rounded-full bg-secondary/20 p-2 transition-transform duration-200 ease-out'
+                      style={{ transform: calculateRotation() }}
+                    >
                       <div className='w-full h-full rounded-full bg-card p-8 flex items-center justify-center'>
                         <div className='w-48 h-48 rounded-full bg-secondary/10 flex items-center justify-center overflow-hidden relative'>
                           <Image
@@ -271,14 +264,6 @@ const InstructorsPage = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Rating */}
-                  <div className='flex items-center gap-1 mt-6 text-accent'>
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={20} fill="currentColor" />
-                    ))}
-                  </div>
-                  <p className='text-sm text-foreground/60 mt-2'>5.0 Student Rating</p>
                 </div>
               </div>
             </div>
@@ -290,7 +275,7 @@ const InstructorsPage = () => {
       <div className='py-20 bg-card'>
         <div className='container mx-auto px-4 text-center'>
           <h2 className='text-3xl md:text-4xl font-bold text-foreground mb-6'>
-            Ready to Learn with Our <span className='text-primary'>Expert Instructors?</span>
+            Ready to Learn with Our <span className='text-primary'>Expert Instructors? </span>
           </h2>
           <p className='text-xl text-foreground/70 mb-8 max-w-2xl mx-auto'>
             Join our courses and experience personalized guidance from qualified teachers dedicated to your success
@@ -298,16 +283,17 @@ const InstructorsPage = () => {
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <a
               href="/courses"
-              className='group px-8 py-4 bg-primary text-background rounded-full font-semibold text-lg hover:bg-accent hover:shadow-lg transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2'
+              className='group px-8 py-4 rounded-full font-normal text-lg hover:scale-105 transition-all flex items-center justify-center gap-2 uppercase text-white bg-gradient-to-r from-[#f2b10d] to-[#ffdd00] shadow-xl'
             >
               View All Courses
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="/contact"
-              className='px-8 py-4 border-2 border-secondary text-secondary rounded-full font-semibold text-lg hover:bg-secondary hover:text-background transition-all duration-300 hover:scale-105 inline-flex items-center justify-center'
+              className='px-8 py-4 bg-background border-2 border-foreground/30 text-foreground rounded-full font-normal text-lg hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] hover:text-white transition-all hover:scale-105 flex items-center justify-center gap-2 uppercase'
             >
               Contact Us
+              <ArrowRight size={20} />
             </a>
           </div>
         </div>
