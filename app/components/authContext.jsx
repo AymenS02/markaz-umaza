@@ -4,17 +4,25 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  // Read once during render — not inside useEffect
-  const storedUser = typeof window !== "undefined" 
-    ? localStorage.getItem("user") 
-    : null;
+function getStoredUser() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = localStorage.getItem("user");
+    return stored ? JSON.parse(stored) : null;
+  } catch {
+    return null;
+  }
+}
 
-  const [user, setUser] = useState(() => storedUser ? JSON.parse(storedUser) : null);
-  const [loading, setLoading] = useState(!storedUser);
+export const AuthProvider = ({ children }) => {
+  // Lazy initializer reads localStorage synchronously on first client render.
+  // Returns null during SSR so there is no hydration mismatch on the server.
+  const [user, setUser] = useState(getStoredUser);
+  // loading starts false: user is initialised synchronously, no async work needed.
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // If you ever need to sync with changes from another tab:
+    // Sync auth state across browser tabs
     const handleStorageChange = (e) => {
       if (e.key === "user") {
         setUser(e.newValue ? JSON.parse(e.newValue) : null);

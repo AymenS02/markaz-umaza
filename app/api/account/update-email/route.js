@@ -14,6 +14,11 @@ export async function PUT(req) {
     if (!email) {
       return NextResponse.json({ message: 'Email is required' }, { status: 400 });
     }
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ message: 'Invalid email format' }, { status: 400 });
+    }
 
     // Check if email is already taken by another user
     const existingUser = await User.findOne({ email });
@@ -27,6 +32,9 @@ export async function PUT(req) {
 
     return NextResponse.json({ message: 'Email updated successfully', email }, { status: 200 });
   } catch (err) {
-    return NextResponse.json({ message: err.message }, { status: 401 });
+    if (err.message === 'Invalid or expired token' || err.message === 'No token provided') {
+      return NextResponse.json({ message: 'Authentication required' }, { status: 401 });
+    }
+    return NextResponse.json({ message: 'Error updating email' }, { status: 500 });
   }
 }

@@ -33,7 +33,7 @@ export default function AdminLayout({ children }) {
           },
         });
 
-        if (res.status === 403) {
+        if (!res.ok) {
           router.push('/login');
           return;
         }

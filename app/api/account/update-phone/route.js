@@ -27,6 +27,9 @@ export async function PUT(req) {
 
     return NextResponse.json({ message: 'phone updated successfully', phone }, { status: 200 });
   } catch (err) {
-    return NextResponse.json({ message: err.message }, { status: 401 });
+    if (err.message === 'Invalid or expired token' || err.message === 'No token provided') {
+      return NextResponse.json({ message: 'Authentication required' }, { status: 401 });
+    }
+    return NextResponse.json({ message: 'Error updating phone' }, { status: 500 });
   }
 }

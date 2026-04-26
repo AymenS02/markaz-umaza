@@ -9,6 +9,20 @@ export async function POST(request) {
     await connectDB();
     const { email, phone, password, firstName, lastName, gender } = await request.json();
 
+    // Validate required fields
+    if (!email || !password || !firstName || !lastName) {
+      return NextResponse.json(
+        { message: 'Email, password, first name, and last name are required' },
+        { status: 400 }
+      );
+    }
+    if (password.length < 6) {
+      return NextResponse.json(
+        { message: 'Password must be at least 6 characters' },
+        { status: 400 }
+      );
+    }
+
     // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -59,7 +73,7 @@ export async function POST(request) {
 
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { message: 'Registration failed. Please try again.' },
       { status: 500 }
     );
   }
