@@ -8,11 +8,12 @@ export async function GET(request) {
     
     return NextResponse.json({
       id: user._id,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       role: user.role,
       phone: user.phone,
-      status: user.status
+      gender: user.gender,
     });
   } catch (error) {
     return NextResponse.json(
