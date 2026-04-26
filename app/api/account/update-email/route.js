@@ -14,9 +14,8 @@ export async function PUT(req) {
     if (!email) {
       return NextResponse.json({ message: 'Email is required' }, { status: 400 });
     }
-    // Basic email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Basic email format validation (safe from ReDoS)
+    if (!email.includes('@') || email.indexOf('@') === 0 || !email.includes('.', email.indexOf('@'))) {
       return NextResponse.json({ message: 'Invalid email format' }, { status: 400 });
     }
 
