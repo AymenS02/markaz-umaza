@@ -3,6 +3,11 @@ import { verifyToken } from '../../../../lib/middleware/auth';
 import connectDB from '../../../../lib/config/db';
 import User from '../../../../lib/models/userSchema';
 
+function isValidEmailFormat(email) {
+  const atIndex = email.indexOf('@');
+  return atIndex > 0 && email.includes('.', atIndex + 1);
+}
+
 export async function PUT(req) {
   try {
     await connectDB();
@@ -14,8 +19,7 @@ export async function PUT(req) {
     if (!email) {
       return NextResponse.json({ message: 'Email is required' }, { status: 400 });
     }
-    // Basic email format validation (safe from ReDoS)
-    if (!email.includes('@') || email.indexOf('@') === 0 || !email.includes('.', email.indexOf('@'))) {
+    if (!isValidEmailFormat(email)) {
       return NextResponse.json({ message: 'Invalid email format' }, { status: 400 });
     }
 
