@@ -182,7 +182,7 @@ const Sidebar = () => {
             </>
           ) : (
             <Link
-              href="/register"
+              href="/sign-up"
               onClick={() => setIsOpen(false)}
               className="px-4 py-3 rounded-full font-normal text-white"
               style={{ background: 'linear-gradient(to right, #dea10d, #ebca00)' }}

@@ -475,7 +475,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-dark">
+      {/* <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-dark">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 rounded-full mb-3 sm:mb-4 border-2 border-transparent hover:border-accent/30 duration-300 ease-in-out">
@@ -490,7 +490,6 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {/* Testimonial Cards */}
             <div className="bg-foreground/5 border-foreground/10 rounded-2xl p-6 sm:p-8 hover:border-[#f2b10d] hover:shadow-[0px_7px_10px_#C18D08] transition-all duration-500 hover:-translate-y-2">
               <div className="flex items-center gap-1 text-accent mb-4 sm:mb-6">
                 {[...Array(5)].map((_, i) => (
@@ -552,7 +551,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[url('/assets/success.png')] bg-no-repeat bg-center bg-cover">
