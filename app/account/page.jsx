@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { User, Mail, Lock, LogOut, Check, X, Eye, EyeOff, Phone } from 'lucide-react';
 
 export default function AccountPage() {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -17,14 +19,14 @@ export default function AccountPage() {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
-      window.location.href = '/login';
+      router.push('/login');
     } else {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
       setEmail(parsedUser.email);
       setPhone(parsedUser.phone);
     }
-  }, []);
+  }, [router]);
 
   const showMessage = (text, type) => {
     setMessage(text);
@@ -36,7 +38,7 @@ export default function AccountPage() {
   };
 
   const handleEmailUpdate = async () => {
-    setLoading({ ...loading, email: true });
+    setLoading(prev => ({ ...prev, email: true }));
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/account/update-email', {
@@ -56,12 +58,12 @@ export default function AccountPage() {
     } catch {
       showMessage('Network error occurred', 'error');
     } finally {
-      setLoading({ ...loading, email: false });
+      setLoading(prev => ({ ...prev, email: false }));
     }
   };
 
   const handlePhoneUpdate = async () => {
-    setLoading({ ...loading, phone: true });
+    setLoading(prev => ({ ...prev, phone: true }));
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/account/update-phone', {
@@ -81,7 +83,7 @@ export default function AccountPage() {
     } catch {
       showMessage('Network error occurred', 'error');
     } finally {
-      setLoading({ ...loading, phone: false });
+      setLoading(prev => ({ ...prev, phone: false }));
     }
   };
 
@@ -91,7 +93,7 @@ export default function AccountPage() {
     if (passwords.newPass.length < 6)
       return showMessage('New password must be at least 6 characters', 'error');
 
-    setLoading({ ...loading, password: true });
+    setLoading(prev => ({ ...prev, password: true }));
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/account/update-password', {
@@ -110,14 +112,14 @@ export default function AccountPage() {
     } catch {
       showMessage('Network error occurred', 'error');
     } finally {
-      setLoading({ ...loading, password: false });
+      setLoading(prev => ({ ...prev, password: false }));
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    window.location.href = '/login';
+    router.push('/login');
   };
 
   if (!user) {

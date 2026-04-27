@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '../components/authContext';
 
 export default function RegisterPage() {
+  const { setUser } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     phone: '',
@@ -42,9 +44,10 @@ export default function RegisterPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Save token to localStorage or context
+        // Save token to localStorage and update auth context
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
+        setUser(data.user);
         
         // Redirect based on role
         if (data.user.role === 'TEACHER') {

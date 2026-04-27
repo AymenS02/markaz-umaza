@@ -47,9 +47,11 @@ export async function POST(request) {
       status: 'pending_payment'
     });
     
+    const userName = `${user.firstName} ${user.lastName}`;
+
     // Send notification email to admin
     await sendAdminNotification({
-      userName: user.name,
+      userName,
       userEmail: user.email,
       courseName: course.title,
       amount: amount,
@@ -59,7 +61,7 @@ export async function POST(request) {
     
     // Send confirmation email to user
     await sendUserConfirmation({
-      userName: user.name,
+      userName,
       userEmail: user.email,
       courseName: course.title,
       amount: amount
@@ -81,7 +83,7 @@ export async function POST(request) {
     }
     
     return NextResponse.json(
-      { message: 'Error processing enrollment', error: error.message },
+      { message: 'Error processing enrollment' },
       { status: 500 }
     );
   }
